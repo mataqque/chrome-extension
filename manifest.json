@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "Tu Extensión",
+    "description": "Descripción de tu extensión",
+    "version": "1.0",
+    "icons": {
+      "16": "src/images/react.svg",
+      "32": "src/images/react.svg",
+      "48": "src/images/react.svg",
+      "128": "src/images/react.svg"
+    },
+    "content_scripts": [
+      {
+        "js": ["src/js/index.js"],
+        "matches": [
+          "https://developer.chrome.com/docs/extensions/*",
+          "https://developer.chrome.com/docs/webstore/*"
+        ]
+      }
+    ]
+  }
