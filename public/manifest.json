@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Tu Extensión",
+  "description": "Descripción de tu extensión",
+  "version": "1.0",
+  "icons": {
+    "16": "vite.svg",
+    "32": "vite.svg",
+    "48": "vite.svg",
+    "128": "vite.svg"
+  },
+  "content_scripts": [
+    {
+      "js": ["example.js"],
+      "matches": [
+        "https://developer.chrome.com/docs/extensions/*",
+        "https://developer.chrome.com/docs/webstore/*"
+      ]
+    }
+  ],
+  "host_permissions": ["https:\/\/*/*"],
+  "permissions": ["sidePanel","tabs", "activeTab", "notifications", "scripting","storage","downloads"],
+  "side_panel": {
+      "default_path": "index.html"
+  }
+}
