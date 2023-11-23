@@ -1,0 +1,22 @@
+.icon_search {
+	mask-image: url('../../../../../assets/multimedia/icons/search.svg');
+}
+.form_search {
+	button {
+		width: 2rem;
+		height: 100%;
+		position: absolute;
+		left: 5px;
+	}
+	.mask {
+		height: 100%;
+		width: 100%;
+		background-color: white;
+		display: flex;
+		top: 0;
+		left: 0.5rem;
+	}
+	input {
+		background-color: #283c62;
+	}
+}

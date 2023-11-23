@@ -1,0 +1,163 @@
+.mask {
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	mask-position: center;
+	mask-size: 100%;
+	-webkit-mask-size: contain;
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	-webkit-mask-size: contain;
+	width: 100%;
+	height: 100%;
+}
+.mask-left {
+	mask-repeat: no-repeat;
+	mask-position: left;
+	mask-size: contain;
+}
+.mask-center {
+	mask-repeat: no-repeat;
+	mask-position: center;
+	mask-size: contain;
+}
+.mask-right {
+	mask-repeat: no-repeat;
+	mask-position: right;
+	mask-size: contain;
+}
+
+.icon-check-input {
+	mask-image: url('../multimedia/icons/icon-check.svg');
+}
+.icon-edit {
+	mask-image: url('../multimedia/icons/icon-edit.svg');
+}
+.icon-delete {
+	mask-image: url('../multimedia/icons/icons-trash.svg');
+}
+.icon-close {
+	mask-image: url('../multimedia/icons/icon-close.svg');
+}
+.icon-delivery {
+	mask-image: url('../multimedia/icons/delivery-love.svg');
+}
+.icon-facebook {
+	mask-image: url('../multimedia/icons/facebook-icon.svg');
+}
+.icon-instagram {
+	mask-image: url('../multimedia/icons/instagram-icon.svg');
+}
+.icon-youtube {
+	mask-image: url('../multimedia/icons/youtube-icon.svg');
+}
+.icon-search {
+	mask-image: url('../multimedia/icons/search.svg');
+}
+.icon-brand-white {
+	mask-image: url('../multimedia/icons/icon-brand-white.svg');
+}
+.icon-brand {
+	mask-image: url('../multimedia/icons/brand-lazo.svg');
+}
+.icon-users {
+	mask-image: url('../multimedia/icons/users.svg');
+}
+.icon-home {
+	mask-image: url('../multimedia/icons/home.svg');
+}
+.icon-list {
+	mask-image: url('../multimedia/icons/icon-list.svg');
+}
+.icon-users {
+	mask-image: url('../multimedia/icons/icon-users.svg');
+}
+.icon-form {
+	mask-image: url('../multimedia/icons/icon-form.svg');
+}
+.icon-settings {
+	mask-image: url('../multimedia/icons/icon-settings.svg');
+}
+.icon-media {
+	mask-image: url('../multimedia/icons/icon-media.svg');
+}
+.icon-bot {
+	mask-image: url('../multimedia/icons/icon-bot.svg');
+}
+.icon-whatsapp {
+	mask-image: url('../multimedia/icons/icon-whatsapp.svg');
+}
+.icon-logout {
+	mask-image: url('../multimedia/icons/icon-logout.svg');
+}
+.icon-menu {
+	mask-image: url('../multimedia/icons/menu.svg');
+}
+.icon-upload {
+	mask-image: url('../multimedia/icons/upload.svg');
+}
+.icon-product {
+	mask-image: url('../multimedia/icons/icon-product.svg');
+}
+.icon-plugins {
+	mask-image: url('../multimedia/icons/icon-plugins.svg');
+}
+.icon_search {
+	mask-image: url('../multimedia/icons/search.svg');
+}
+.icon-delete {
+	mask-image: url('../multimedia/icons/icon-delete.svg');
+}
+.icon-edit-row {
+	mask-image: url('../multimedia/icons/icon-edit-row.svg');
+}
+.icon-add {
+	mask-image: url('../multimedia/icons/icon-add.svg');
+}
+.icon-drag {
+	mask-image: url('../multimedia/icons/drag.svg');
+}
+.icon-eye {
+	mask-image: url('../multimedia/icons/icon-eye.svg');
+}
+.icon-eye-close {
+	mask-image: url('../multimedia/icons/eye-closed.svg');
+}
+.icon-tags {
+	mask-image: url('../multimedia/icons/categoria-y-etiqueta.svg');
+}
+.circle-one {
+	mask-image: url('../multimedia/icons/circle-on.svg');
+}
+.icon-category {
+	mask-image: url('../multimedia/icons/icon-category.svg');
+}
+.icon-down {
+	mask-image: url('../multimedia/icons/down.svg');
+}
+.animated {
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	&::after {
+		content: '';
+		display: block;
+		clear: both;
+		position: fixed;
+		top: 0;
+		width: 100%;
+		height: 100vh;
+		background: white;
+		animation: fadeIn 0.3s ease-in-out forwards;
+	}
+	@keyframes fadeIn {
+		from {
+			opacity: 1;
+			z-index: 9;
+		}
+		to {
+			opacity: 0;
+			z-index: -1;
+		}
+	}
+}

@@ -1,0 +1,29 @@
+@import './icon.scss';
+@import './font.scss';
+* {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	font-family: 'IBMPlexSans-Medium';
+	border: 0;
+	font-size: 14px;
+	text-decoration: none;
+}
+.scroll {
+	overflow-y: scroll;
+	&::-webkit-scrollbar-thumb {
+		background-color: var(--primary);
+		opacity: 0.5;
+		border-radius: 4px;
+		position: fixed;
+	}
+
+	&::-webkit-scrollbar {
+		width: 4px; /* Tamaño del scroll en vertical */
+		height: 0px; /* Tamaño del scroll en horizontal */
+	}
+}

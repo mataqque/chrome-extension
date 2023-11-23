@@ -1,9 +1,11 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-
-const middleware = [];
+import dashboardSlice from './slice/dashboardSlice';
+// const middleware = [];
 
 export const store = configureStore({
-	reducer: {},
+	reducer: {
+		dashboardSlice,
+	},
 	// middleware: getDefaultMiddleware => getDefaultMiddleware().concat(middleware),
 });
 

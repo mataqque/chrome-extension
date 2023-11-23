@@ -25,7 +25,7 @@ const config: Config = {
 				ibm_bold: 'IBMPlexSans-Bold',
 			},
 			colors: {
-				primary: '#4C51BF',
+				primary: '#0b1629',
 				secondary: '#8B5CF6',
 				third: '#151d2e',
 				fourth: '#fff5f5',

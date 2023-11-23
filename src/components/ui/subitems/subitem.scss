@@ -1,0 +1,71 @@
+.MuiAccordion-root {
+	margin: 0px 0;
+}
+.MuiAccordion-root {
+	margin: 0px 0 !important;
+	background: transparent;
+	box-shadow: none !important;
+	background-color: transparent !important;
+}
+.MuiAccordionSummary-root {
+	min-height: 3rem !important;
+	height: 3rem;
+	border-radius: 1rem !important;
+	border-radius: 0.7rem !important;
+	background-color: transparent !important;
+	&:hover {
+		background-color: var(--secondary) !important;
+	}
+}
+.MuiAccordionSummary-root.Mui-expanded {
+	background-color: var(--secondary) !important;
+
+	padding: 0 1rem;
+	.span-title {
+		color: white;
+	}
+}
+
+.MuiAccordionDetails-root {
+	padding: 0 1.2rem !important;
+	display: flex !important;
+	align-items: center;
+	height: 3rem;
+}
+.MuiTypography-root.MuiTypography-body1 {
+	color: white;
+}
+.c-sidebar-nav-title {
+	display: flex;
+	.icon {
+		width: 1.5rem;
+		height: 1.5rem;
+		display: flex;
+		align-items: center;
+		background: white;
+		margin-right: 0.5rem;
+	}
+}
+.c-sidebar-nav-sub-item {
+	display: flex;
+	align-items: center;
+	.icon {
+		width: 0.7rem;
+		height: 0.7rem;
+		display: flex;
+		align-items: center;
+		background: rgba(255, 255, 255, 0.445);
+		margin-right: 0.5rem;
+	}
+	.span-title {
+		color: rgba(255, 255, 255, 0.507);
+	}
+	&.active {
+		.span-title {
+			color: white;
+		}
+		.icon {
+			background: white;
+		}
+	}
+}
