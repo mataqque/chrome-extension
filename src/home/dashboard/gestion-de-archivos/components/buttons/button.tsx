@@ -20,22 +20,3 @@ export const ButtonAddFile = () => {
 		</div>
 	);
 };
-
-export const ButtonAddFile2 = () => {
-	const { onClose } = useContext(ModalContext);
-	const openModal = () => {
-		obsModal.next({
-			['modalupload2']: true,
-		});
-	};
-	return (
-		<div
-			className='cursor-pointer h-10 w-max bg-success p-4 text-white flex items-center justify-center rounded-md'
-			onClick={() => {
-				openModal();
-			}}
-		>
-			Subir un archivo
-		</div>
-	);
-};

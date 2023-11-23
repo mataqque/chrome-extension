@@ -1,44 +1,46 @@
-'use client';
-import { IFile, IFileSelected, IResFiles } from '@/common/interface.global';
 import { File } from './files';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { selectFile, updateFiles } from '../../files.slice';
-import { useSelector } from 'react-redux';
-import { Pagination } from '@mui/material';
-import { bytesToSize, convertToDate } from '@/common/helpers';
-import { Fileinf } from '../fileinf/fileinf';
-import { useGetFilesMutation } from '../../files.api';
+
+import { IFile, IFileSelected, IResFiles } from '../../../../../common/interface';
+import { useEffect, useState } from 'react';
 
 interface IProps {
-	data: IResFiles;
+	data: IResFiles | null;
 }
-export const ContentFiles = ({ data }: IProps) => {
-	const [getfiles, {}] = useGetFilesMutation<any>();
-	const { results, records } = data;
-	const dispatch = useDispatch();
-	const files: IFile[] = useSelector((state: any) => state.filesManageSlice.files);
-	const filesSelected: IFileSelected[] = useSelector((state: any) => state.filesManageSlice.filesSelected);
-	const handleChange = async (event: any, value: number) => {
-		const { data }: any = await getfiles('?index=' + value);
-		dispatch(updateFiles(data.results));
-	};
-	useEffect(() => {
-		dispatch(updateFiles(results));
-	}, []);
+// export const ContentFiles = ({ data }: IProps) => {
+// 	const [resData, setData] = useState<IResFiles | null>(data);
+// 	console.log(resData);
+// 	useEffect(() => {}, [data]);
+// 	return (
+// 		<div className='envol_main'>
+// 			<div className='envolves_content_files'>
+// 				<div className='content-files'>
+// 					{resData &&
+// 						resData.results.map((file: IFile, index: number) => {
+// 							return <File file={file} key={'file-' + index} fn={() => {}} />;
+// 						})}
+// 				</div>
+// 				<div className='content_pagination'>{/* <Pagination count={Math.ceil(records.cant / records.limit)} variant='outlined' shape='rounded' onChange={handleChange} tabIndex={1} /> */}</div>
+// 			</div>
+// 			{/* <Fileinf file={filesSelected[filesSelected.length - 1] || []}></Fileinf> */}
+// 		</div>
+// 	);
+// };
+export function ContentFiles({ data }: IProps) {
+	const [resData, setData] = useState<IResFiles | null>(data);
+	console.log(resData);
+	useEffect(() => {}, [data]);
 	return (
 		<div className='envol_main'>
 			<div className='envolves_content_files'>
 				<div className='content-files'>
-					{files.map((file: IFile, index: number) => {
-						return <File file={file} key={'file-' + index} fn={selectFile} />;
-					})}
+					{resData &&
+						resData.results.map((file: IFile, index: number) => {
+							return <File file={file} key={'file-' + index} fn={() => {}} />;
+						})}
 				</div>
-				<div className='content_pagination'>
-					<Pagination count={Math.ceil(records.cant / records.limit)} variant='outlined' shape='rounded' onChange={handleChange} tabIndex={1} />
-				</div>
+				<div className='content_pagination'>{/* <Pagination count={Math.ceil(records.cant / records.limit)} variant='outlined' shape='rounded' onChange={handleChange} tabIndex={1} /> */}</div>
 			</div>
-			<Fileinf file={filesSelected[filesSelected.length - 1] || []}></Fileinf>
+			{/* <Fileinf file={filesSelected[filesSelected.length - 1] || []}></Fileinf> */}
 		</div>
 	);
-};
+}

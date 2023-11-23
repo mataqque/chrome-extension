@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IFile, IFileSelected } from '../../../common/interface.global';
+import { IFile, IFileSelected } from '../../../common/interface';
 
 interface FilesManageState {
 	files: IFile[] & { selected?: boolean }[];
@@ -17,22 +17,22 @@ const filesManageSlice = createSlice({
 			state.files = action.payload;
 		},
 		selectFile: (state, action: PayloadAction<IFile>) => {
-			state.files = state.files.map((file: IFileSelected) => {
-				if (file.uuid === action.payload.uuid) {
-					file.selected = !file.selected;
-				}
-				return file;
-			});
-			if (state.filesSelected.length === 0) {
-				state.filesSelected.push(action.payload);
-			} else {
-				const index = state.filesSelected.findIndex((file: IFile) => file.uuid === action.payload.uuid);
-				if (index === -1) {
-					state.filesSelected.push(action.payload);
-				} else {
-					state.filesSelected.splice(index, 1);
-				}
-			}
+			// state.files = state.files.map((file: IFileSelected) => {
+			// 	if (file.uuid === action.payload.uuid) {
+			// 		file.selected = !file.selected;
+			// 	}
+			// 	return file;
+			// });
+			// if (state.filesSelected.length === 0) {
+			// 	state.filesSelected.push(action.payload);
+			// } else {
+			// 	const index = state.filesSelected.findIndex((file: IFile) => file.uuid === action.payload.uuid);
+			// 	if (index === -1) {
+			// 		state.filesSelected.push(action.payload);
+			// 	} else {
+			// 		state.filesSelected.splice(index, 1);
+			// 	}
+			// }
 		},
 	},
 });

@@ -1,14 +1,10 @@
-'use client';
-import { IFile, IFileSelected, IResFiles } from '@/common/interface.global';
 import { File } from './files';
-import { use, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Pagination } from '@mui/material';
-import { bytesToSize, convertToDate } from '@/common/helpers';
-import { Fileinf } from '../fileinf/fileinf';
 import { useGetFilesMutation } from '../../files.api';
-import { selectFile, updateFilesMoodal } from '../../modalmanagerfile.slice';
+import { IFile, IResFiles } from '../../../../../common/interface';
 interface IProps {
 	data: IResFiles;
 }
@@ -16,21 +12,21 @@ export const ModalContentFiles = ({ data }: IProps) => {
 	const [getfiles, {}] = useGetFilesMutation<any>();
 	const { results, records } = data;
 	const dispatch = useDispatch();
-	const files: IFile[] = useSelector((state: any) => state.modalfilesManageSlice.files);
+	const files: IFile[] = useSelector((state: any) => state.filesManageSlice.files);
 
 	const handleChange = async (event: any, value: number) => {
 		const { data }: any = await getfiles('?index=' + value);
-		dispatch(updateFilesMoodal(data.results));
+		// dispatch(updateFilesMoodal(data.results));
 	};
 	useEffect(() => {
-		dispatch(updateFilesMoodal(results));
+		// dispatch(updateFilesMoodal(results));
 	}, [results]);
 	return (
 		<div className='envol_main'>
 			<div className='envolves_content_files'>
 				<div className='content-files'>
 					{files.map((file: IFile, index: number) => {
-						return <File file={file} key={'file-' + index} fn={selectFile} />;
+						return <File file={file} key={'file-' + index} fn={() => {}} />;
 					})}
 				</div>
 				<div className='content_pagination'>

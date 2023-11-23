@@ -22,10 +22,6 @@ export default function LayoutDashboard({ children }: { children: React.ReactNod
 			<Modal index={10} id='modalupload'>
 				<Upload></Upload>
 			</Modal>
-			<Modal index={10} id='modalupload2' value>
-				<Upload></Upload>
-			</Modal>
-			{/* <ModalManageFile></ModalManageFile> */}
 			<aside className='sideractive bg-primary min-w-[20rem] mobile:w-full mobile:fixed z-[2]'>
 				<div className='content-sidebar'>
 					<div className={style.points + ' ' + style.containerdash + ' pt-4'}>

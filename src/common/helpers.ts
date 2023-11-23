@@ -1,5 +1,5 @@
-import { IFile } from './file.interface';
 import { ICombined, Item, TypeGeneric } from './ihelpers';
+import { IFile } from './interface';
 
 export const resumeText = (text: string, number: number) => {
 	if (text.length <= number) {
@@ -157,4 +157,25 @@ export const dateToString = (date: Date) => {
 export const stringToDate = (date: string) => {
 	let [year, month, day] = date.split('-');
 	return new Date(+year, +month - 1, +day);
+};
+
+export const generatePath = (file: IFile) => {
+	return `${file.dir}/${file.fileName}`;
+};
+export const copyToClipboard = (text: string) => {
+	try {
+		let textarea = document.createElement('textarea') as HTMLTextAreaElement;
+		textarea.value = text;
+		textarea.style.position = 'fixed';
+		textarea.style.top = '0';
+		textarea.style.left = '0';
+		textarea.style.opacity = '0';
+		textarea.style.pointerEvents = 'none';
+		document.body.appendChild(textarea);
+		textarea.focus();
+		textarea.select();
+		document.execCommand('copy');
+	} catch (error) {
+		console.error(error);
+	}
 };

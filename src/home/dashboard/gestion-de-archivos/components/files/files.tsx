@@ -3,10 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Skeleton from 'react-loading-skeleton';
-import Image from 'next/image';
-import { IFile } from '@/common/interface.global';
-import { gnPathFile } from '@/common/helpers';
-import { selectFile } from '../../files.slice';
+import { generateUrl } from '../../../../../common/helpers';
+import { IFile } from '../../../../../common/interface';
 
 interface IProps {
 	file: IFile & { selected?: boolean };
@@ -14,17 +12,18 @@ interface IProps {
 }
 
 export function File({ file, fn }: IProps) {
-	const dispatch = useDispatch();
+	console.log('file', file);
+	// const dispatch = useDispatch();
 	return (
 		<div
 			className={`content-file ${file.selected ? 'active' : ''}`}
 			onClick={() => {
-				dispatch(fn(file));
+				// dispatch(fn(file));
 			}}
 		>
 			<div className='content_img'>
 				<div className='elvolve_img'>
-					<Image src={gnPathFile(file)} alt='' width={500} height={270} />
+					<img src={generateUrl(file)} alt='' width={500} height={270} />
 				</div>
 			</div>
 			<span className='title-file'>{file.fileName}</span>

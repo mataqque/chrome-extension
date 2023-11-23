@@ -1,9 +1,8 @@
 import './fileinf.scss';
-import { bytesToSize, convertToDate, copyToClipboard, generatePath, gnPathFile } from '@/common/helpers';
 import { useSelector } from 'react-redux';
 import { LazyImage } from '../lazyImages/images';
-import { IFile, IFileSelected } from '@/common/interface.global';
-import { use, useEffect } from 'react';
+import { bytesToSize, convertToDate, copyToClipboard, generatePath, generateUrl } from '../../../../../common/helpers';
+import { IFileSelected } from '../../../../../common/interface';
 
 interface IProps {
 	file: IFileSelected;
@@ -16,7 +15,7 @@ export const Fileinf = ({ file }: IProps) => {
 			{Object.keys(file).length > 0 ? (
 				<>
 					<div className='content-img skeleton-default'>
-						<LazyImage src={gnPathFile(file)} radius='0px'></LazyImage>
+						<LazyImage src={generateUrl(file)} radius='0px'></LazyImage>
 					</div>
 					<span className='name-file bold'>Información</span>
 					<div className='content-array-info scrollHidden'>

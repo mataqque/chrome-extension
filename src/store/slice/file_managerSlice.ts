@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 const filesManageSlice = createSlice({
 	name: 'filesManage',
-	initialState: {},
+	initialState: {
+		files: [],
+	},
 	reducers: {
 		updateFiles: (state, action: PayloadAction<any>) => {
 			return action.payload;

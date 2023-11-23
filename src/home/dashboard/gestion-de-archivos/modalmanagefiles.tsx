@@ -1,27 +1,23 @@
 'use client';
 import './modal.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { InputSearchFile } from './components/search/search';
-import { BtnAddFile, BtnDeleteFile, BtnSelectFile } from './components/buttons/button';
-import { ContentFiles } from './components/files/contentfiles';
-import { IFile } from '@/common/interface.global';
-import { IResFiles } from '../../../common/interface.global';
-import { closeModal, showModal } from './modalmanagerfile.slice';
 import { useEffect, useState } from 'react';
-import { API_LOCAL } from '@/store/config';
 import { ModalContentFiles } from './components/files/modalcontentfile';
+import { API_LOCAL } from '../../config';
+import { IResFiles } from '../../../common/interface';
 
 export default function ModalManageFile() {
 	const dispatch = useDispatch();
-	const activemodal = useSelector((state: any) => state.modalfilesManageSlice.modalactive);
-	if (activemodal) {
+	// const activeModal = useSelector((state: any) => state.manageFileSlice.modalactive);
+	if (true) {
 		return (
 			<div className='modal_manage_files'>
 				<div className='content_manage_files'>
 					<div
 						className='icon mask icon-close'
 						onClick={() => {
-							dispatch(closeModal());
+							// dispatch(closeModal());
 						}}
 					></div>
 					<div className='_manage_files'>
@@ -31,11 +27,11 @@ export default function ModalManageFile() {
 						</p>
 						<div className='content-tab flex py-3 border-y border-slate-200 d-flex mb-4 border-solid gap-2'>
 							<InputSearchFile />
-							<BtnAddFile />
+							{/* <BtnAddFile />
 							<BtnSelectFile />
-							<BtnDeleteFile />
+							<BtnDeleteFile /> */}
 						</div>
-						<InitContentFiles />
+						{/* <InitContentFiles /> */}
 					</div>
 				</div>
 			</div>
