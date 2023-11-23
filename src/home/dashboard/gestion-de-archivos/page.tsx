@@ -1,13 +1,15 @@
 // import { API_LOCAL, URL_BASE_API_BACKEND } from '@/store/config';
 import { useEffect, useState } from 'react';
 import { API_LOCAL } from '../../config';
-import { ButtonAddFile } from './components/buttons/button';
+import { ButtonAddFile } from './components/buttons/buttonUpload';
 import { InputSearchFile } from './components/search/search';
-import { IFile, IResFiles } from '../../../common/interface';
+import { IFile, IFileSelected, IResFiles } from '../../../common/interface';
 import { generateUrl } from '../../../common/helpers';
 import { useDispatch } from 'react-redux';
 import { fetching } from './fetching';
-// import { ContentFiles } from './components/files/contentfiles';
+import { ButtonDeleteFile } from './components/buttons/buttonDelete';
+import { selectFile } from '../../../store/slice/file_managerSlice';
+import { useSelector } from 'react-redux';
 
 export const GestionDeArchivos = () => {
 	const [data, setData] = useState<IResFiles | null>(null);
@@ -26,7 +28,7 @@ export const GestionDeArchivos = () => {
 			<div className='content-tab flex py-3 border-y border-slate-200 d-flex mb-4 border-solid gap-2'>
 				<InputSearchFile />
 				<ButtonAddFile />
-				{/* <BtnDeleteFile />  */}
+				<ButtonDeleteFile />
 			</div>
 
 			<ContentFiles data={data} />
@@ -52,11 +54,19 @@ function ContentFiles({ data }: { data: IResFiles | null }) {
 
 function File({ file }: { file: IFile }) {
 	const dispatch = useDispatch();
+	const filesSelected = useSelector((state: any) => state.filesManageSlice.filesSelected);
+	const handled = (file: IFileSelected) => {
+		dispatch(selectFile(file));
+	};
 	return (
-		<div className='w-full h-[10rem] p-4 rounded-lg bg-primary'>
-			<div className='w-full rounded-lg overflow-hidden h-full '>
+		<div
+			className={`w-full  h-max  p-4 rounded-[1rem] cursor-pointer shadow-1 bg-[#f8f9ff] [&.active]:bg-primary flex flex-col group ${filesSelected.includes(file) ? 'active' : ''}`}
+			onClick={() => handled(file)}
+		>
+			<div className='w-full rounded-lg overflow-hidden h-[7.3rem] mb-2'>
 				<img src={generateUrl(file)} alt='' className='w-full h-full object-cover' />
 			</div>
+			<span className='text-primary text-0/9 group-[&.active]:text-white'>{file.fileName}</span>
 		</div>
 	);
 }

@@ -22,7 +22,7 @@ export default function LayoutDashboard({ children }: { children: React.ReactNod
 			<Modal index={10} id='modalupload'>
 				<Upload></Upload>
 			</Modal>
-			<aside className='sideractive bg-primary min-w-[20rem] mobile:w-full mobile:fixed z-[2]'>
+			<aside className='sideractive bg-primary min-w-[20rem] mobile:w-full fixed xsm:relative z-[2]'>
 				<div className='content-sidebar'>
 					<div className={style.points + ' ' + style.containerdash + ' pt-4'}>
 						<div className={style.point + ' ' + style.point1}></div>

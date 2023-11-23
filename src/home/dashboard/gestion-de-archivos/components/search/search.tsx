@@ -3,8 +3,8 @@ import { useState } from 'react';
 import './search.scss';
 import { useGetFilesMutation } from '../../files.api';
 import { useDispatch } from 'react-redux';
-import { updateFiles } from '../../files.slice';
 import { delayfunc } from '../../../../../common/helpers';
+import { updateFiles } from '../../../../../store/slice/file_managerSlice';
 export const InputSearchFile = () => {
 	const dispatch = useDispatch();
 	const [getFiles, { isSuccess }] = useGetFilesMutation();
