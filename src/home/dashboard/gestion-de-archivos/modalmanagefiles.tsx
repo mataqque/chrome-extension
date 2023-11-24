@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { InputSearchFile } from './components/search/search';
 import { useEffect, useState } from 'react';
 import { ModalContentFiles } from './components/files/modalcontentfile';
-import { API_LOCAL } from '../../config';
+import { BASE_API_LOCAL } from '../../config';
 import { IResFiles } from '../../../common/interface';
 
 export default function ModalManageFile() {
@@ -41,7 +41,7 @@ export default function ModalManageFile() {
 }
 
 const fetching = async () => {
-	const res = await fetch(API_LOCAL + '/files/getFiles')
+	const res = await fetch(BASE_API_LOCAL + '/files/getFiles')
 		.then(res => res.json())
 		.catch(err => {
 			console.log(err);

@@ -8,6 +8,10 @@ export const resumeText = (text: string, number: number) => {
 		return text.slice(0, number) + '...';
 	}
 };
+export const addShy = (text: string) => {
+	const shy = '\u00AD';
+	return text.slice(0, 20) + shy + text.slice(20);
+};
 
 export const generateUrl = (props: IFile) => {
 	const { fileName, dir } = props;

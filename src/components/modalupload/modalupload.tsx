@@ -1,12 +1,11 @@
 import './modalUpload.scss';
 import { useContext, useEffect, useState } from 'react';
 import Dropzone from 'react-dropzone';
-import { useDispatch, useSelector } from 'react-redux';
-// import { updateFiles } from '../../gestion-de-archivos/files.slice';
-// import { useGetFilesMutation } from '../../gestion-de-archivos/files.api';
-import { toggleModal } from './modalupload.slice';
+import { useDispatch } from 'react-redux';
 import { bytesToSize, delayfunc, generateId } from '../../common/helpers';
 import { ModalContext } from '../ui/modal/modal';
+import { useGetFilesMutation } from '../../store/api/filesApi';
+import { updateFiles } from '../../store/slice/file_managerSlice';
 
 interface IFile {
 	uuid: number | string;
@@ -15,9 +14,8 @@ interface IFile {
 
 export default function Upload() {
 	const { onClose } = useContext(ModalContext);
-
 	const dispatch = useDispatch();
-	// const [getFiles, { isSuccess }] = useGetFilesMutation<any>();
+	const [getFiles, { isSuccess }] = useGetFilesMutation<any>();
 	const [preFiles, setPreviousFiles] = useState<IFile[]>([]);
 
 	const onDrop = (Files: any) => {
@@ -38,8 +36,7 @@ export default function Upload() {
 			const formData = new FormData();
 			formData.append('file', file.file);
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', '/api/v1/upload');
-
+			xhr.open('POST', 'http://localhost:5000/api/v1/upload');
 			xhr.upload.addEventListener('progress', event => {
 				if (event.lengthComputable) {
 					const percentComplete = (event.loaded / event.total) * 100;
@@ -66,8 +63,8 @@ export default function Upload() {
 			xhr.addEventListener('load', async event => {
 				if (xhr.status === 200 || xhr.status === 201) {
 					await delayfunc(async () => {
-						// const { data }: any = await getFiles('');
-						// dispatch(updateFiles(data.results));
+						const { data }: any = await getFiles('');
+						dispatch(updateFiles(data.results));
 					}, 1000);
 				} else {
 					console.error('Error al subir el archivo.');

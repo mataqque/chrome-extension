@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
 import { generateUrl } from '../../../../../common/helpers';
 import { IFile } from '../../../../../common/interface';
+import { useGetFilesMutation } from '../../../../../store/api/filesApi';
 
 interface IProps {
 	file: IFile & { selected?: boolean };
@@ -12,7 +13,7 @@ interface IProps {
 }
 
 export function File({ file, fn }: IProps) {
-	console.log('file', file);
+	const [getFiles, { isSuccess }] = useGetFilesMutation<any>();
 	// const dispatch = useDispatch();
 	return (
 		<div

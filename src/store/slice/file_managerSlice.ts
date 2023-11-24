@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IFileSelected } from '../../common/interface';
 const filesManageSlice = createSlice({
-	name: 'filesManage',
+	name: 'filesManageSlice',
 	initialState: {
 		filesSelected: [] as IFileSelected[],
-		files: [],
+		files: [] as IFileSelected[],
 	},
 	reducers: {
 		updateFiles: (state, action: PayloadAction<any>) => {
-			return action.payload;
+			state.files = action.payload;
 		},
 		selectFile: (state, action: PayloadAction<IFileSelected>) => {
 			let exist = state.filesSelected.find((file: IFileSelected) => file.fileName === action.payload.fileName);

@@ -18,7 +18,8 @@
       ]
     }
   ],
-  "host_permissions": ["https:\/\/*/*"],
+  "host_permissions": ["http:\/\/*/*"],
+  
   "permissions": ["sidePanel","tabs", "activeTab", "notifications", "scripting","storage","downloads"],
   "side_panel": {
       "default_path": "index.html"

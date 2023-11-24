@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Pagination } from '@mui/material';
-import { useGetFilesMutation } from '../../files.api';
 import { IFile, IResFiles } from '../../../../../common/interface';
+import { useGetFilesMutation } from '../../../../../store/api/filesApi';
 interface IProps {
 	data: IResFiles;
 }
