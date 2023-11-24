@@ -1,10 +1,8 @@
-'use client';
 import './modal.scss';
 import { useDispatch } from 'react-redux';
 import { InputSearchFile } from './components/search/search';
 import { useEffect, useState } from 'react';
-import { ModalContentFiles } from './components/files/modalcontentfile';
-import { BASE_API_LOCAL } from '../../config';
+import { BASE_API_LOCAL } from '../../../store/config';
 import { IResFiles } from '../../../common/interface';
 
 export default function ModalManageFile() {
@@ -48,18 +46,3 @@ const fetching = async () => {
 		});
 	return res || {};
 };
-function InitContentFiles() {
-	const [data, setData] = useState<IResFiles>({
-		records: {
-			cant: 10,
-			limit: 100,
-		},
-		results: [],
-	});
-	useEffect(() => {
-		fetching().then(res => {
-			setData(res);
-		});
-	}, []);
-	return <ModalContentFiles data={data} />;
-}

@@ -1,4 +1,3 @@
-'use client';
 import './subitem.scss';
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@material-ui/core';
 

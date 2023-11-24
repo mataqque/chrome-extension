@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { BASE_API_LOCAL } from '../../home/config';
+import { BASE_API_LOCAL } from '../config';
 export const filesManageApi = createApi({
 	reducerPath: 'filesApi',
 	baseQuery: fetchBaseQuery({
@@ -26,7 +26,15 @@ export const filesManageApi = createApi({
 				};
 			},
 		}),
+		openFolder: builder.mutation({
+			query: () => {
+				return {
+					url: `/files/open`,
+					method: 'GET',
+				};
+			},
+		}),
 	}),
 });
 
-export const { useGetFilesMutation, useDeleteFilesMutation } = filesManageApi;
+export const { useGetFilesMutation, useDeleteFilesMutation, useOpenFolderMutation } = filesManageApi;

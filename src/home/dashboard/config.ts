@@ -106,7 +106,7 @@ const dataDasboard: ISidebar = {
 	],
 };
 const build = () => {
-	let list_sidebars = dataDasboard.list_sidebars.map((list: IList_sidebars) => {
+	dataDasboard.list_sidebars.map((list: IList_sidebars) => {
 		list.list_items = list.list_items.map((item: ISidebarItem) => {
 			item.id = generateId({ type: 'string' });
 			return item;

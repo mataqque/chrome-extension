@@ -1,4 +1,4 @@
-import { BASE_API_LOCAL } from '../../config';
+import { BASE_API_LOCAL } from '../../../store/config';
 
 export const fetching = async () => {
 	const res = await fetch(BASE_API_LOCAL + '/files/getFiles', { cache: 'no-store' })

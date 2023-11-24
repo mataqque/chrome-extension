@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import { ModalContext } from '../../../../../components/ui/modal/modal';
 import { obsModal } from '../../../../../components/ui/modal/obsModal';
 import { useSelector } from 'react-redux';
-import { deleteFiles } from './fetching';
 import { IFileSelected } from '../../../../../common/interface';
 import { useDeleteFilesMutation, useGetFilesMutation } from '../../../../../store/api/filesApi';
 import { useDispatch } from 'react-redux';

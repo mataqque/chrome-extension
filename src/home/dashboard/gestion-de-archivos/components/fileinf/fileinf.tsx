@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { LazyImage } from '../lazyImages/images';
 import { bytesToSize, convertToDate, copyToClipboard, generatePath, generateUrl } from '../../../../../common/helpers';
 import { IFileSelected } from '../../../../../common/interface';
+import { BASE_API } from '../../../../../store/config';
 
 interface IProps {
 	file: IFileSelected;
@@ -15,7 +16,7 @@ export const Fileinf = ({ file }: IProps) => {
 			{Object.keys(file).length > 0 ? (
 				<>
 					<div className='content-img skeleton-default'>
-						<LazyImage src={generateUrl(file)} radius='0px'></LazyImage>
+						<LazyImage src={generateUrl(file, BASE_API)} radius='0px'></LazyImage>
 					</div>
 					<span className='name-file bold'>Información</span>
 					<div className='content-array-info scrollHidden'>

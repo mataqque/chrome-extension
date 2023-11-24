@@ -9,6 +9,8 @@ import { ButtonDeleteFile } from './components/buttons/buttonDelete';
 import { selectFile, updateFiles } from '../../../store/slice/file_managerSlice';
 import { useSelector } from 'react-redux';
 import { useGetFilesMutation } from '../../../store/api/filesApi';
+import { BASE_API, BASE_API_LOCAL } from '../../../store/config';
+import { ButtonOpenFolder } from './components/buttons/buttonOpenFolder';
 
 export const GestionDeArchivos = () => {
 	const dispatch = useDispatch();
@@ -27,12 +29,13 @@ export const GestionDeArchivos = () => {
 	}, []);
 	return (
 		<div className='_manage_files'>
-			<h1 className='title bold mb-1 text-letter'>Administrador de archivos</h1>
-			<p className='paragraph mb-3 color1'>Sube tus archivos mp3, mp4, jpg ,png, webp, svg. etc, los archivos deben pesar menos de 10mb, no se admiten archivos con peso mayor a 100mb</p>
-			<div className='content-tab flex py-3 border-y border-slate-200 d-flex mb-4 border-solid gap-2'>
+			<h1 className='text-1/4 bold mb-1 text-primary'>Administrador de archivos</h1>
+			<p className='paragraph mb-3 text-letter'>Sube tus archivos mp3, mp4, jpg ,png, webp, svg. etc, los archivos deben pesar menos de 10mb, no se admiten archivos con peso mayor a 100mb</p>
+			<div className='content-tab flex py-3 border-y border-slate-200 d-flex mb-4 border-solid gap-2 flex-wrap xsm:flex-no-wrap'>
 				<InputSearchFile />
 				<ButtonAddFile />
 				<ButtonDeleteFile />
+				<ButtonOpenFolder />
 			</div>
 			<ContentFiles />
 		</div>
@@ -67,7 +70,7 @@ function File({ file }: { file: IFile }) {
 			onClick={() => handled(file)}
 		>
 			<div className='w-full rounded-lg overflow-hidden h-[7.3rem] mb-2'>
-				<img src={generateUrl(file)} alt='' className='w-full h-full object-cover' />
+				<img src={generateUrl(file, BASE_API)} alt='' className='w-full h-full object-cover' />
 			</div>
 			<span className='text-primary select-none text-0/9 group-[&.active]:text-white'>{addShy(file.fileName)}</span>
 		</div>

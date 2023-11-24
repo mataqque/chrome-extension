@@ -1,42 +1,80 @@
-import './style/dashboard.scss';
-import style, { sidebar } from './style/dashboard.module.scss';
 import Sidebar, { ISidebar, ISidebarItem } from './config';
 import { InputSearchDash } from '../../components/ui/inputsearchdash/inputsearchdash';
 import { SidebarSubItems } from '../../components/ui/subitems/subitems';
 import { IconAvatar } from '../../components/ui/avatar/avatar';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeId } from '../../store/slice/dashboardSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal } from '../../components/ui/modal/modal';
 import Upload from '../../components/modalupload/modalupload';
+import { obsSidebar } from './obsSidebar';
 export default function LayoutDashboard({ children }: { children: React.ReactNode }) {
-	const dispatch = useDispatch();
-	const id = useSelector((state: any) => state.dashboardSlice.activeId);
-
-	const change = (id: string) => {
-		dispatch(changeId(id));
+	const closeAside = () => {
+		console.log(obsSidebar.getValue());
+		obsSidebar.next(true);
 	};
-	useEffect(() => {}, [id]);
 	return (
-		<main className={style.dashboard + ' dashboard'}>
+		<main className='dashboard flex'>
 			<Modal index={10} id='modalupload'>
 				<Upload></Upload>
 			</Modal>
-			<aside className='sideractive bg-primary min-w-[20rem] mobile:w-full fixed xsm:relative z-[2] flex flex-col h-screen'>
-				<div className='flex flex-col overflow-hidden'>
-					<div className={style.points + ' ' + style.containerdash + ' pt-4'}>
-						<div className={style.point + ' ' + style.point1}></div>
-						<div className={style.point + ' ' + style.point2}></div>
-						<div className={style.point + ' ' + style.point3}></div>
+			<AsideBar></AsideBar>
+			<div className='content-pages-dash w-full'>
+				<div className='navbar-dashboard h-12 shadow'>
+					<div className='w-12 h-full flex items-center justify-center cursor-pointer' onClick={() => closeAside()}>
+						<div className='icon mask icon-menu bg-primary h-6 w-6'></div>
 					</div>
-					<div className={style.containerdash + ' flex items-center py-6'}>
-						<div className={style.logo}>D</div>
-						<h3 className='text-white IBMPlexSans-Bold'>Administrador</h3>
+				</div>
+				<div className='p-4'>{children}</div>
+			</div>
+		</main>
+	);
+}
+
+const AsideBar = () => {
+	const dispatch = useDispatch();
+	const [open, setOpen] = useState(true);
+	const id = useSelector((state: any) => state.dashboardSlice.activeId);
+	const change = (id: string) => {
+		dispatch(changeId(id));
+	};
+	const eventClose = (value: boolean) => {
+		setOpen(value);
+	};
+	useEffect(() => {
+		const aside = obsSidebar.subscribe((data: boolean) => {
+			setOpen(data);
+		});
+		return () => {
+			aside.unsubscribe();
+		};
+	}, [id]);
+	return (
+		<aside
+			className={`sideractive bg-primary max-w-[0rem] w-full overflow-hidden items-end duration-300 ${
+				open == true ? 'active' : ''
+			} [&.active]:max-w-[20rem] mobile:[&.active]:max-w-[100vw]  mobile:w-full fixed md:relative z-[2] flex flex-col h-screen`}
+		>
+			<div className='flex flex-col min-w-[20rem] max-w-[20rem] mobile:w-full mobile:max-w-full  bg-primary h-full'>
+				<div className='flex flex-col overflow-hidden w-full'>
+					<div className='flex items-center pt-4 px-4 gap-2 w-full'>
+						<div className='w-4 h-4 rounded-full bg-[#f34a4a]'></div>
+						<div className='w-4 h-4 rounded-full bg-[#f6ab1a]'></div>
+						<div className='w-4 h-4 rounded-full bg-[#3ac270]'></div>
+						<div className='w-12 h-full flex items-center justify-center cursor-pointer ml-auto' onClick={() => eventClose(false)}>
+							<div className='icon mask icon-menu  bg-white h-8 w-8'></div>
+						</div>
 					</div>
-					<div className={style.containerdash + ' flex items-center'}>
+					<div className={'flex items-center px-4 py-6'}>
+						<div className='text-white font-imb_bold text-1/2 bg-[#2363da] w-10 h-10 flex items-center justify-center text-center rounded-md leading-none mr-4'>D</div>
+						<h3 className='text-white IBMPlexSans-Bold text-1/3'>Administrador</h3>
+					</div>
+					<div className='flex items-center px-4 '>
 						<InputSearchDash></InputSearchDash>
 					</div>
-					<div className={style.separator}></div>
+					<div className='px-4 my-4'>
+						<div className='w-full h-[1px] bg-white opacity-10'></div>
+					</div>
 					<div className='overflow-y-hidden'>
 						<div className={'sidebar_menu overflow-y-scroll h-full px-4 scroll'}>
 							{Sidebar.list_sidebars.map((item, index: number) => {
@@ -73,7 +111,9 @@ export default function LayoutDashboard({ children }: { children: React.ReactNod
 							})}
 						</div>
 					</div>
-					<div className={style.separator}></div>
+					<div className='px-4 my-4'>
+						<div className='w-full h-[1px] bg-white opacity-10'></div>
+					</div>
 					<div className='px-4'>
 						<div className={`w-full min-h-12 h-12 bg-red flex items-center rounded-lg [&.active]:bg-[#293752] hover:bg-[#293752] px-4 cursor-pointer duration-300`}>
 							<div className='flex '>
@@ -83,28 +123,27 @@ export default function LayoutDashboard({ children }: { children: React.ReactNod
 						</div>
 					</div>
 				</div>
-				<div className={style.containerdash + ' footer-sidebar '}>
+				<div className='footer-sidebar flex px-4 py-4'>
 					<div className='option_theme'></div>
-					<div className='flex user-info'>
+					<div className='flex user-info w-full '>
 						<div className='mr-3'>
 							<IconAvatar name='Flavio' photo=''></IconAvatar>
 						</div>
-						<div className='flex content_part'>
-							<div className='flex flex-col'>
+						<div className='flex content_part w-full'>
+							<div className='flex flex-col '>
 								<span className='text-white'>Flavio</span>
 								<span className='text-white opacity-70'>Administrador</span>
 							</div>
-							<div className='icon icon-logout mask'></div>
+							<div
+								className='icon icon-logout ml-auto mask-right w-8 h-10 bg-white cursor-pointer'
+								onClick={() => {
+									eventClose(false);
+								}}
+							></div>
 						</div>
 					</div>
 				</div>
-			</aside>
-			<div className='content-pages-dash'>
-				<div className='navbar-dashboard'>
-					<div className='icon mask icon-menu'></div>
-				</div>
-				<div className='content-page'>{children}</div>
 			</div>
-		</main>
+		</aside>
 	);
-}
+};
