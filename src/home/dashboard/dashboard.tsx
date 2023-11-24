@@ -22,8 +22,8 @@ export default function LayoutDashboard({ children }: { children: React.ReactNod
 			<Modal index={10} id='modalupload'>
 				<Upload></Upload>
 			</Modal>
-			<aside className='sideractive bg-primary min-w-[20rem] mobile:w-full fixed xsm:relative z-[2]'>
-				<div className='content-sidebar'>
+			<aside className='sideractive bg-primary min-w-[20rem] mobile:w-full fixed xsm:relative z-[2] flex flex-col h-screen'>
+				<div className='flex flex-col overflow-hidden'>
 					<div className={style.points + ' ' + style.containerdash + ' pt-4'}>
 						<div className={style.point + ' ' + style.point1}></div>
 						<div className={style.point + ' ' + style.point2}></div>

@@ -16,7 +16,7 @@
 .scroll {
 	overflow-y: scroll;
 	&::-webkit-scrollbar-thumb {
-		background-color: var(--primary);
+		background-color: rgb(194, 194, 194);
 		opacity: 0.5;
 		border-radius: 4px;
 		position: fixed;
