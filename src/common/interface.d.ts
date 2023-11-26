@@ -83,3 +83,16 @@ export interface IResProducts {
 	};
 	results: IProduct[];
 }
+
+export interface ICategory {
+	uuid: string;
+	name: string;
+	description: string;
+	parentCategoryId: null;
+	metaDescription: string;
+	metaKeywords: string;
+	imageFileId: null | string;
+	createdAt: Date;
+	updatedAt: Date;
+	status: boolean;
+}

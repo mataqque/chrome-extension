@@ -11,13 +11,8 @@ interface ICircularImageProps {
 
 interface IImageProps {
 	src: string;
-	radius: string;
 	alt?: string;
 	class?: string;
-}
-
-interface Props {
-	radius: string;
 }
 
 export const LazyImage = (props: IImageProps) => {
@@ -43,8 +38,8 @@ export const LazyImage = (props: IImageProps) => {
 		// observer.observe(ContentImg.current as Element);
 	}, [loadImage]);
 	return (
-		<div className={`image-default ${props.class || ''}`} ref={ContentImg}>
-			<div className='content-img'>{loadImage == false ? <Skeleton /> : <img className='img' src={props.src} alt='icon'></img>}</div>
+		<div className={`${props.class || ''}`} ref={ContentImg}>
+			<div className='w-full h-full'>{loadImage == false ? <Skeleton /> : <img className='w-full h-full object-cover' src={props.src} alt='icon'></img>}</div>
 		</div>
 	);
 };

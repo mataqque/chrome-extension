@@ -16,7 +16,7 @@ export const Fileinf = ({ file }: IProps) => {
 			{Object.keys(file).length > 0 ? (
 				<>
 					<div className='content-img skeleton-default'>
-						<LazyImage src={generateUrl(file, BASE_API)} radius='0px'></LazyImage>
+						<LazyImage src={generateUrl(file, BASE_API)}></LazyImage>
 					</div>
 					<span className='name-file bold'>Información</span>
 					<div className='content-array-info scrollHidden'>

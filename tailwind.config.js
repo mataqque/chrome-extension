@@ -30,6 +30,8 @@ const config: Config = {
 				third: '#151d2e',
 				fourth: '#fff5f5',
 				fifth: '#c4cdd4',
+				sixth: '#47487c',
+				seventh: '#f4faff',
 				accent: '#D53F8C',
 				background: '#1A202C',
 				text: '#E2E8F0',

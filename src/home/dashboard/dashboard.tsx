@@ -1,4 +1,4 @@
-import Sidebar, { ISidebar, ISidebarItem } from './config';
+import { ISidebar, ISidebarItem, itemSidebar } from './config';
 import { InputSearchDash } from '../../components/ui/inputsearchdash/inputsearchdash';
 import { SidebarSubItems } from '../../components/ui/subitems/subitems';
 import { IconAvatar } from '../../components/ui/avatar/avatar';
@@ -10,7 +10,6 @@ import Upload from '../../components/modalupload/modalupload';
 import { obsSidebar } from './obsSidebar';
 export default function LayoutDashboard({ children }: { children: React.ReactNode }) {
 	const closeAside = () => {
-		console.log(obsSidebar.getValue());
 		obsSidebar.next(true);
 	};
 	return (
@@ -19,13 +18,13 @@ export default function LayoutDashboard({ children }: { children: React.ReactNod
 				<Upload></Upload>
 			</Modal>
 			<AsideBar></AsideBar>
-			<div className='content-pages-dash w-full'>
+			<div className='content-pages-dash w-full h-screen flex flex-col'>
 				<div className='navbar-dashboard h-12 shadow'>
 					<div className='w-12 h-full flex items-center justify-center cursor-pointer' onClick={() => closeAside()}>
 						<div className='icon mask icon-menu bg-primary h-6 w-6'></div>
 					</div>
 				</div>
-				<div className='p-4'>{children}</div>
+				<div className='p-4 h-full overflow-auto'>{children}</div>
 			</div>
 		</main>
 	);
@@ -77,7 +76,7 @@ const AsideBar = () => {
 					</div>
 					<div className='overflow-y-hidden'>
 						<div className={'sidebar_menu overflow-y-scroll h-full px-4 scroll'}>
-							{Sidebar.list_sidebars.map((item, index: number) => {
+							{itemSidebar.map((item, index: number) => {
 								return (
 									<div className='flex flex-col' key={'sidebar-' + index}>
 										<div className='text-0/9 text-white opacity-70 mb-2'>{item.title}</div>
@@ -89,16 +88,16 @@ const AsideBar = () => {
 													return (
 														<div
 															className={`w-full min-h-12 h-12 bg-red flex items-center rounded-lg ${
-																subitem.id == id ? 'active' : ''
+																subitem?.id == id ? 'active' : ''
 															} [&.active]:bg-[#293752] hover:bg-[#293752] px-4 cursor-pointer duration-300`}
 															key={'sidebar-item-' + index}
 															onClick={() => {
-																change(subitem.id || '');
+																change(subitem?.id || '');
 															}}
 														>
 															<div className='flex '>
-																<div className={subitem.icon + ' mask-left w-5 h-5 mr-4 bg-white'}></div>
-																<div className='text-1/0'>{subitem.title}</div>
+																<div className={subitem?.icon + ' mask-left w-5 h-5 mr-4 bg-white'}></div>
+																<div className='text-1/0'>{subitem?.title}</div>
 															</div>
 															{subitem?.notification ? <div className='notification'>{subitem.notification}</div> : <></>}
 														</div>
