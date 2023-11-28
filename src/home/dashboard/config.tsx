@@ -1,5 +1,5 @@
 import { generateId } from '../../common/helpers';
-import { GestionDeArchivos } from './gestion-de-archivos/page';
+import { FileManager } from './gestion-de-archivos/page';
 import { NotePage } from './notes/page';
 import { TaskPage } from './task/page';
 
@@ -31,7 +31,7 @@ export const itemSidebar = [
 				icon: 'icon-media',
 				segment: 'gestion-de-archivos',
 				to: '/dashboard/gestion-de-archivos',
-				component: <GestionDeArchivos />,
+				component: <FileManager />,
 				id: generateId({ type: 'string' }),
 			},
 		],

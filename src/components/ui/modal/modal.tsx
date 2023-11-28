@@ -12,7 +12,7 @@ interface ModalProps {
 interface ModalContextProps {
 	/**
 	 * value receives a boolean value, false to close the modal and true to open it
-	 * @type {string} - Describe el tipo del atributo.
+	 * @type {string}
 	 */
 	onClose: (value: boolean) => void;
 }
@@ -24,7 +24,7 @@ export const Modal = ({ index = 10, children, value = false, id = generateId({ t
 	const [showModal, setShowModal] = useState(false);
 	const closeModal = (value: boolean) => {
 		setShowModal(value);
-		obsModal.next({ [id]: value });
+		obsModal.next({ [id]: { value } });
 	};
 
 	useEffect(() => {
@@ -37,7 +37,7 @@ export const Modal = ({ index = 10, children, value = false, id = generateId({ t
 		document.addEventListener('keydown', handleEscapeKey as any);
 		const modal = obsModal.subscribe(data => {
 			if (data[id]) {
-				setShowModal(data[id]);
+				setShowModal(data[id].value);
 			}
 		});
 		return () => {

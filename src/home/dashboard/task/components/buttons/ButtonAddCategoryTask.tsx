@@ -2,7 +2,7 @@ import { obsModal } from '../../../../../components/ui/modal/obsModal';
 
 export const ButtonAddCategoryTask = () => {
 	const openPopup = () => {
-		obsModal.next({ ['popupNote']: true });
+		obsModal.next({ ['popupNote']: { value: true } });
 	};
 	return (
 		<div

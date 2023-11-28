@@ -10,7 +10,7 @@ const filesManageSlice = createSlice({
 		updateFiles: (state, action: PayloadAction<any>) => {
 			state.files = action.payload;
 		},
-		selectFile: (state, action: PayloadAction<IFileSelected>) => {
+		selectMultiplyFile: (state, action: PayloadAction<IFileSelected>) => {
 			let exist = state.filesSelected.find((file: IFileSelected) => file.fileName === action.payload.fileName);
 			if (exist) {
 				state.filesSelected = state.filesSelected.filter((file: IFileSelected) => file.fileName !== action.payload.fileName);
@@ -19,8 +19,11 @@ const filesManageSlice = createSlice({
 			}
 			// state.filesSelected.push(action.payload);
 		},
+		selectSingleFile: (state, action: PayloadAction<IFileSelected>) => {
+			state.filesSelected = [action.payload];
+		},
 	},
 });
 
-export const { updateFiles, selectFile } = filesManageSlice.actions;
+export const { updateFiles, selectMultiplyFile, selectSingleFile } = filesManageSlice.actions;
 export default filesManageSlice.reducer;

@@ -12,8 +12,9 @@ import { delayfunc, generateId, partials } from '../../../../../common/helpers';
 import { getData } from './fetch';
 import { useAddCategoryMutation } from '../../../../../store/api/categoryApi';
 import { InputToggle } from '../../../../../components/ui/Inputs/inputToggle';
+import { InputAddImage } from '../../../../../components/ui/Inputs/inputAddImage';
 
-export const PopupNote = () => {
+export const PopupTask = () => {
 	const [data, setData] = useState<ISelectDataProps[]>([]);
 	const [createCategory, {}] = useAddCategoryMutation();
 	const { onClose } = useContext(ModalContext);
@@ -21,6 +22,7 @@ export const PopupNote = () => {
 		status: false,
 		name: '',
 		description: '',
+		imageFileId: null,
 		parentCategoryId: null,
 	};
 	const schemaType = taskSchema();
@@ -57,6 +59,7 @@ export const PopupNote = () => {
 								</div>
 								<div className='flex flex-col w-full'>
 									<span className='mb-2 flex text-sixth text-1/1'>Agregar Imagen</span>
+									<InputAddImage name='image' form={form} galleryId='modalGallery'></InputAddImage>
 								</div>
 								<div className='flex flex-col w-full'>
 									<span className='mb-2 flex text-sixth text-1/1'>Nombre de la categoría</span>

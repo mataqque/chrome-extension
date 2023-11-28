@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { ButtonAddFile } from './components/buttons/buttonUpload';
 import { InputSearchFile } from './components/search/search';
 import { IFile, IFileSelected, IResFiles } from '../../../common/interface';
@@ -6,19 +6,29 @@ import { addShy, delayfunc, generateUrl } from '../../../common/helpers';
 import { useDispatch } from 'react-redux';
 // import { fetching } from './fetching';
 import { ButtonDeleteFile } from './components/buttons/buttonDelete';
-import { selectFile, updateFiles } from '../../../store/slice/file_managerSlice';
+import { selectMultiplyFile, selectSingleFile, updateFiles } from '../../../store/slice/file_managerSlice';
 import { useSelector } from 'react-redux';
 import { useGetFilesMutation } from '../../../store/api/filesApi';
 import { BASE_API, BASE_API_LOCAL } from '../../../store/config';
 import { ButtonOpenFolder } from './components/buttons/buttonOpenFolder';
+import { ButtonEvent } from './components/buttons/buttonEvent';
+import { obsFileManager } from './obsFileManager';
 
-export const GestionDeArchivos = () => {
+/**
+ * type modal | page
+ * @type {string}
+ */
+type TypeManage = 'modal' | 'page';
+export const FileManagerContext = createContext<{ type: TypeManage; fn: Function }>({ type: 'page', fn: () => {} });
+export const FileManager = ({ type = 'page' }: { type?: TypeManage }) => {
 	const dispatch = useDispatch();
 	const [getFiles, { isSuccess }] = useGetFilesMutation<any>();
+	const eventFileSelected = (file: IFileSelected) => {
+		obsFileManager.next(file);
+	};
 	const init = async () => {
 		await delayfunc(async () => {
 			const { data }: any = await getFiles('');
-			console.log(data);
 			dispatch(updateFiles(data.results));
 		}, 1000);
 	};
@@ -28,17 +38,21 @@ export const GestionDeArchivos = () => {
 		})();
 	}, []);
 	return (
-		<div className='_manage_files'>
-			<h1 className='text-1/4 bold mb-1 text-primary'>Administrador de archivos</h1>
-			<p className='paragraph mb-3 text-letter'>Sube tus archivos mp3, mp4, jpg ,png, webp, svg. etc, los archivos deben pesar menos de 10mb, no se admiten archivos con peso mayor a 100mb</p>
-			<div className='content-tab flex py-3 border-y border-slate-200 d-flex mb-4 border-solid gap-2 flex-wrap xsm:flex-no-wrap'>
-				<InputSearchFile />
-				<ButtonAddFile />
-				<ButtonDeleteFile />
-				<ButtonOpenFolder />
+		<FileManagerContext.Provider value={{ type, fn: eventFileSelected }}>
+			<div className='flex flex-col h-full w-full'>
+				<h1 className='text-1/4 bold mb-1 text-primary'>Administrador de archivos</h1>
+				<p className='paragraph mb-3 text-letter'>
+					Sube tus archivos mp3, mp4, jpg ,png, webp, svg. etc, los archivos deben pesar menos de 10mb, no se admiten archivos con peso mayor a 100mb
+				</p>
+				<div className='content-tab flex py-3 border-y border-slate-200 d-flex mb-4 border-solid gap-2 flex-wrap xsm:flex-no-wrap'>
+					<InputSearchFile />
+					<ButtonAddFile />
+					{type !== 'modal' && <ButtonDeleteFile /> && <ButtonOpenFolder />}
+					{type == 'modal' && <ButtonEvent />}
+				</div>
+				<ContentFiles />
 			</div>
-			<ContentFiles />
-		</div>
+		</FileManagerContext.Provider>
 	);
 };
 
@@ -46,8 +60,8 @@ function ContentFiles() {
 	const files = useSelector((state: any) => state.filesManageSlice.files);
 	console.log('files', files);
 	return (
-		<div className='w-full h-16'>
-			<div className='grid grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-4'>
+		<div className='w-full h-full overflow-y-auto'>
+			<div className='grid grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-4 h-full scroll'>
 				{files &&
 					files.length > 0 &&
 					files.map((file: IFile, index: number) => {
@@ -59,10 +73,15 @@ function ContentFiles() {
 }
 
 function File({ file }: { file: IFile }) {
+	const context = useContext(FileManagerContext);
 	const dispatch = useDispatch();
 	const filesSelected = useSelector((state: any) => state.filesManageSlice.filesSelected);
 	const handled = (file: IFileSelected) => {
-		dispatch(selectFile(file));
+		if (context.type == 'modal') {
+			dispatch(selectSingleFile(file));
+		} else {
+			dispatch(selectMultiplyFile(file));
+		}
 	};
 	return (
 		<div

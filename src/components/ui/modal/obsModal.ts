@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 
 export interface ModalState {
-	[key: string]: boolean;
+	[key: string]: { value: boolean; fn?: Function };
 }
 
 export const obsModal = new BehaviorSubject<ModalState>({});

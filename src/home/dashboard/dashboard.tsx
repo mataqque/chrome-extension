@@ -8,18 +8,25 @@ import { useEffect, useState } from 'react';
 import { Modal } from '../../components/ui/modal/modal';
 import Upload from '../../components/modalupload/modalupload';
 import { obsSidebar } from './obsSidebar';
-import { PopupNote } from './notes/components/popup/popup';
+import { PopupTask } from './notes/components/popup/popup';
+import { ModalUpload } from './gestion-de-archivos/popup';
 export default function LayoutDashboard({ children }: { children: React.ReactNode }) {
 	const closeAside = () => {
 		obsSidebar.next(true);
 	};
 	return (
 		<main className='dashboard flex'>
-			<Modal index={10} id='modalupload'>
+			<Modal index={12} id='modalupload'>
 				<Upload></Upload>
 			</Modal>
+			<Modal index={11} id='modalGallery'>
+				<ModalUpload></ModalUpload>
+			</Modal>
+			<Modal index={10} id='popupTask'>
+				<PopupTask></PopupTask>
+			</Modal>
 			<Modal index={10} id='popupNote'>
-				<PopupNote></PopupNote>
+				<PopupTask></PopupTask>
 			</Modal>
 			<AsideBar></AsideBar>
 			<div className='content-pages-dash w-full h-screen flex flex-col'>

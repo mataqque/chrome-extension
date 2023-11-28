@@ -6,7 +6,7 @@ export const ButtonAddFile = () => {
 	const { onClose } = useContext(ModalContext);
 	const openModal = () => {
 		obsModal.next({
-			['modalupload']: true,
+			['modalupload']: { value: true },
 		});
 	};
 	return (
