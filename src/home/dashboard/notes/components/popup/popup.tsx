@@ -56,6 +56,9 @@ export const PopupNote = () => {
 									<InputToggle name='status' form={form} />
 								</div>
 								<div className='flex flex-col w-full'>
+									<span className='mb-2 flex text-sixth text-1/1'>Agregar Imagen</span>
+								</div>
+								<div className='flex flex-col w-full'>
 									<span className='mb-2 flex text-sixth text-1/1'>Nombre de la categoría</span>
 									<InputText name='name' form={form} placeholder='Nombre de la categoría' />
 								</div>
