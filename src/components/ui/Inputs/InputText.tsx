@@ -23,7 +23,7 @@ export const InputText = (props: IInputProps) => {
 		<div className={`relative ${rest?.className ? rest.className : ''}`}>
 			<div className={`content-sub-input ${props.icon ? 'include-icon' : ''}`}>
 				<input
-					className={`w-full border border-solid border-fifth h-12 px-4 rounded-lg text-secondary placeholder:text-gray-300 bg-white ${getInputClasses(name, form)}`}
+					className={`w-full border border-solid border-fifth h-12 px-4 rounded-lg text-gray-400 placeholder:text-gray-300 bg-white ${getInputClasses(name, form)}`}
 					type={props.type || 'text'}
 					autoComplete='off'
 					placeholder={placeholder || ''}
@@ -56,7 +56,7 @@ export const InputTextPassword = (props: IInputProps) => {
 			{title && <label>{title}</label>}
 			<div className={`content-sub-input ${props.icon ? 'include-icon' : ''}`}>
 				<input
-					className={`w-full border border-solid border-gray-200 h-12 px-4 rounded-lg text-secondary placeholder:text-gray-300 ${getInputClasses(name, form)}`}
+					className={`w-full border border-solid border-gray-200 h-12 px-4 rounded-lg text-gray-400 placeholder:text-gray-300 ${getInputClasses(name, form)}`}
 					type={iconShowPassword ? 'password' : 'text'}
 					placeholder={placeholder || ''}
 					{...setInputTextProps(name, form)}

@@ -24,11 +24,16 @@ export interface IInputPropsDate {
 	tabIndex?: number;
 	disabledDate?: (date: Date) => boolean;
 }
+
+export interface ISelectDataProps {
+	value: string;
+	label: string;
+}
 export interface ISelectProps {
 	name: string;
 	form: any;
 	label: string;
-	data: { value: string; label: string }[];
+	data: ISelectDataProps[];
 	title?: string;
 	defaultValue?: any;
 	className?: string;

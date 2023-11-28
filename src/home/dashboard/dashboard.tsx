@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { Modal } from '../../components/ui/modal/modal';
 import Upload from '../../components/modalupload/modalupload';
 import { obsSidebar } from './obsSidebar';
+import { PopupNote } from './notes/components/popup/popup';
 export default function LayoutDashboard({ children }: { children: React.ReactNode }) {
 	const closeAside = () => {
 		obsSidebar.next(true);
@@ -16,6 +17,9 @@ export default function LayoutDashboard({ children }: { children: React.ReactNod
 		<main className='dashboard flex'>
 			<Modal index={10} id='modalupload'>
 				<Upload></Upload>
+			</Modal>
+			<Modal index={10} id='popupNote'>
+				<PopupNote></PopupNote>
 			</Modal>
 			<AsideBar></AsideBar>
 			<div className='content-pages-dash w-full h-screen flex flex-col'>

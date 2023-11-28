@@ -1,3 +1,4 @@
+import { ISelectDataProps } from '../components/ui/Inputs/interface';
 import { ICombined, Item, TypeGeneric } from './ihelpers';
 import { IFile } from './interface';
 
@@ -125,6 +126,11 @@ export const disableCheckables = (container: string) => {
 	});
 };
 
+export const partials = (data: any): ISelectDataProps[] => {
+	return data.map((e: any) => {
+		return { value: e.uuid, label: e.name };
+	});
+};
 export const delayfunc = (func: Function, time: number) => {
 	return new Promise((resolve: any) => {
 		let delay = setTimeout(() => {

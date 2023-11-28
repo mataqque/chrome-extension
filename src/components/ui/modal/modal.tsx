@@ -10,7 +10,10 @@ interface ModalProps {
 }
 
 interface ModalContextProps {
-	/** @param value */
+	/**
+	 * value receives a boolean value, false to close the modal and true to open it
+	 * @type {string} - Describe el tipo del atributo.
+	 */
 	onClose: (value: boolean) => void;
 }
 
@@ -46,7 +49,9 @@ export const Modal = ({ index = 10, children, value = false, id = generateId({ t
 	return (
 		<ModalContext.Provider value={{ onClose: closeModal }}>
 			<div
-				className={`fixed h-[100vh] min-h-full w-full top-0 left-0 bg-[#00000061] filter-blur hidden items-center justify-center [&.active]:flex  ${showModal ? 'active' : ''}`}
+				className={`fixed h-[100vh] min-h-full w-full top-0 backdrop-blur-[1px] left-0 bg-[#00000061] filter-blur hidden items-center justify-center [&.active]:flex  ${
+					showModal ? 'active' : ''
+				}`}
 				style={{ zIndex: index }}
 				onMouseEnter={() => setMouseModal(true)}
 				onMouseLeave={() => setMouseModal(false)}

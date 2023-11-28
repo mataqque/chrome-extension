@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useCategoriesMutation } from '../../../store/api/categoryApi';
+import { useCategoriesMutation, useSubcategoriesMutation } from '../../../store/api/categoryApi';
 import { LazyImage } from '../gestion-de-archivos/components/lazyImages/images';
-import { ButtonAddTask } from './components/buttons/buttonButton';
+import { ButtonAddCategoryTask } from './components/buttons/ButtonAddCategoryTask';
 import { ButtonDeleteTask } from './components/buttons/buttonDelete';
 import { SearchButtonTask } from './components/inputs/searchButton';
 import { useDispatch } from 'react-redux';
-import { selectCategory, updateCategories } from '../../../store/slice/categorySlice';
+import { selectCategory, updateCategories, updateSubCategories } from '../../../store/slice/categorySlice';
 import { useSelector } from 'react-redux';
+import { ButtonAddTask } from './components/buttons/buttonAddTask';
 
 export const TaskPage = () => {
 	const dispatch = useDispatch();
@@ -25,11 +26,12 @@ export const TaskPage = () => {
 			<div className='content-tab flex py-3 border-y border-slate-200 d-flex mb-4 border-solid gap-2 flex-wrap xsm:flex-no-wrap'>
 				<SearchButtonTask />
 				<ButtonAddTask />
+				<ButtonAddCategoryTask />
 				<ButtonDeleteTask />
 			</div>
 			<div className='flex w-full bg-seventh rounded-lg h-full p-4 gap-4'>
 				<TypesTask></TypesTask>
-				<SubCategories />
+				<ContentCategories />
 			</div>
 		</section>
 	);
@@ -45,9 +47,19 @@ interface Props {
 		total: number;
 	};
 }
-const SubCategories = () => {
+const ContentCategories = () => {
+	return (
+		<div className='w-full h-full bg-white rounded-lg p-4 flex flex-col'>
+			<ContentSubCategories></ContentSubCategories>
+			<div className='w-full h-[1px] bg-slate-200 my-4'></div>
+			<ContentTasks></ContentTasks>
+		</div>
+	);
+};
+
+const ContentSubCategories = () => {
 	const textoColorBlanco = [255, 255, 255];
-	const categories = useSelector((state: any) => state.categorySlice.categories);
+	const subCategory = useSelector((state: any) => state.categorySlice.subCategory);
 	const colorRandom = (textoColor: any[]) => {
 		const randomColor = Array.from({ length: 3 }, () => Math.floor(Math.random() * 128) + 64);
 
@@ -57,24 +69,37 @@ const SubCategories = () => {
 		return `#${hexColor}`;
 	};
 	return (
-		<div className='w-full h-full bg-white rounded-lg p-4 flex flex-col'>
-			<div className='w-full h-8 flex gap-4'>
-				{categories?.data?.map((item: any) => {
-					return (
-						<div
-							className={`w-max h-full px-4 rounded-full flex items-center justify-center text-white text-sub-category`}
-							key={item.uuid}
-							style={{ backgroundColor: colorRandom(textoColorBlanco) }}
-						>
-							{item.name}
-						</div>
-					);
-				})}
-			</div>
-			<div className='w-full h-[1px] bg-slate-200 my-4'></div>
+		<div className='w-full h-8 flex gap-4'>
+			{subCategory.map((item: any) => {
+				return (
+					<div
+						className={`w-max h-full px-4 rounded-full flex items-center justify-center text-white text-sub-category cursor-pointer`}
+						key={item.uuid}
+						style={{ backgroundColor: colorRandom(textoColorBlanco) }}
+					>
+						{item.name}
+					</div>
+				);
+			})}
 		</div>
 	);
 };
+
+export const ContentTasks = () => {
+	return <Task></Task>;
+};
+
+export const Task = () => {
+	return (
+		<div className='w-full h-full grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4'>
+			<div className='h-[15rem] w-full rounded-xl bg-[#f1f4ff] p-4'>
+				<span className='text-1/2 text-primary'>Tarea Nueva</span>
+				<div className='w-full h-[1px] bg-gray-100 my-2'></div>
+			</div>
+		</div>
+	);
+};
+
 const TypesTask = () => {
 	const categories = useSelector((state: any) => state.categorySlice.categories);
 
@@ -95,18 +120,21 @@ const TypesTask = () => {
 };
 
 const ItemTypeTask = ({ category }: any) => {
+	const [getSubCategories, {}] = useSubcategoriesMutation();
 	const categoriesSelected = useSelector((state: any) => state.categorySlice.categoriesSelected);
 	const dispatch = useDispatch();
-	const handleSelect = () => {
+	const handleSelect = async (c: any) => {
+		const { data }: any = await getSubCategories({ parent: c.uuid });
+		dispatch(updateSubCategories(data.data));
 		dispatch(selectCategory(category));
 	};
 	return (
 		<div
 			className={`w-full h-[8rem] rounded-xl bg-[#f1f4ff] cursor-pointer hover:bg-[#dce4ff] duration-300 group p-3 flex gap-4 [&.active]:bg-[#dce4ff] ${
-				categoriesSelected.includes(category) ? 'active' : ''
+				categoriesSelected.uuid == category.uuid ? 'active' : ''
 			}`}
 			onClick={() => {
-				handleSelect();
+				handleSelect(category);
 			}}
 		>
 			<LazyImage src='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' class='w-[6rem] h-full rounded-xl overflow-hidden'></LazyImage>

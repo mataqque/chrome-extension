@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_API_LOCAL } from '../config';
+import { IPropsAddCategory } from './interface';
 export const categoryApi = createApi({
 	reducerPath: 'categoryApi',
 	baseQuery: fetchBaseQuery({
@@ -7,7 +8,7 @@ export const categoryApi = createApi({
 	}),
 	endpoints: builder => ({
 		categories: builder.mutation({
-			query: ({ page = '', cant = '' }) => {
+			query: ({ page = 1, cant = 10 }: { page?: number; cant?: number }) => {
 				return {
 					url: `/categories/parents?page=${page}&cant=${cant}`,
 					method: 'GET',
@@ -17,19 +18,29 @@ export const categoryApi = createApi({
 				};
 			},
 		}),
-		deleteCategory: builder.mutation({
-			query: data => {
+		subcategories: builder.mutation({
+			query: ({ parent = '', page = 1, cant = 10 }) => {
 				return {
-					url: `/files/delete`,
-					method: 'POST',
-					body: data,
+					url: `/categories/children?parent=${parent}&page=${page}&cant=${cant}`,
+					method: 'GET',
+					headers: {
+						authorization: `Bearer ${localStorage.getItem('token')}`,
+					},
+				};
+			},
+		}),
+		deleteCategory: builder.mutation({
+			query: ({ uuid }: { uuid: string }) => {
+				return {
+					url: `/categories/delete/${uuid}`,
+					method: 'DELETE',
 				};
 			},
 		}),
 		addCategory: builder.mutation({
-			query: data => {
+			query: (data: IPropsAddCategory) => {
 				return {
-					url: `/files/add`,
+					url: `/categories/add`,
 					method: 'POST',
 					body: data,
 				};
@@ -38,4 +49,4 @@ export const categoryApi = createApi({
 	}),
 });
 
-export const { useCategoriesMutation, useDeleteCategoryMutation } = categoryApi;
+export const { useCategoriesMutation, useDeleteCategoryMutation, useAddCategoryMutation, useSubcategoriesMutation } = categoryApi;
