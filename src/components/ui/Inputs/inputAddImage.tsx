@@ -2,21 +2,21 @@ import { useEffect, useState } from 'react';
 import { setInputTextProps } from '../../../common/form';
 import { obsModal } from '../modal/obsModal';
 import { obsFileManager } from '../../../home/dashboard/gestion-de-archivos/obsFileManager';
+import { generateId, generateUrl } from '../../../common/helpers';
+import { generatePath } from 'react-router';
+import { IFile, IFileSelected } from '../../../common/interface';
+import { BASE_API, BASE_API_LOCAL } from '../../../store/config';
 
-interface IImage {
-	src: string;
-	alt: string;
-}
 export const InputAddImage = ({ name, form, galleryId }: { name: string; form?: any; galleryId: string }) => {
-	const [image, setImage] = useState<IImage>();
+	const [image, setImage] = useState<IFile>();
+	const id = generateId({ type: 'string' });
 	const eventOpenModal = () => {
-		obsModal.next({
-			[galleryId]: { value: true, fn: setImage },
-		});
+		obsModal.next({ [galleryId]: { value: true, fn: setImage } });
+		obsFileManager.next({ [id]: { fn: setImage } });
 	};
 	useEffect(() => {
 		const manager = obsFileManager.subscribe(data => {
-			console.log(data);
+			console.log('INPUT_IMAGE', data);
 		});
 		return () => {
 			manager.unsubscribe();
@@ -24,7 +24,7 @@ export const InputAddImage = ({ name, form, galleryId }: { name: string; form?: 
 	}, []);
 	return (
 		<div
-			className='py-6 bg-[#8ab2ff21] flex flex-col items-center justify-center gap-4 border-dashed border-2 border-[#2d4166] rounded-lg relative cursor-pointer'
+			className='py-0 bg-[#8ab2ff21] flex flex-col items-center justify-center gap-4 border-dashed border-2 border-[#2d4166] rounded-lg relative cursor-pointer h-[8rem]'
 			onClick={() => {
 				eventOpenModal();
 			}}
@@ -33,7 +33,7 @@ export const InputAddImage = ({ name, form, galleryId }: { name: string; form?: 
 				<div className='mask-center icon-plus w-1/2 h-1/2 bg-white'></div>
 			</div>
 			<input type='text' value='' className='sr-only peer hidden' {...setInputTextProps(name, form)} />
-			<span className='text-primary'>Agregar imagen</span>
+			{(image && <img className='w-full h-full object-cover' src={generateUrl(image, BASE_API)} />) || <span className='text-primary'>Agregar imagen</span>}
 		</div>
 	);
 };

@@ -24,13 +24,14 @@ export const FileManager = ({ type = 'page' }: { type?: TypeManage }) => {
 	const dispatch = useDispatch();
 	const [getFiles, { isSuccess }] = useGetFilesMutation<any>();
 	const eventFileSelected = (file: IFileSelected) => {
-		obsFileManager.next(file);
+		console.log('EVENT_IMAGE', file);
 	};
+
 	const init = async () => {
 		await delayfunc(async () => {
 			const { data }: any = await getFiles('');
 			dispatch(updateFiles(data.results));
-		}, 1000);
+		}, 100);
 	};
 	useEffect(() => {
 		(async () => {
@@ -58,7 +59,6 @@ export const FileManager = ({ type = 'page' }: { type?: TypeManage }) => {
 
 function ContentFiles() {
 	const files = useSelector((state: any) => state.filesManageSlice.files);
-	console.log('files', files);
 	return (
 		<div className='w-full h-full overflow-y-auto'>
 			<div className='grid grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-4 h-full scroll'>

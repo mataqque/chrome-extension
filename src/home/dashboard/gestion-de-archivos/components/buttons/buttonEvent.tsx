@@ -2,13 +2,20 @@ import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { FileManagerContext } from '../../page';
 import { ModalContext } from '../../../../../components/ui/modal/modal';
+import { obsFileManager } from '../../obsFileManager';
+import { IFileSelected } from '../../../../../common/interface';
 
 export const ButtonEvent = () => {
 	const { onClose } = useContext(ModalContext);
 	const { fn } = useContext(FileManagerContext);
-	const select = useSelector((state: any) => state.filesManageSlice.filesSelected);
+	const select: IFileSelected[] = useSelector((state: any) => state.filesManageSlice.filesSelected);
 	const event = () => {
-		fn(select);
+		const data = obsFileManager.getValue();
+		Object.keys(data).forEach(key => {
+			if (data[key].fn) {
+				data[key].fn(select[0]);
+			}
+		});
 		onClose(false);
 	};
 	return (

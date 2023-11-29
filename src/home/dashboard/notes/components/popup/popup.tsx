@@ -34,7 +34,6 @@ export const PopupTask = () => {
 	useEffect(() => {
 		getData().then(res => {
 			const data = partials(res.data);
-			console.log(data);
 			setData(data);
 		});
 	}, []);
@@ -75,7 +74,7 @@ export const PopupTask = () => {
 									<InputSelect name='parentCategoryId' form={form} data={data} label='Nombre de la categoría' color='#3360b1' />
 								</div>
 							</div>
-							<button type='submit' className='cursor-pointer h-10 w-max bg-success p-4 text-white flex items-center justify-center rounded-md select-none ml-auto'>
+							<button type='submit' className='cursor-pointer h-12 w-max bg-success p-4 text-white flex items-center justify-center rounded-md select-none ml-auto text-1/0'>
 								Guardar los cambios
 							</button>
 						</form>

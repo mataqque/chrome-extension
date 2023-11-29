@@ -14,7 +14,7 @@ export const addShy = (text: string) => {
 	return text.slice(0, 20) + shy + text.slice(20);
 };
 
-export const generateUrl = (props: IFile, host: string) => {
+export const generateUrl = (props: IFile, host?: string) => {
 	const { fileName, dir } = props;
 	if (host) {
 		return host + '/' + dir + '/' + fileName;
