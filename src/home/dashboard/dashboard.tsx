@@ -25,9 +25,9 @@ export default function LayoutDashboard({ children }: { children: React.ReactNod
 			<Modal index={10} id='popupTask'>
 				<PopupTask></PopupTask>
 			</Modal>
-			<Modal index={10} id='popupNote'>
+			{/* <Modal index={10} id='popupNote'>
 				<PopupTask></PopupTask>
-			</Modal>
+			</Modal> */}
 			<AsideBar></AsideBar>
 			<div className='content-pages-dash w-full h-screen flex flex-col'>
 				<div className='navbar-dashboard h-12 shadow'>

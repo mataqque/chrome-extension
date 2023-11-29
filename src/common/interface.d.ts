@@ -3,6 +3,8 @@ export interface IToastNotifyPromise {
 	promise: Promise<unknown>;
 }
 
+type EventType = 'change';
+
 export interface IFile {
 	id: number;
 	uuid: string;

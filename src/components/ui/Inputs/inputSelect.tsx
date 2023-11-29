@@ -17,6 +17,7 @@ const getInputClasses = (name: string, form: any) => {
 		return '--valid';
 	}
 };
+
 export const InputSelect = (props: ISelectProps) => {
 	const { title, name, label, form, color, defaultValue = '', ...rest } = props;
 	const [showOptions, setShowOptions] = useState<unknown>('');

@@ -30,6 +30,7 @@ export const PopupTask = () => {
 	const onSubmit: FormikSubmitHandler<Yup.InferType<typeof schemaType>> = async (values: any, form) => {
 		values.uuid = generateId({ type: 'string' });
 		const res = await createCategory(values);
+		console.log(res);
 	};
 	useEffect(() => {
 		getData().then(res => {
@@ -58,7 +59,7 @@ export const PopupTask = () => {
 								</div>
 								<div className='flex flex-col w-full'>
 									<span className='mb-2 flex text-sixth text-1/1'>Agregar Imagen</span>
-									<InputAddImage name='image' form={form} galleryId='modalGallery'></InputAddImage>
+									<InputAddImage name='imageFileId' form={form} galleryId='modalGallery'></InputAddImage>
 								</div>
 								<div className='flex flex-col w-full'>
 									<span className='mb-2 flex text-sixth text-1/1'>Nombre de la categoría</span>

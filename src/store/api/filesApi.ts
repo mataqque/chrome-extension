@@ -11,9 +11,6 @@ export const filesManageApi = createApi({
 				return {
 					url: `/files/getFiles${search || ''}`,
 					method: 'GET',
-					headers: {
-						authorization: `Bearer ${localStorage.getItem('token')}`,
-					},
 				};
 			},
 		}),

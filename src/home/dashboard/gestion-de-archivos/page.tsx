@@ -60,7 +60,7 @@ export const FileManager = ({ type = 'page' }: { type?: TypeManage }) => {
 function ContentFiles() {
 	const files = useSelector((state: any) => state.filesManageSlice.files);
 	return (
-		<div className='w-full h-full overflow-y-auto'>
+		<div className='w-full h-max overflow-y-auto'>
 			<div className='grid grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-4 h-full scroll'>
 				{files &&
 					files.length > 0 &&
@@ -91,7 +91,7 @@ function File({ file }: { file: IFile }) {
 			<div className='w-full rounded-lg overflow-hidden h-[7.3rem] mb-2'>
 				<img src={generateUrl(file, BASE_API)} alt='' className='w-full h-full object-cover' />
 			</div>
-			<span className='text-primary select-none text-0/9 group-[&.active]:text-white'>{addShy(file.fileName)}</span>
+			<span className='text-primary select-none text-0/8 group-[&.active]:text-white'>{addShy(file.fileName)}</span>
 		</div>
 	);
 }

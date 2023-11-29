@@ -1,6 +1,6 @@
 import { ISelectDataProps } from '../components/ui/Inputs/interface';
 import { ICombined, Item, TypeGeneric } from './ihelpers';
-import { IFile } from './interface';
+import { EventType, IFile } from './interface';
 
 export const resumeText = (text: string, number: number) => {
 	if (text.length <= number) {
@@ -39,7 +39,7 @@ export const generateId = ({ type }: { type: string }): string => {
 	return typeid[type as keyof TypeGeneric] || typeIdDefault;
 };
 
-export const dispatchEvent = (element: any, event: any, value: string) => {
+export const dispatchEvent = (element: HTMLInputElement, event: EventType, value: string) => {
 	element.setAttribute('value', value);
 	element.dispatchEvent(new Event(event, { bubbles: true }));
 };
