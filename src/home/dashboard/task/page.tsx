@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { ButtonAddTask } from './components/buttons/buttonAddTask';
 import { generateUrl } from '../../../common/helpers';
 import { BASE_API } from '../../../store/config';
+import { ICategory, IFile } from '../../../common/interface';
 
 export const TaskPage = () => {
 	const dispatch = useDispatch();
@@ -121,7 +122,11 @@ const TypesTask = () => {
 	);
 };
 
-const ItemTypeTask = ({ category }: any) => {
+interface IProps extends ICategory {
+	image: IFile;
+}
+
+const ItemTypeTask = ({ category }: { category: IProps }) => {
 	const [getSubCategories, {}] = useSubcategoriesMutation();
 	const categoriesSelected = useSelector((state: any) => state.categorySlice.categoriesSelected);
 	const dispatch = useDispatch();
@@ -139,7 +144,7 @@ const ItemTypeTask = ({ category }: any) => {
 				handleSelect(category);
 			}}
 		>
-			<LazyImage src={''} class='w-[6rem] h-full rounded-xl overflow-hidden'></LazyImage>
+			<LazyImage src={generateUrl(category.image, BASE_API)} class='w-[6rem] h-full rounded-xl overflow-hidden'></LazyImage>
 			<div className='flex flex-col'>
 				<span className='text-1/2 text-sixth'>{category.name}</span>
 				<p className='text-sixth text-0/9'>lore</p>

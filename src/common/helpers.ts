@@ -14,7 +14,7 @@ export const addShy = (text: string) => {
 	return text.slice(0, 20) + shy + text.slice(20);
 };
 
-export const generateUrl = (props: IFile, host?: string) => {
+export const generateUrl = (props: IFile, host?: string): string => {
 	try {
 		const { fileName = 'no-image.png', dir = 'no-image.png' } = props;
 		if (host) {
@@ -24,6 +24,7 @@ export const generateUrl = (props: IFile, host?: string) => {
 		return url;
 	} catch (error) {
 		console.log(error);
+		return '';
 	}
 };
 export const combinedFilters = ({ array = [], data = [] }: ICombined) => {
