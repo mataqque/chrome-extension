@@ -64,7 +64,7 @@ export default function Upload() {
 				if (xhr.status === 200 || xhr.status === 201) {
 					await delayfunc(async () => {
 						const { data }: any = await getFiles('');
-						dispatch(updateFiles(data.results));
+						dispatch(updateFiles(data.data));
 					}, 1000);
 				} else {
 					console.error('Error al subir el archivo.');

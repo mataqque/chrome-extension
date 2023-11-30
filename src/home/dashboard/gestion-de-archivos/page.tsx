@@ -21,6 +21,7 @@ import { obsFileManager } from './obsFileManager';
 type TypeManage = 'modal' | 'page';
 export const FileManagerContext = createContext<{ type: TypeManage; fn: Function }>({ type: 'page', fn: () => {} });
 export const FileManager = ({ type = 'page' }: { type?: TypeManage }) => {
+	console.log('type', type);
 	const dispatch = useDispatch();
 	const [getFiles, { isSuccess }] = useGetFilesMutation<any>();
 	const eventFileSelected = (file: IFileSelected) => {
@@ -30,7 +31,7 @@ export const FileManager = ({ type = 'page' }: { type?: TypeManage }) => {
 	const init = async () => {
 		await delayfunc(async () => {
 			const { data }: any = await getFiles('');
-			dispatch(updateFiles(data.results));
+			dispatch(updateFiles(data.data));
 		}, 100);
 	};
 	useEffect(() => {
@@ -48,7 +49,12 @@ export const FileManager = ({ type = 'page' }: { type?: TypeManage }) => {
 				<div className='content-tab flex py-3 border-y border-slate-200 d-flex mb-4 border-solid gap-2 flex-wrap xsm:flex-no-wrap'>
 					<InputSearchFile />
 					<ButtonAddFile />
-					{type !== 'modal' && <ButtonDeleteFile /> && <ButtonOpenFolder />}
+
+					{type == 'page' ? (
+						<>
+							<ButtonDeleteFile /> <ButtonOpenFolder />{' '}
+						</>
+					) : null}
 					{type == 'modal' && <ButtonEvent />}
 				</div>
 				<ContentFiles />

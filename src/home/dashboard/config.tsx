@@ -31,7 +31,7 @@ export const itemSidebar = [
 				icon: 'icon-media',
 				segment: 'gestion-de-archivos',
 				to: '/dashboard/gestion-de-archivos',
-				component: <FileManager />,
+				component: <FileManager type='page' />,
 				id: generateId({ type: 'string' }),
 			},
 		],

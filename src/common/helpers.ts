@@ -15,12 +15,16 @@ export const addShy = (text: string) => {
 };
 
 export const generateUrl = (props: IFile, host?: string) => {
-	const { fileName, dir } = props;
-	if (host) {
-		return host + '/' + dir + '/' + fileName;
+	try {
+		const { fileName = 'no-image.png', dir = 'no-image.png' } = props;
+		if (host) {
+			return host + '/' + dir + '/' + fileName;
+		}
+		let url = dir + '/' + fileName;
+		return url;
+	} catch (error) {
+		console.log(error);
 	}
-	let url = dir + '/' + fileName;
-	return url;
 };
 export const combinedFilters = ({ array = [], data = [] }: ICombined) => {
 	let result: any[] = data || [];

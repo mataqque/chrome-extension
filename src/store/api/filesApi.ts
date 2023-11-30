@@ -9,7 +9,7 @@ export const filesManageApi = createApi({
 		getFiles: builder.mutation({
 			query: (search: string) => {
 				return {
-					url: `/files/getFiles${search || ''}`,
+					url: `/files/getFiles${search || '?'}&page=1&cant=30`,
 					method: 'GET',
 				};
 			},

@@ -86,3 +86,7 @@
 		animation: closeOptions 0.2s linear forwards;
 	}
 }
+span[aria-live='polite'] {
+	height: 100%;
+	display: flex;
+}

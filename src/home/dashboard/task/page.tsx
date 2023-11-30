@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux';
 import { selectCategory, updateCategories, updateSubCategories } from '../../../store/slice/categorySlice';
 import { useSelector } from 'react-redux';
 import { ButtonAddTask } from './components/buttons/buttonAddTask';
+import { generateUrl } from '../../../common/helpers';
+import { BASE_API } from '../../../store/config';
 
 export const TaskPage = () => {
 	const dispatch = useDispatch();
@@ -137,7 +139,7 @@ const ItemTypeTask = ({ category }: any) => {
 				handleSelect(category);
 			}}
 		>
-			<LazyImage src='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' class='w-[6rem] h-full rounded-xl overflow-hidden'></LazyImage>
+			<LazyImage src={''} class='w-[6rem] h-full rounded-xl overflow-hidden'></LazyImage>
 			<div className='flex flex-col'>
 				<span className='text-1/2 text-sixth'>{category.name}</span>
 				<p className='text-sixth text-0/9'>lore</p>

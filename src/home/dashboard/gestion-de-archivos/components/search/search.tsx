@@ -18,7 +18,7 @@ export const InputSearchFile = () => {
 		window.history.pushState({}, '', url);
 		await delayfunc(async () => {
 			const { data }: any = await getFiles(url.search);
-			dispatch(updateFiles(data.results));
+			dispatch(updateFiles(data.data));
 		}, 1000);
 	};
 	return (
