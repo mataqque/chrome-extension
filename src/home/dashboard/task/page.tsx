@@ -32,7 +32,7 @@ export const TaskPage = () => {
 				<ButtonAddCategoryTask />
 				<ButtonDeleteTask />
 			</div>
-			<div className='flex w-full bg-seventh rounded-lg h-full p-4 gap-4'>
+			<div className='flex w-full bg-seventh rounded-lg h-full p-4 gap-4 overflow-hidden'>
 				<TypesTask></TypesTask>
 				<ContentCategories />
 			</div>
@@ -107,13 +107,13 @@ const TypesTask = () => {
 	const categories = useSelector((state: any) => state.categorySlice.categories);
 
 	return (
-		<div className='min-w-[25rem] w-[25rem] h-max bg-white rounded-xl p-4 shadow-[0px_0px_10px_-2px_#b8cad9]'>
+		<div className='min-w-[25rem] w-[25rem] h-max bg-white rounded-xl p-4 shadow-[0px_0px_10px_-2px_#b8cad9] max-h-[100%] overflow-hidden flex flex-col'>
 			<div className='flex mb-2'>
 				<div className='mask-left icon-notepad w-8 h-8 bg-sixth mr-2'></div>
 				<span className='text-sixth text-1/4'>Categorías de Tareas</span>
 			</div>
 			<span className='text-[#3360b1] text-1/1 mb-2 flex'>130 Tareas</span>
-			<div className='flex flex-col gap-2'>
+			<div className='flex flex-col gap-2 scroll overflow-y-auto'>
 				{categories?.data?.map((item: any) => {
 					return <ItemTypeTask key={item.uuid} category={item}></ItemTypeTask>;
 				})}
@@ -137,13 +137,16 @@ const ItemTypeTask = ({ category }: { category: IProps }) => {
 	};
 	return (
 		<div
-			className={`w-full h-[8rem] rounded-xl bg-[#f1f4ff] cursor-pointer hover:bg-[#dce4ff] duration-300 group p-3 flex gap-4 [&.active]:bg-[#dce4ff] ${
+			className={`w-full h-[8rem] rounded-xl bg-[#f1f4ff] cursor-pointer hover:bg-[#dce4ff] duration-300 group p-3 flex gap-4 [&.active]:bg-[#dce4ff] relative ${
 				categoriesSelected.uuid == category.uuid ? 'active' : ''
 			}`}
 			onClick={() => {
 				handleSelect(category);
 			}}
 		>
+			<div className='w-8 h-8 rounded-full bg-[#3360b1] absolute top-2 right-2 flex items-center justify-center'>
+				<div className='bg-white mask-center icon-edit w-1/2 h-1/2'></div>
+			</div>
 			<LazyImage src={generateUrl(category.image, BASE_API)} class='w-[6rem] h-full rounded-xl overflow-hidden'></LazyImage>
 			<div className='flex flex-col'>
 				<span className='text-1/2 text-sixth'>{category.name}</span>

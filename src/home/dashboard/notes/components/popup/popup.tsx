@@ -10,13 +10,17 @@ import { ISelectDataProps } from '../../../../../components/ui/Inputs/interface'
 import { BASE_API_LOCAL } from '../../../../../store/config';
 import { delayfunc, generateId, partials } from '../../../../../common/helpers';
 import { getData } from './fetch';
-import { useAddCategoryMutation } from '../../../../../store/api/categoryApi';
+import { useAddCategoryMutation, useCategoriesMutation } from '../../../../../store/api/categoryApi';
 import { InputToggle } from '../../../../../components/ui/Inputs/inputToggle';
 import { InputAddImage } from '../../../../../components/ui/Inputs/inputAddImage';
+import { updateCategories } from '../../../../../store/slice/categorySlice';
+import { useDispatch } from 'react-redux';
 
 export const PopupTask = () => {
 	const [data, setData] = useState<ISelectDataProps[]>([]);
+	const dispatch = useDispatch();
 	const [createCategory, {}] = useAddCategoryMutation();
+	const [getDataCategories, {}] = useCategoriesMutation();
 	const { onClose } = useContext(ModalContext);
 	const initialValues = {
 		status: false,
@@ -30,7 +34,10 @@ export const PopupTask = () => {
 	const onSubmit: FormikSubmitHandler<Yup.InferType<typeof schemaType>> = async (values: any, form) => {
 		values.uuid = generateId({ type: 'string' });
 		const res = await createCategory(values);
-		console.log(res);
+		const resCategories: any = await getDataCategories({ page: 1, cant: 10 });
+		console.log(resCategories);
+		dispatch(updateCategories(resCategories.data));
+		form.resetForm();
 	};
 	useEffect(() => {
 		getData().then(res => {

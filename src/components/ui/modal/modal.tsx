@@ -48,16 +48,18 @@ export const Modal = ({ index = 10, children, value = false, id = generateId({ t
 
 	return (
 		<ModalContext.Provider value={{ onClose: closeModal }}>
-			<div
-				className={`fixed h-[100vh] min-h-full w-full top-0 backdrop-blur-[1px] left-0 bg-[#00000061] filter-blur hidden items-center justify-center [&.active]:flex  ${
-					showModal ? 'active' : ''
-				}`}
-				style={{ zIndex: index }}
-				onMouseEnter={() => setMouseModal(true)}
-				onMouseLeave={() => setMouseModal(false)}
-			>
-				{children}
-			</div>
+			{showModal && (
+				<div
+					className={`fixed h-[100vh] min-h-full w-full top-0 backdrop-blur-[1px] left-0 bg-[#00000061] filter-blur hidden items-center justify-center [&.active]:flex  ${
+						showModal ? 'active' : ''
+					}`}
+					style={{ zIndex: index }}
+					onMouseEnter={() => setMouseModal(true)}
+					onMouseLeave={() => setMouseModal(false)}
+				>
+					{children}
+				</div>
+			)}
 		</ModalContext.Provider>
 	);
 };
