@@ -46,6 +46,7 @@ export const generateId = ({ type }: { type: string }): string => {
 
 export const dispatchEvent = (element: HTMLInputElement, event: EventType, value: string) => {
 	element.setAttribute('value', value);
+	element.value = value;
 	element.dispatchEvent(new Event(event, { bubbles: true }));
 };
 export const dispatchEventSelect = (element: any, event: any, value: string) => {

@@ -29,7 +29,7 @@ export const Modal = ({ index = 10, children, value = false, id = generateId({ t
 
 	useEffect(() => {
 		const handleEscapeKey = (e: KeyboardEvent, nameID: string) => {
-			if (e.key === 'Escape') {
+			if (e.key === 'Escape' && onMouseModal) {
 				closeModal(false);
 			}
 		};
@@ -54,8 +54,8 @@ export const Modal = ({ index = 10, children, value = false, id = generateId({ t
 						showModal ? 'active' : ''
 					}`}
 					style={{ zIndex: index }}
-					// onMouseEnter={() => setMouseModal(true)}
-					// onMouseLeave={() => setMouseModal(false)}
+					onMouseEnter={() => setMouseModal(true)}
+					onMouseLeave={() => setMouseModal(false)}
 				>
 					{children}
 				</div>

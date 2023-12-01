@@ -24,11 +24,11 @@ export const PopupTask = () => {
 	const [getDataCategories, {}] = useCategoriesMutation();
 	const { onClose } = useContext(ModalContext);
 	const initialValues = {
-		status: false,
-		name: '',
-		description: '',
+		status: true,
+		name: 'Flavio',
+		description: 'developer',
 		imageFileId: '',
-		parentCategoryId: '',
+		parentCategoryId: '034r0v312hwq',
 	};
 	const schemaType = taskSchema();
 

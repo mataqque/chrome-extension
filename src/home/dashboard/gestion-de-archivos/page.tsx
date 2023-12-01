@@ -19,15 +19,10 @@ import { obsFileManager } from './obsFileManager';
  * @type {string}
  */
 type TypeManage = 'modal' | 'page';
-export const FileManagerContext = createContext<{ type: TypeManage; fn: Function }>({ type: 'page', fn: () => {} });
+export const FileManagerContext = createContext<{ type: TypeManage }>({ type: 'page' });
 export const FileManager = ({ type = 'page' }: { type?: TypeManage }) => {
-	console.log('type', type);
 	const dispatch = useDispatch();
 	const [getFiles, { isSuccess }] = useGetFilesMutation<any>();
-	const eventFileSelected = (file: IFileSelected) => {
-		console.log('EVENT_IMAGE', file);
-	};
-
 	const init = async () => {
 		await delayfunc(async () => {
 			const { data }: any = await getFiles('');
@@ -40,7 +35,7 @@ export const FileManager = ({ type = 'page' }: { type?: TypeManage }) => {
 		})();
 	}, []);
 	return (
-		<FileManagerContext.Provider value={{ type, fn: eventFileSelected }}>
+		<FileManagerContext.Provider value={{ type }}>
 			<div className='flex flex-col h-full w-full'>
 				<h1 className='text-1/4 bold mb-1 text-primary'>Administrador de archivos</h1>
 				<p className='paragraph mb-3 text-letter'>

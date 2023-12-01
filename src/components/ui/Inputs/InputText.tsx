@@ -25,7 +25,7 @@ export const InputText = (props: IInputProps) => {
 			<div className={`content-sub-input ${props.icon ? 'include-icon' : ''}`}>
 				<Field
 					className={`w-full border border-solid border-fifth h-12 px-4 rounded-lg text-gray-400 placeholder:text-gray-300 bg-white ${getInputClasses(name, form)}`}
-					type={props.type || 'text'}
+					type='text'
 					autoComplete='off'
 					placeholder={placeholder || ''}
 					tabIndex={props.tabIndex || 0}

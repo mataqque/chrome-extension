@@ -2,7 +2,6 @@ import { Field, useField } from 'formik';
 
 export const InputToggle = (props: { name: string; form?: any }) => {
 	const [field, meta, helpers] = useField(props);
-	console.log(field);
 	return (
 		<label className='relative inline-flex items-center cursor-pointer'>
 			<Field type='checkbox' className='sr-only peer' name={props.name} />
