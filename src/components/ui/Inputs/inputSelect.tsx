@@ -64,7 +64,7 @@ export const InputSelect = (props: ISelectProps) => {
 					autoComplete='off'
 					tabIndex={props.tabIndex || 0}
 					{...setInputTextProps(name, form)}
-					// ref={InputRef}
+					ref={InputRef}
 				>
 					{<option value={''}>{label}</option>}
 					{props.data.map((item: any, index: number) => {
