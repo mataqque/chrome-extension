@@ -13,6 +13,10 @@
 	font-size: 14px;
 	text-decoration: none;
 }
+:root {
+	--success: #39c6a4;
+	--danger: #fb6f92;
+}
 .scroll {
 	overflow-y: scroll;
 	&::-webkit-scrollbar-thumb {
@@ -89,4 +93,22 @@
 span[aria-live='polite'] {
 	height: 100%;
 	display: flex;
+}
+
+.input-date.--valid,
+select.--valid,
+input.--valid {
+	border: 1px solid var(--success);
+	& ~ .icon-success {
+		display: flex;
+	}
+}
+.input-date.--invalid,
+select.--invalid,
+input.--invalid {
+	border: 1px solid var(--danger);
+
+	& ~ .icon-error {
+		display: flex;
+	}
 }

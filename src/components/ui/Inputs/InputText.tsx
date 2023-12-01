@@ -4,6 +4,7 @@ import { IconTogglePassword } from './iconInputs';
 import iconValid from '../../../assets/multimedia/icons/check.png';
 import iconError from '../../../assets/multimedia/icons/error.png';
 import { setInputTextProps } from '../../../common/form';
+import { Field } from 'formik';
 
 const getInputClasses = (name: string, form: any) => {
 	const { errors, touched } = form;
@@ -22,12 +23,11 @@ export const InputText = (props: IInputProps) => {
 	return (
 		<div className={`relative ${rest?.className ? rest.className : ''}`}>
 			<div className={`content-sub-input ${props.icon ? 'include-icon' : ''}`}>
-				<input
+				<Field
 					className={`w-full border border-solid border-fifth h-12 px-4 rounded-lg text-gray-400 placeholder:text-gray-300 bg-white ${getInputClasses(name, form)}`}
 					type={props.type || 'text'}
 					autoComplete='off'
 					placeholder={placeholder || ''}
-					defaultValue={defaultValue}
 					tabIndex={props.tabIndex || 0}
 					{...setInputTextProps(name, form)}
 				/>

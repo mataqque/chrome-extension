@@ -15,6 +15,7 @@ import { InputToggle } from '../../../../../components/ui/Inputs/inputToggle';
 import { InputAddImage } from '../../../../../components/ui/Inputs/inputAddImage';
 import { updateCategories } from '../../../../../store/slice/categorySlice';
 import { useDispatch } from 'react-redux';
+import { FormikHandlers, FormikState } from 'formik';
 
 export const PopupTask = () => {
 	const [data, setData] = useState<ISelectDataProps[]>([]);
@@ -26,17 +27,13 @@ export const PopupTask = () => {
 		status: false,
 		name: '',
 		description: '',
-		imageFileId: null,
-		parentCategoryId: null,
+		imageFileId: '',
+		parentCategoryId: '',
 	};
 	const schemaType = taskSchema();
 
 	const onSubmit: FormikSubmitHandler<Yup.InferType<typeof schemaType>> = async (values: any, form) => {
-		values.uuid = generateId({ type: 'string' });
-		const res = await createCategory(values);
-		const resCategories: any = await getDataCategories({ page: 1, cant: 10 });
-		console.log(resCategories);
-		dispatch(updateCategories(resCategories.data));
+		console.log(values);
 		form.resetForm();
 	};
 	useEffect(() => {
@@ -54,8 +51,9 @@ export const PopupTask = () => {
 				}}
 			/>
 			<FormContainer initialValues={initialValues} onSubmit={onSubmit} validationSchema={taskSchema}>
-				{(form: any) => {
-					const { handleSubmit, isSubmitting }: ParametersForm = form;
+				{(form: ParametersForm) => {
+					const { handleSubmit } = form;
+					console.log(status);
 					return (
 						<form className='flex flex-col h-input rounded-5 w-full h-full p-6' onSubmit={handleSubmit}>
 							<h2 className='text-1/5 text-sixth mb-2'>Crear nueva categoría</h2>

@@ -4,6 +4,7 @@ import down from '../../../assets/multimedia/icons/down.svg?url';
 import { ISelectProps } from './interface';
 import { dispatchEvent, dispatchEventSelect } from '../../../common/helpers';
 import { setInputTextProps } from '../../../common/form';
+import { Field } from 'formik';
 
 const getInputClasses = (name: string, form: any) => {
 	const { errors, touched } = form;
@@ -24,9 +25,11 @@ export const InputSelect = (props: ISelectProps) => {
 	const [valueSelect, setValueSelect] = useState<string>(label || '');
 	const InputRef = useRef<HTMLSelectElement>(null);
 	const changeValue = (value: string, label: string) => {
-		setValueSelect(label);
-		setShowOptions(false);
-		dispatchEventSelect(InputRef.current, 'change', value);
+		if (value !== null) {
+			setValueSelect(label);
+			setShowOptions(false);
+			dispatchEventSelect(InputRef.current, 'change', value);
+		}
 	};
 	const openOptions = () => {
 		InputRef.current?.focus();
@@ -55,23 +58,24 @@ export const InputSelect = (props: ISelectProps) => {
 		<div className={`content-input ${rest?.className ? rest.className : ''}`}>
 			{title && <label className='text-letter flex mb-1'>{title}</label>}
 			<div className={`content-sub-input relative select-none ${props.icon ? 'include-icon' : ''}`}>
-				<select
+				<Field
+					component='select'
 					className={`w-full text-transparent border border-solid border-gray-200 h-12 px-4 rounded-lg text-secondary placeholder:text-gray-300 ${getInputClasses(name, form)}`}
 					autoComplete='off'
 					tabIndex={props.tabIndex || 0}
-					defaultValue={defaultValue || ''}
 					{...setInputTextProps(name, form)}
-					ref={InputRef}
+					// ref={InputRef}
 				>
+					{<option value={''}>{label}</option>}
 					{props.data.map((item: any, index: number) => {
-						const { label, value } = item;
+						const { label, value = '' } = item;
 						return (
 							<option key={index} value={value}>
 								{label}
 							</option>
 						);
 					})}
-				</select>
+				</Field>
 				<div className='input select-none absolute top-0 left-0 w-full h-12 flex items-center pl-4 text-gray-400' onClick={() => openOptions()}>
 					{props.icon && (
 						<div className='w-[35px] top-0 bottom-0 left-[1px] flex items-center justify-center h-12'>
@@ -88,8 +92,11 @@ export const InputSelect = (props: ISelectProps) => {
 				>
 					<div className='overflow-hidden h-full'>
 						<div className='content-options scroll max-h-10rem' style={{ scrollbarColor: `${color}` }}>
+							<div className='option px-4 py-2 h-10 min-h-10 hover:bg-[#f2f2f2] cursor-pointer text-gray-500' onClick={() => changeValue('', label)}>
+								{label}
+							</div>
 							{props.data.map((item: any, index: number) => {
-								const { label, value } = item;
+								const { label, value = '' } = item;
 								return (
 									<div key={index + 'option'} className='option px-4 py-2 h-10 min-h-10 hover:bg-[#f2f2f2] cursor-pointer text-gray-500' onClick={() => changeValue(value, label)}>
 										{item.label}
