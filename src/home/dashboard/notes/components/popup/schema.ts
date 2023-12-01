@@ -2,9 +2,9 @@ import * as Yup from 'yup';
 
 export const taskSchema = () =>
 	Yup.object().shape({
-		status: Yup.boolean(),
-		name: Yup.string(),
-		description: Yup.string(),
-		imageFileId: Yup.string().nullable(),
-		parentCategoryId: Yup.string().nullable(),
+		status: Yup.boolean().required(),
+		name: Yup.string().required(),
+		description: Yup.string().required(),
+		imageFileId: Yup.string(),
+		parentCategoryId: Yup.string(),
 	});

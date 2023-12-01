@@ -38,7 +38,7 @@ export const PopupTask = () => {
 	};
 	useEffect(() => {
 		getData().then(res => {
-			const data = partials(res.data);
+			const data = partials(res.data, 'Nombre de la categoría');
 			setData(data);
 		});
 	}, []);
@@ -53,7 +53,6 @@ export const PopupTask = () => {
 			<FormContainer initialValues={initialValues} onSubmit={onSubmit} validationSchema={taskSchema}>
 				{(form: ParametersForm) => {
 					const { handleSubmit } = form;
-					console.log(status);
 					return (
 						<form className='flex flex-col h-input rounded-5 w-full h-full p-6' onSubmit={handleSubmit}>
 							<h2 className='text-1/5 text-sixth mb-2'>Crear nueva categoría</h2>
@@ -72,12 +71,12 @@ export const PopupTask = () => {
 								</div>
 								<div className='flex flex-col w-full'>
 									<span className='flex text-sixth text-1/1 mb-2'>Descripción</span>
-									<InputText name='description' form={form} placeholder='Nombre de la categoría' />
+									<InputText name='description' form={form} placeholder='Descripción' />
 								</div>
 								<div className='flex flex-col w-full'>
-									<span className='flex text-sixth text-1/1'>Categoría</span>
+									<span className='flex text-sixth text-1/1'>Categoría padre</span>
 									<span className='text-gray-500 text-1/0 mb-2'>Si la categoría es superior no seleccione una opción</span>
-									<InputSelect name='parentCategoryId' form={form} data={data} label='Nombre de la categoría' color='#3360b1' />
+									<InputSelect name='parentCategoryId' form={form} data={data} color='#3360b1' />
 								</div>
 							</div>
 							<button type='submit' className='cursor-pointer h-12 w-max bg-success p-4 text-white flex items-center justify-center rounded-md select-none ml-auto text-1/0'>

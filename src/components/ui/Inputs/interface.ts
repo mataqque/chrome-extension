@@ -32,12 +32,8 @@ export interface ISelectDataProps {
 export interface ISelectProps {
 	name: string;
 	form: any;
-	label: string;
 	data: ISelectDataProps[];
-	title?: string;
-	defaultValue?: any;
 	className?: string;
-	icon?: any;
 	color?: string;
 	tabIndex?: number;
 }

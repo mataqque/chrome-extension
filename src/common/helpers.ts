@@ -49,8 +49,10 @@ export const dispatchEvent = (element: HTMLInputElement, event: EventType, value
 	element.dispatchEvent(new Event(event, { bubbles: true }));
 };
 export const dispatchEventSelect = (element: any, event: any, value: string) => {
-	element.value = value;
-	element.dispatchEvent(new Event(event, { bubbles: true }));
+	if (value !== null) {
+		element.value = value;
+		element.dispatchEvent(new Event(event, { bubbles: true }));
+	}
 };
 
 export const verifyExtension = (file: any) => {
@@ -131,10 +133,12 @@ export const disableCheckables = (container: string) => {
 	});
 };
 
-export const partials = (data: any): ISelectDataProps[] => {
-	return data.map((e: any) => {
+export const partials = (data: any, label: string): ISelectDataProps[] => {
+	let res = data.map((e: any) => {
 		return { value: e.uuid, label: e.name };
 	});
+	res.unshift({ value: '', label: label });
+	return res;
 };
 export const delayfunc = (func: Function, time: number) => {
 	return new Promise((resolve: any) => {

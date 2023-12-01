@@ -31,15 +31,12 @@ export default function validate(getValidationSchema: any) {
 export const handleChecked = (e: any, form: any) => {
 	form.setFieldValue(e.target.name, e.target.checked);
 };
-function handleBlur2(e: any, form: any) {
-	form.setFieldTouched(e.target.name, true);
-}
 
 export const setInputTextProps = (name: string, { errors, touched, handleChange, handleBlur }: any) => {
 	return {
 		name: name,
-		onChange: handleChange,
-		onBlur: handleBlur,
+		// onChange: handleChange,
+		// onBlur: handleBlur,
 	};
 };
 
