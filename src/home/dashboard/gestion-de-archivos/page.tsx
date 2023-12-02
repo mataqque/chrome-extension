@@ -85,17 +85,14 @@ function File({ file }: { file: IFile }) {
 		}
 	};
 	return (
-		<label>
-			<input name='status' type='checkbox' className='sr-only peer' value='true' />
-			<div
-				className={`w-full  h-[12rem]  p-4 rounded-[1rem] cursor-pointer shadow-1 bg-[#f8f9ff] select-none peer-checked:bg-primary peer-checked:text-white flex flex-col group duration-100`}
-				// onClick={() => handled(file)}
-			>
-				<div className='w-full rounded-lg overflow-hidden h-[7.3rem] mb-2'>
-					<img src={generateUrl(file, BASE_API)} alt='' className='w-full h-full object-cover' />
-				</div>
-				<span className='select-none text-0/8'>{addShy(file.fileName)}</span>
+		<div
+			className={`w-full  h-full  p-4 rounded-[1rem] select-none cursor-pointer shadow-1 bg-[#f8f9ff] [&.active]:bg-primary flex flex-col group ${filesSelected.includes(file) ? 'active' : ''}`}
+			onClick={() => handled(file)}
+		>
+			<div className='w-full rounded-lg overflow-hidden h-[7.3rem] mb-2 select-none'>
+				<img src={generateUrl(file, BASE_API)} alt='' className='w-full h-full object-cover select-none' />
 			</div>
-		</label>
+			<span className='text-primary select-none text-0/8 group-[&.active]:text-white'>{addShy(file.fileName)}</span>
+		</div>
 	);
 }
