@@ -25,15 +25,19 @@ export const PopupTask = () => {
 	const { onClose } = useContext(ModalContext);
 	const initialValues = {
 		status: true,
-		name: 'Flavio',
-		description: 'developer',
+		name: '',
+		description: '',
 		imageFileId: '',
-		parentCategoryId: '034r0v312hwq',
+		parentCategoryId: '',
 	};
 	const schemaType = taskSchema();
 
 	const onSubmit: FormikSubmitHandler<Yup.InferType<typeof schemaType>> = async (values: any, form) => {
-		console.log(values);
+		values.uuid = generateId({ type: 'string' });
+		const res = await createCategory(values);
+		const resCategories: any = await getDataCategories({ page: 1, cant: 10 });
+		console.log(resCategories);
+		dispatch(updateCategories(resCategories.data));
 		form.resetForm();
 	};
 	useEffect(() => {

@@ -7,7 +7,6 @@ import { IFileSelected } from '../../../../../common/interface';
 
 export const ButtonEvent = () => {
 	const { onClose } = useContext(ModalContext);
-	const { fn } = useContext(FileManagerContext);
 	const select: IFileSelected[] = useSelector((state: any) => state.filesManageSlice.filesSelected);
 	const event = () => {
 		const data = obsFileManager.getValue();
