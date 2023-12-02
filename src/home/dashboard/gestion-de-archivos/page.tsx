@@ -41,7 +41,7 @@ export const FileManager = ({ type = 'page' }: { type?: TypeManage }) => {
 				<p className='paragraph mb-3 text-letter'>
 					Sube tus archivos mp3, mp4, jpg ,png, webp, svg. etc, los archivos deben pesar menos de 10mb, no se admiten archivos con peso mayor a 100mb
 				</p>
-				<div className='content-tab flex py-3 border-y border-slate-200 d-flex mb-4 border-solid gap-2 flex-wrap xsm:flex-no-wrap'>
+				<div className='content-tab flex py-3 border-y border-slate-200 d-flex border-solid gap-2 flex-wrap xsm:flex-no-wrap'>
 					<InputSearchFile />
 					<ButtonAddFile />
 
@@ -61,8 +61,8 @@ export const FileManager = ({ type = 'page' }: { type?: TypeManage }) => {
 function ContentFiles() {
 	const files = useSelector((state: any) => state.filesManageSlice.files);
 	return (
-		<div className='w-full h-max overflow-y-auto'>
-			<div className='grid grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-4 h-full scroll'>
+		<div className='w-[calc(100%+2rem)] translate-x-[-1rem] h-max overflow-auto  '>
+			<div className='grid grid-cols-[repeat(auto-fill,minmax(13rem,1fr))] gap-4 h-full scroll grid-rows-[repeat(3,max-content)] scroll pt-4 px-4'>
 				{files &&
 					files.length > 0 &&
 					files.map((file: IFile, index: number) => {
@@ -85,14 +85,17 @@ function File({ file }: { file: IFile }) {
 		}
 	};
 	return (
-		<div
-			className={`w-full  h-full  p-4 rounded-[1rem] cursor-pointer shadow-1 bg-[#f8f9ff] [&.active]:bg-primary flex flex-col group ${filesSelected.includes(file) ? 'active' : ''}`}
-			onClick={() => handled(file)}
-		>
-			<div className='w-full rounded-lg overflow-hidden h-[7.3rem] mb-2'>
-				<img src={generateUrl(file, BASE_API)} alt='' className='w-full h-full object-cover' />
+		<label>
+			<input name='status' type='checkbox' className='sr-only peer' value='true' />
+			<div
+				className={`w-full  h-[12rem]  p-4 rounded-[1rem] cursor-pointer shadow-1 bg-[#f8f9ff] select-none peer-checked:bg-primary peer-checked:text-white flex flex-col group duration-100`}
+				// onClick={() => handled(file)}
+			>
+				<div className='w-full rounded-lg overflow-hidden h-[7.3rem] mb-2'>
+					<img src={generateUrl(file, BASE_API)} alt='' className='w-full h-full object-cover' />
+				</div>
+				<span className='select-none text-0/8'>{addShy(file.fileName)}</span>
 			</div>
-			<span className='text-primary select-none text-0/8 group-[&.active]:text-white'>{addShy(file.fileName)}</span>
-		</div>
+		</label>
 	);
 }

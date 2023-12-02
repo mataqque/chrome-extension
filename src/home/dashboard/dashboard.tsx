@@ -35,7 +35,7 @@ export default function LayoutDashboard({ children }: { children: React.ReactNod
 						<div className='icon mask icon-menu bg-primary h-6 w-6'></div>
 					</div>
 				</div>
-				<div className='p-4 h-full overflow-auto'>{children}</div>
+				<div className='p-4 h-full overflow-hidden'>{children}</div>
 			</div>
 		</main>
 	);
