@@ -1,6 +1,6 @@
 export interface IInputProps {
 	name: string;
-	placeholder?: string;
+	placeholder: string;
 	defaultValue?: string;
 	className?: string;
 	form?: any;

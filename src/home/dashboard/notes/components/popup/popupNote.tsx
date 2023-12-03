@@ -16,6 +16,7 @@ import { InputAddImage } from '../../../../../components/ui/Inputs/inputAddImage
 import { updateCategories } from '../../../../../store/slice/categorySlice';
 import { useDispatch } from 'react-redux';
 import { FormikHandlers, FormikState } from 'formik';
+import { InputTextArea } from '../../../../../components/ui/Inputs/inputTextArea';
 
 export const PopupNoteAdd = () => {
 	const [data, setData] = useState<ISelectDataProps[]>([]);
@@ -33,12 +34,8 @@ export const PopupNoteAdd = () => {
 	const schemaType = taskSchema();
 
 	const onSubmit: FormikSubmitHandler<Yup.InferType<typeof schemaType>> = async (values: any, form) => {
-		values.uuid = generateId({ type: 'string' });
-		const res = await createCategory(values);
-		const resCategories: any = await getDataCategories({ page: 1, cant: 10 });
-		console.log(resCategories);
-		dispatch(updateCategories(resCategories.data));
-		form.resetForm();
+		console.log(values);
+		// form.resetForm();
 	};
 	useEffect(() => {
 		getData().then(res => {
@@ -75,7 +72,7 @@ export const PopupNoteAdd = () => {
 								</div>
 								<div className='flex flex-col w-full'>
 									<span className='flex text-sixth text-1/1 mb-2'>Contenido</span>
-									<InputText name='description' form={form} placeholder='Descripción' />
+									<InputTextArea name='content' form={form} placeholder='Descripción' />
 								</div>
 								<div className='flex flex-col w-full'>
 									<span className='flex text-sixth text-1/1'>Categoría relacionada</span>
