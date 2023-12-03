@@ -10,6 +10,7 @@ import Upload from '../../components/modalupload/modalupload';
 import { obsSidebar } from './obsSidebar';
 import { PopupTask } from './notes/components/popup/popup';
 import { ModalUpload } from './gestion-de-archivos/popup';
+import { PopupNoteAdd } from './notes/components/popup/popupNote';
 export default function LayoutDashboard({ children }: { children: React.ReactNode }) {
 	const closeAside = () => {
 		obsSidebar.next(true);
@@ -24,6 +25,9 @@ export default function LayoutDashboard({ children }: { children: React.ReactNod
 			</Modal>
 			<Modal index={10} id='popupTask'>
 				<PopupTask></PopupTask>
+			</Modal>
+			<Modal index={10} id='popupNote'>
+				<PopupNoteAdd></PopupNoteAdd>
 			</Modal>
 			{/* <Modal index={10} id='popupNote'>
 				<PopupTask></PopupTask>
