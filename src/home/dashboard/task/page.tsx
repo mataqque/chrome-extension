@@ -11,6 +11,9 @@ import { ButtonAddTask } from './components/buttons/buttonAddTask';
 import { generateUrl } from '../../../common/helpers';
 import { BASE_API } from '../../../store/config';
 import { ICategory, IFile } from '../../../common/interface';
+import { updateNotes } from '../../../store/slice/notesSlide';
+import { data } from '../config';
+import { useNotesMutation } from '../../../store/api/notesApi';
 
 export const TaskPage = () => {
 	const dispatch = useDispatch();
@@ -89,16 +92,21 @@ const ContentSubCategories = () => {
 };
 
 export const ContentTasks = () => {
-	return <Task></Task>;
-};
-
-export const Task = () => {
+	const notes = useSelector((state: any) => state.notesSlice.notes);
 	return (
 		<div className='w-full h-full grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4'>
-			<div className='h-[15rem] w-full rounded-xl bg-[#f1f4ff] p-4'>
-				<span className='text-1/2 text-primary'>Tarea Nueva</span>
-				<div className='w-full h-[1px] bg-gray-100 my-2'></div>
-			</div>
+			{notes.map((note: any) => {
+				return <Task key={note.uuid} note={note}></Task>;
+			})}
+		</div>
+	);
+};
+
+export const Task = ({ note }: { note: any }) => {
+	return (
+		<div className='h-[15rem] w-full rounded-xl bg-[#f1f4ff] p-4'>
+			<span className='text-1/2 text-primary'>{note.title}</span>
+			<div className='w-full h-[1px] bg-gray-100 my-2'>{note.description}</div>
 		</div>
 	);
 };
@@ -128,11 +136,15 @@ interface IProps extends ICategory {
 
 const ItemTypeTask = ({ category }: { category: IProps }) => {
 	const [getSubCategories, {}] = useSubcategoriesMutation();
+	const [getNotes, {}] = useNotesMutation();
 	const categoriesSelected = useSelector((state: any) => state.categorySlice.categoriesSelected);
 	const dispatch = useDispatch();
 	const handleSelect = async (c: any) => {
 		const { data }: any = await getSubCategories({ parent: c.uuid });
+		const resNotes: any = await getNotes({ uuid: c.uuid });
+		console.log(resNotes.data);
 		dispatch(updateSubCategories(data.data));
+		dispatch(updateNotes(resNotes.data.data));
 		dispatch(selectCategory(category));
 	};
 	return (

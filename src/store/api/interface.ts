@@ -8,3 +8,9 @@ export interface IPropsAddCategory {
 	imageFileId?: string | null;
 	status?: boolean | null;
 }
+
+export interface IPropsUpdateNote {
+	page?: number;
+	cant?: number;
+	uuid?: string;
+}

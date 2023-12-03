@@ -98,3 +98,9 @@ export interface ICategory {
 	updatedAt: Date;
 	status: boolean;
 }
+
+export interface Note {
+	title: string;
+	description: string;
+	content: string;
+}

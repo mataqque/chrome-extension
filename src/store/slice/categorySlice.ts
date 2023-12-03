@@ -16,12 +16,6 @@ const categorySlice = createSlice({
 		},
 		selectCategory: (state, action: PayloadAction<ICategory>) => {
 			state.categoriesSelected = action.payload;
-			// let exist = state.categoriesSelected.find((file: ICategory) => file.uuid === action.payload.uuid);
-			// if (exist) {
-			// 	state.categoriesSelected = state.categoriesSelected.filter((file: ICategory) => file.uuid !== action.payload.uuid);
-			// } else {
-			// 	state.categoriesSelected.push(action.payload);
-			// }
 		},
 	},
 });
