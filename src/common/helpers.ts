@@ -139,6 +139,7 @@ export const partials = (data: any, label: string): ISelectDataProps[] => {
 		return { value: e.uuid, label: e.name };
 	});
 	res.unshift({ value: '', label: label });
+	console.log(res);
 	return res;
 };
 export const delayfunc = (func: Function, time: number) => {

@@ -2,7 +2,7 @@ import { FormContainer } from '../../../../../common/form';
 import { InputText } from '../../../../../components/ui/Inputs/InputText';
 import { InputSelect } from '../../../../../components/ui/Inputs/inputSelect';
 import { FormikSubmitHandler, ParametersForm } from '../../../../schema';
-import { taskSchema } from './schema';
+import { noteSchema, taskSchema } from './schema';
 import { ModalContext } from '../../../../../components/ui/modal/modal';
 import { useContext, useEffect, useState } from 'react';
 import * as Yup from 'yup';
@@ -10,7 +10,7 @@ import { ISelectDataProps } from '../../../../../components/ui/Inputs/interface'
 import { BASE_API_LOCAL } from '../../../../../store/config';
 import { delayfunc, generateId, partials } from '../../../../../common/helpers';
 import { getData } from './fetch';
-import { useAddCategoryMutation, useCategoriesMutation } from '../../../../../store/api/categoryApi';
+import { useAddCategoryMutation, useCategoriesMutation, categoryApi } from '../../../../../store/api/categoryApi';
 import { InputToggle } from '../../../../../components/ui/Inputs/inputToggle';
 import { InputAddImage } from '../../../../../components/ui/Inputs/inputAddImage';
 import { updateCategories } from '../../../../../store/slice/categorySlice';
@@ -29,7 +29,7 @@ export const PopupNoteAdd = () => {
 		name: '',
 		description: '',
 		imageFileId: '',
-		parentCategoryId: '',
+		categoryId: '',
 	};
 	const schemaType = taskSchema();
 
@@ -51,7 +51,7 @@ export const PopupNoteAdd = () => {
 					onClose(false);
 				}}
 			/>
-			<FormContainer initialValues={initialValues} onSubmit={onSubmit} validationSchema={taskSchema}>
+			<FormContainer initialValues={initialValues} onSubmit={onSubmit} validationSchema={noteSchema}>
 				{(form: ParametersForm) => {
 					const { handleSubmit } = form;
 					return (
@@ -77,7 +77,7 @@ export const PopupNoteAdd = () => {
 								<div className='flex flex-col w-full'>
 									<span className='flex text-sixth text-1/1'>Categoría relacionada</span>
 									<span className='text-gray-500 text-1/0 mb-2'>Si la categoría es superior no seleccione una opción</span>
-									<InputSelect name='parentCategoryId' form={form} data={data} color='#3360b1' />
+									<InputSelect name='categoryId' form={form} data={data} color='#3360b1' />
 								</div>
 							</div>
 							<button type='submit' className='cursor-pointer h-12 w-max bg-success p-4 text-white flex items-center justify-center rounded-md select-none ml-auto text-1/0'>

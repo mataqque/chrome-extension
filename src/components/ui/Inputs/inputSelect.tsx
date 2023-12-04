@@ -5,19 +5,7 @@ import { ISelectProps } from './interface';
 import { dispatchEvent, dispatchEventSelect } from '../../../common/helpers';
 import { setInputTextProps } from '../../../common/form';
 import { Field, useField } from 'formik';
-
-const getInputClasses = (name: string, form: any) => {
-	const { errors, touched } = form;
-	if (!errors[name] && !touched[name]) {
-		return '';
-	}
-	if (errors[name] && touched[name]) {
-		return '--invalid';
-	}
-	if (!errors[name] && touched[name]) {
-		return '--valid';
-	}
-};
+import { getInputClasses } from './helpers';
 
 export const InputSelect = (props: ISelectProps) => {
 	const [field, meta, helpers] = useField(props);

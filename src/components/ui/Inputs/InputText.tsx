@@ -5,21 +5,10 @@ import iconValid from '../../../assets/multimedia/icons/check.png';
 import iconError from '../../../assets/multimedia/icons/error.png';
 import { setInputTextProps } from '../../../common/form';
 import { Field } from 'formik';
+import { getInputClasses } from './helpers';
 
-const getInputClasses = (name: string, form: any) => {
-	const { errors, touched } = form;
-	if (!errors[name] && !touched[name]) {
-		return '';
-	}
-	if (errors[name] && touched[name]) {
-		return '--invalid';
-	}
-	if (!errors[name] && touched[name]) {
-		return '--valid';
-	}
-};
 export const InputText = (props: IInputProps) => {
-	const { title = '', name, placeholder, form, defaultValue = '', ...rest } = props;
+	const { name, placeholder, form, defaultValue = '', ...rest } = props;
 	return (
 		<div className={`relative ${rest?.className ? rest.className : ''}`}>
 			<div className={`content-sub-input ${props.icon ? 'include-icon' : ''}`}>
@@ -44,7 +33,7 @@ export const InputText = (props: IInputProps) => {
 };
 
 export const InputTextPassword = (props: IInputProps) => {
-	const { title, name, placeholder, form, ...rest } = props;
+	const { name, placeholder, form, ...rest } = props;
 	const inputPassword = useRef<HTMLInputElement>(null);
 	const [iconShowPassword, SetIconShowPassword] = useState<boolean>(true);
 	const showPassword = () => {
@@ -53,7 +42,6 @@ export const InputTextPassword = (props: IInputProps) => {
 	};
 	return (
 		<div className={`relative ${rest?.className ? rest.className : ''}`}>
-			{title && <label>{title}</label>}
 			<div className={`content-sub-input ${props.icon ? 'include-icon' : ''}`}>
 				<input
 					className={`w-full border border-solid border-gray-200 h-12 px-4 rounded-lg text-gray-400 placeholder:text-gray-300 ${getInputClasses(name, form)}`}
