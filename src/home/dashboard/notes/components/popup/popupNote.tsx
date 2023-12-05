@@ -17,12 +17,14 @@ import { updateCategories } from '../../../../../store/slice/categorySlice';
 import { useDispatch } from 'react-redux';
 import { FormikHandlers, FormikState } from 'formik';
 import { InputTextArea } from '../../../../../components/ui/Inputs/inputTextArea';
+import { useAddNotesMutation } from '../../../../../store/api/notesApi';
 
 export const PopupNoteAdd = () => {
 	const [data, setData] = useState<ISelectDataProps[]>([]);
 	const dispatch = useDispatch();
 	const [createCategory, {}] = useAddCategoryMutation();
 	const [getDataCategories, {}] = useCategoriesMutation();
+	const [createNote, {}] = useAddNotesMutation();
 	const { onClose } = useContext(ModalContext);
 	const initialValues = {
 		status: true,
@@ -34,7 +36,8 @@ export const PopupNoteAdd = () => {
 	const schemaType = taskSchema();
 
 	const onSubmit: FormikSubmitHandler<Yup.InferType<typeof schemaType>> = async (values: any, form) => {
-		console.log(values);
+		const res = await createNote(values);
+		console.log(res);
 		form.resetForm();
 	};
 	useEffect(() => {

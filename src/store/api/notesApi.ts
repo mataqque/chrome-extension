@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_API_LOCAL } from '../config';
-import { IPropsAddCategory, IPropsUpdateNote } from './interface';
+import { IPropsAddCategory, IPropsGetNote, IPropsUpdateNote } from './interface';
 
 export const notesApi = createApi({
 	reducerPath: 'notesApi',
@@ -9,7 +9,7 @@ export const notesApi = createApi({
 	}),
 	endpoints: builder => ({
 		notes: builder.mutation({
-			query: ({ page = 1, cant = 10, uuid = '' }: IPropsUpdateNote) => {
+			query: ({ page = 1, cant = 10, uuid = '' }: IPropsGetNote) => {
 				return {
 					url: `/notes?page=${page}&cant=${cant}&category=${uuid}`,
 					method: 'GET',
@@ -19,7 +19,18 @@ export const notesApi = createApi({
 				};
 			},
 		}),
+		addNotes: builder.mutation({
+			query: (data: IPropsUpdateNote) => {
+				return {
+					url: `/notes/add`,
+					method: 'POST',
+					data: {
+						...data,
+					},
+				};
+			},
+		}),
 	}),
 });
 
-export const { useNotesMutation } = notesApi;
+export const { useNotesMutation, useAddNotesMutation } = notesApi;

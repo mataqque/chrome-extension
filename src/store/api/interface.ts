@@ -9,8 +9,15 @@ export interface IPropsAddCategory {
 	status?: boolean | null;
 }
 
-export interface IPropsUpdateNote {
+export interface IPropsGetNote {
 	page?: number;
 	cant?: number;
 	uuid?: string;
+}
+export interface IPropsUpdateNote {
+	uuid: string;
+	title: string;
+	content?: string;
+	description?: string;
+	categoryId?: string;
 }
