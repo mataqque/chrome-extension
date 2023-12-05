@@ -10,8 +10,9 @@ export const taskSchema = () =>
 	});
 export const noteSchema = () =>
 	Yup.object().shape({
+		uuid: Yup.string().required(),
 		status: Yup.boolean().required(),
-		name: Yup.string().required(),
+		title: Yup.string().required(),
 		description: Yup.string().required(),
 		content: Yup.string().required(),
 		categoryId: Yup.string(),

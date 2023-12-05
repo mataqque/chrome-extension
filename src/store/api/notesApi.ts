@@ -24,9 +24,7 @@ export const notesApi = createApi({
 				return {
 					url: `/notes/add`,
 					method: 'POST',
-					data: {
-						...data,
-					},
+					body: data,
 				};
 			},
 		}),

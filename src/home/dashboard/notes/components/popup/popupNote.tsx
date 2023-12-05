@@ -18,6 +18,7 @@ import { useDispatch } from 'react-redux';
 import { FormikHandlers, FormikState } from 'formik';
 import { InputTextArea } from '../../../../../components/ui/Inputs/inputTextArea';
 import { useAddNotesMutation } from '../../../../../store/api/notesApi';
+import { Id } from '../../../../../components/ui/Inputs/inputId';
 
 export const PopupNoteAdd = () => {
 	const [data, setData] = useState<ISelectDataProps[]>([]);
@@ -28,10 +29,12 @@ export const PopupNoteAdd = () => {
 	const { onClose } = useContext(ModalContext);
 	const initialValues = {
 		status: true,
-		name: '',
+		uuid: '',
+		title: '',
 		description: '',
 		imageFileId: '',
 		categoryId: '',
+		color: '',
 	};
 	const schemaType = taskSchema();
 
@@ -60,15 +63,18 @@ export const PopupNoteAdd = () => {
 					const { handleSubmit } = form;
 					return (
 						<form className='flex flex-col h-input rounded-5 w-full h-full p-6' onSubmit={handleSubmit}>
-							<h2 className='text-1/5 text-sixth mb-2'>Crear nueva Nota</h2>
+							<h2 className='text-1/5 text-sixth mb-4'>Crear nueva Nota</h2>
 							<div className='flex flex-col gap-5 mb-4'>
 								<div className='flex flex-col w-full'>
-									<span className='mb-2 flex text-sixth text-1/1'>Estado</span>
+									<span className='mb-2 flex text-sixth text-1/1 leading-none'>Estado</span>
 									<InputToggle name='status' form={form} />
+								</div>
+								<div className='flex text-1/2 text-gray-500 leading-none'>
+									ID : <Id name='uuid' form={form}></Id>
 								</div>
 								<div className='flex flex-col w-full'>
 									<span className='mb-2 flex text-sixth text-1/1'>Titulo</span>
-									<InputText name='name' form={form} placeholder='Nombre de la categoría' />
+									<InputText name='title' form={form} placeholder='Nombre de la categoría' />
 								</div>
 								<div className='flex flex-col w-full'>
 									<span className='flex text-sixth text-1/1 mb-2'>Descripción</span>
