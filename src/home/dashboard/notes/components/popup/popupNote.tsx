@@ -35,11 +35,12 @@ export const PopupNoteAdd = () => {
 
 	const onSubmit: FormikSubmitHandler<Yup.InferType<typeof schemaType>> = async (values: any, form) => {
 		console.log(values);
-		// form.resetForm();
+		form.resetForm();
 	};
 	useEffect(() => {
 		getData().then(res => {
 			const data = partials(res.data, 'Nombre de la categoría');
+			console.log('data select', data);
 			setData(data);
 		});
 	}, []);
