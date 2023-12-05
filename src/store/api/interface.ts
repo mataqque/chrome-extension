@@ -16,6 +16,7 @@ export interface IPropsGetNote {
 }
 export interface IPropsUpdateNote {
 	uuid: string;
+	status: boolean;
 	title: string;
 	content?: string;
 	description?: string;

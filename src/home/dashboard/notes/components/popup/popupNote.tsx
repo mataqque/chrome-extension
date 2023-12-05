@@ -17,13 +17,14 @@ import { updateCategories } from '../../../../../store/slice/categorySlice';
 import { useDispatch } from 'react-redux';
 import { FormikHandlers, FormikState } from 'formik';
 import { InputTextArea } from '../../../../../components/ui/Inputs/inputTextArea';
-import { useAddNotesMutation } from '../../../../../store/api/notesApi';
+import { useAddNotesMutation, useNotesMutation } from '../../../../../store/api/notesApi';
 import { Id } from '../../../../../components/ui/Inputs/inputId';
+import { updateNotes } from '../../../../../store/slice/notesSlide';
 
 export const PopupNoteAdd = () => {
 	const [data, setData] = useState<ISelectDataProps[]>([]);
 	const dispatch = useDispatch();
-	const [createCategory, {}] = useAddCategoryMutation();
+	const [getDataNotes, {}] = useNotesMutation();
 	const [getDataCategories, {}] = useCategoriesMutation();
 	const [createNote, {}] = useAddNotesMutation();
 	const { onClose } = useContext(ModalContext);
@@ -32,16 +33,18 @@ export const PopupNoteAdd = () => {
 		uuid: '',
 		title: '',
 		description: '',
-		imageFileId: '',
 		categoryId: '',
 		color: '',
 	};
-	const schemaType = taskSchema();
+	const schemaType = noteSchema();
 
-	const onSubmit: FormikSubmitHandler<Yup.InferType<typeof schemaType>> = async (values: any, form) => {
-		const res = await createNote(values);
-		console.log(res);
-		form.resetForm();
+	const onSubmit: FormikSubmitHandler<Yup.InferType<typeof schemaType>> = async (values, form) => {
+		const res: any = await createNote(values);
+		if (res?.data?.status == 200) {
+			const resNotes: any = await getDataNotes({ page: 1, cant: 10 });
+			dispatch(updateNotes(resNotes.data.data));
+			// form.resetForm();
+		}
 	};
 	useEffect(() => {
 		getData().then(res => {

@@ -18,6 +18,7 @@ import { useNotesMutation } from '../../../store/api/notesApi';
 export const TaskPage = () => {
 	const dispatch = useDispatch();
 	const [getData, {}] = useCategoriesMutation<any>();
+
 	const handleGetData = async () => {
 		const { data }: any = await getData({ page: 1, cant: 4 });
 		dispatch(updateCategories(data));
@@ -112,13 +113,28 @@ export const Task = ({ note }: { note: any }) => {
 };
 
 const TypesTask = () => {
+	const dispatch = useDispatch();
+	const [getDataNotes, {}] = useNotesMutation();
 	const categories = useSelector((state: any) => state.categorySlice.categories);
-
+	const showAllNotes = async () => {
+		const resNotes: any = await getDataNotes({ page: 1, cant: 10 });
+		dispatch(updateNotes(resNotes.data.data));
+	};
 	return (
 		<div className='min-w-[25rem] w-[25rem] h-max bg-white rounded-xl p-4 shadow-[0px_0px_10px_-2px_#b8cad9] max-h-[100%] overflow-hidden flex flex-col'>
 			<div className='flex mb-2'>
-				<div className='mask-left icon-notepad w-8 h-8 bg-sixth mr-2'></div>
-				<span className='text-sixth text-1/4'>Categorías de Tareas</span>
+				<div className='flex items-center'>
+					<div className='mask-left icon-notepad w-6 h-6 bg-sixth mr-2'></div>
+					<span className='text-sixth text-1/3 leading-none h-max'>Categorías de Notas</span>
+				</div>
+				<div
+					className='w-8 h-8 border border-solid border-[#b8cad9] rounded-lg flex items-center justify-center ml-auto cursor-pointer hover:bg-primary group duration-300'
+					onClick={() => {
+						showAllNotes();
+					}}
+				>
+					<div className='w-[60%]  h-[60%] icon-all mask-center bg-primary group-hover:bg-white group-hover:border-primary duration-300'></div>
+				</div>
 			</div>
 			{/* <span className='text-[#3360b1] text-1/1 mb-2 flex'>130 Tareas</span> */}
 			<div className='flex flex-col gap-2 scroll overflow-y-auto'>
