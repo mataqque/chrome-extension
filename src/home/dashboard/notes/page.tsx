@@ -27,7 +27,7 @@ const TypesNote = () => {
 				<div className='mask-left icon-notepad w-8 h-8 bg-sixth mr-2'></div>
 				<span className='text-sixth text-1/4'>Categorías de Notas</span>
 			</div>
-			<span className='text-[#3360b1] text-1/1 mb-2 flex'>130 Tareas</span>
+			{/* <span className='text-[#3360b1] text-1/1 mb-2 flex'>{} Notas</span> */}
 			<div className=''>
 				<ItemTypeNote />
 			</div>

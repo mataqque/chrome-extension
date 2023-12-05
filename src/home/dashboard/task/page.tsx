@@ -120,7 +120,7 @@ const TypesTask = () => {
 				<div className='mask-left icon-notepad w-8 h-8 bg-sixth mr-2'></div>
 				<span className='text-sixth text-1/4'>Categorías de Tareas</span>
 			</div>
-			<span className='text-[#3360b1] text-1/1 mb-2 flex'>130 Tareas</span>
+			{/* <span className='text-[#3360b1] text-1/1 mb-2 flex'>130 Tareas</span> */}
 			<div className='flex flex-col gap-2 scroll overflow-y-auto'>
 				{categories?.data?.map((item: any) => {
 					return <ItemTypeTask key={item.uuid} category={item}></ItemTypeTask>;
