@@ -22,3 +22,21 @@ export interface IPropsUpdateNote {
 	description?: string;
 	categoryId?: string;
 }
+
+export interface IPropsDeleteNote {
+	uuid: string;
+}
+export interface IPropsSearchNote {
+	search: string;
+}
+
+export interface INote {
+	status: boolean;
+	uuid: string;
+	title: string;
+	description: string;
+	content: string;
+	color: string;
+	createdAt: Date;
+	updatedAt: Date;
+}

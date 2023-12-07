@@ -92,10 +92,14 @@ export const bytesToSize = (bytes: number): string => {
 	return `${Math.round(bytes / Math.pow(1024, i))} ${sizes[i]}`;
 };
 
-export const convertToDate = (date: string) => {
-	if (date == undefined) return '';
-	let date_ = new Date(date);
-	return date_.toLocaleDateString('es-Es', { year: 'numeric', month: 'long', day: 'numeric' });
+export const convertToDate = (date: Date) => {
+	try {
+		if (date == undefined) return '';
+		let date_ = new Date(date);
+		return date_.toLocaleDateString('es-Es', { year: 'numeric', month: 'long', day: 'numeric' });
+	} catch (error) {
+		console.error(error);
+	}
 };
 
 interface IResponse {
@@ -139,7 +143,6 @@ export const partials = (data: any, label: string): ISelectDataProps[] => {
 		return { value: e.uuid, label: e.name };
 	});
 	res.unshift({ value: '', label: label });
-	console.log(res);
 	return res;
 };
 export const delayfunc = (func: Function, time: number) => {

@@ -3,17 +3,18 @@ import { useCategoriesMutation, useSubcategoriesMutation } from '../../../store/
 import { LazyImage } from '../gestion-de-archivos/components/lazyImages/images';
 import { ButtonAddCategoryTask } from './components/buttons/ButtonAddCategoryTask';
 import { ButtonDeleteTask } from './components/buttons/buttonDelete';
-import { SearchButtonTask } from './components/inputs/searchButton';
+import { SearchInput } from './components/inputs/searchInput';
 import { useDispatch } from 'react-redux';
 import { selectCategory, updateCategories, updateSubCategories } from '../../../store/slice/categorySlice';
 import { useSelector } from 'react-redux';
 import { ButtonAddTask } from './components/buttons/buttonAddTask';
-import { generateUrl } from '../../../common/helpers';
+import { convertToDate, dateToString, generateUrl, resumeText } from '../../../common/helpers';
 import { BASE_API } from '../../../store/config';
 import { ICategory, IFile } from '../../../common/interface';
 import { updateNotes } from '../../../store/slice/notesSlide';
 import { data } from '../config';
-import { useNotesMutation } from '../../../store/api/notesApi';
+import { useDeleteNotesMutation, useNotesMutation } from '../../../store/api/notesApi';
+import { INote, IPropsGetNote } from '../../../store/api/interface';
 
 export const TaskPage = () => {
 	const dispatch = useDispatch();
@@ -31,7 +32,7 @@ export const TaskPage = () => {
 			<h1 className='text-1/4 bold mb-1 text-primary'>Tareas</h1>
 			<p className='paragraph mb-3 text-letter'>Visualiza tus tareas en esta sección</p>
 			<div className='content-tab flex py-3 border-y border-slate-200 d-flex mb-4 border-solid gap-2 flex-wrap xsm:flex-no-wrap'>
-				<SearchButtonTask />
+				<SearchInput />
 				<ButtonAddTask />
 				<ButtonAddCategoryTask />
 				<ButtonDeleteTask />
@@ -103,11 +104,44 @@ export const ContentTasks = () => {
 	);
 };
 
-export const Task = ({ note }: { note: any }) => {
+export const Task = ({ note }: { note: INote }) => {
+	const dispatch = useDispatch();
+	const [deleteNote, {}] = useDeleteNotesMutation();
+	const [getNotes, {}] = useNotesMutation();
+	const handleDelete = async () => {
+		const resDelete: any = await deleteNote({ uuid: note.uuid });
+		if (resDelete.data.status == 200) {
+			const resNotes: any = await getNotes({ page: 1, cant: 10 });
+			dispatch(updateNotes(resNotes.data.data));
+		}
+	};
+	const handleEdit = () => {};
 	return (
-		<div className='h-[15rem] w-full rounded-xl bg-[#f1f4ff] p-4'>
-			<span className='text-1/2 text-primary'>{note.title}</span>
-			<div className='w-full h-[1px] bg-gray-100 my-2'>{note.description}</div>
+		<div className='h-[15rem] w-full rounded-xl bg-white border-solid border border-gray-100 p-4 flex flex-col'>
+			<div className='flex'>
+				<span className='text-1/2 text-primary w-max'>{resumeText(note.title, 20)}</span>
+				<div className='ml-auto flex gap-2'>
+					<div
+						className='w-7 h-7 cursor-pointer rounded-md border border-solid border-danger flex items-center justify-center'
+						onClick={() => {
+							handleDelete();
+						}}
+					>
+						<div className='w-[60%] h-[60%] mask-center icon-delete bg-danger'></div>
+					</div>
+					<div
+						className='w-7 h-7 cursor-pointer rounded-md border border-solid border-success flex items-center justify-center'
+						onClick={() => {
+							handleEdit();
+						}}
+					>
+						<div className='w-[60%] h-[60%] mask-center icon-edit bg-success'></div>
+					</div>
+				</div>
+			</div>
+			<div className='w-full h-[1px] bg-gray-100 my-2'></div>
+			<div className='content h-full'>{note.description}</div>
+			<div className='text-gray-400 text-0/9'>{convertToDate(note.createdAt)}</div>
 		</div>
 	);
 };
@@ -128,7 +162,7 @@ const TypesTask = () => {
 					<span className='text-sixth text-1/3 leading-none h-max'>Categorías de Notas</span>
 				</div>
 				<div
-					className='w-8 h-8 border border-solid border-[#b8cad9] rounded-lg flex items-center justify-center ml-auto cursor-pointer hover:bg-primary group duration-300'
+					className='w-7 h-7 cursor-pointer border border-solid border-[#b8cad9] rounded-lg flex items-center justify-center ml-auto cursor-pointer hover:bg-primary group duration-300'
 					onClick={() => {
 						showAllNotes();
 					}}
@@ -172,7 +206,7 @@ const ItemTypeTask = ({ category }: { category: IProps }) => {
 				handleSelect(category);
 			}}
 		>
-			<div className='w-8 h-8 rounded-full bg-[#3360b1] absolute top-2 right-2 flex items-center justify-center'>
+			<div className='w-7 h-7 cursor-pointer rounded-full bg-[#3360b1] absolute top-2 right-2 flex items-center justify-center'>
 				<div className='bg-white mask-center icon-edit w-1/2 h-1/2'></div>
 			</div>
 			<LazyImage src={generateUrl(category.image, BASE_API)} class='w-[6rem] h-full rounded-xl overflow-hidden'></LazyImage>

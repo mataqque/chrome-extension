@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_API_LOCAL } from '../config';
-import { IPropsAddCategory, IPropsGetNote, IPropsUpdateNote } from './interface';
+import { IPropsAddCategory, IPropsDeleteNote, IPropsGetNote, IPropsSearchNote, IPropsUpdateNote } from './interface';
 
 export const notesApi = createApi({
 	reducerPath: 'notesApi',
@@ -28,7 +28,23 @@ export const notesApi = createApi({
 				};
 			},
 		}),
+		deleteNotes: builder.mutation({
+			query: (data: IPropsDeleteNote) => {
+				return {
+					url: `/notes/delete/${data.uuid}`,
+					method: 'DELETE',
+				};
+			},
+		}),
+		searchNotes: builder.mutation({
+			query: (data: IPropsSearchNote) => {
+				return {
+					url: `/notes/search?q=${data.search}`,
+					method: 'GET',
+				};
+			},
+		}),
 	}),
 });
 
-export const { useNotesMutation, useAddNotesMutation } = notesApi;
+export const { useNotesMutation, useAddNotesMutation, useDeleteNotesMutation, useSearchNotesMutation } = notesApi;
