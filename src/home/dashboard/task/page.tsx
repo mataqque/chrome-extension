@@ -192,7 +192,6 @@ const ItemTypeTask = ({ category }: { category: IProps }) => {
 	const handleSelect = async (c: any) => {
 		const { data }: any = await getSubCategories({ parent: c.uuid });
 		const resNotes: any = await getNotes({ uuid: c.uuid });
-		console.log(resNotes.data);
 		dispatch(updateSubCategories(data.data));
 		dispatch(updateNotes(resNotes.data.data));
 		dispatch(selectCategory(category));

@@ -36,7 +36,6 @@ export const PopupTask = () => {
 		values.uuid = generateId({ type: 'string' });
 		const res = await createCategory(values);
 		const resCategories: any = await getDataCategories({ page: 1, cant: 10 });
-		console.log(resCategories);
 		dispatch(updateCategories(resCategories.data));
 		form.resetForm();
 	};

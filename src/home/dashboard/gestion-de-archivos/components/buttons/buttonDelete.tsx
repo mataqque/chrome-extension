@@ -15,7 +15,6 @@ export const ButtonDeleteFile = () => {
 
 	const handleGetData = async () => {
 		const { data }: any = await getData('');
-		console.log(data);
 		dispatch(updateFiles(data.data));
 	};
 	const handle = async () => {

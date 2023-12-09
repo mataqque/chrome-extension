@@ -26,13 +26,13 @@ interface IProps {
 export const getData = async (): Promise<IProps> => {
 	const res: IProps = await fetch(BASE_API_LOCAL + '/categories/parents')
 		.then(res => res.json())
-		.catch(err => console.log(err));
+		.catch(err => console.error(err));
 	return res;
 };
 
 export const getDataParentAndChild = async (): Promise<ICategory[]> => {
 	const res = await fetch(BASE_API_LOCAL + '/categories/parentsandchilds')
 		.then(res => res.json())
-		.catch(err => console.log(err));
+		.catch(err => console.error(err));
 	return res;
 };

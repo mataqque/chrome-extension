@@ -17,7 +17,6 @@ export const InputTextArea = ({ name, form, placeholder, defaultValue }: IInputP
 		setEditorState(data);
 	};
 	const onChange = (data: any) => {
-		// console.log(data);
 		helpers.setValue(JSON.stringify(data));
 		helpers.setTouched(true);
 	};

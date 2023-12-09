@@ -43,7 +43,7 @@ export const PopupNoteAdd = () => {
 	const schemaType = noteSchema();
 
 	const onSubmit: FormikSubmitHandler<Yup.InferType<typeof schemaType>> = async (values, form) => {
-		console.log(values);
+		// console.log(values);
 		// const res: any = await createNote(values);
 		// if (res?.data?.status == 200) {
 		// 	const resNotes: any = await getDataNotes({ page: 1, cant: 10 });
@@ -74,7 +74,6 @@ export const PopupNoteAdd = () => {
 			<FormContainer initialValues={initialValues} onSubmit={onSubmit} validationSchema={noteSchema}>
 				{(form: ParametersForm) => {
 					const { handleSubmit, errors } = form;
-					console.log(errors);
 					return (
 						<form className='flex flex-col h-input rounded-5 w-full h-full p-6' onSubmit={handleSubmit}>
 							<h2 className='text-1/5 text-sixth mb-4'>Crear nueva Nota</h2>

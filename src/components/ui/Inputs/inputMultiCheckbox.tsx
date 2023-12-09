@@ -65,7 +65,6 @@ const CheckBoxParent = ({ data, event }: { data: ICheckboxDataProps; event: Func
 		}
 	};
 	const handleChild = (index: number) => {
-		event();
 		setChecked(updateChecked(checked, index, event));
 	};
 	return (

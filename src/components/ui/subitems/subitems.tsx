@@ -2,7 +2,6 @@ import './subitem.scss';
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@material-ui/core';
 
 export const SidebarSubItems = ({ index, item }: { index: number; item: any }) => {
-	console.log(item);
 	return (
 		<Accordion expanded={true} square onChange={() => {}} key={'section-' + index}>
 			<AccordionSummary aria-controls='panel-content'>

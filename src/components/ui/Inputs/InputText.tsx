@@ -37,7 +37,6 @@ export const InputTextPassword = (props: IInputProps) => {
 	const inputPassword = useRef<HTMLInputElement>(null);
 	const [iconShowPassword, SetIconShowPassword] = useState<boolean>(true);
 	const showPassword = () => {
-		console.log(inputPassword.current?.getAttribute('type'));
 		inputPassword.current?.getAttribute('type') === 'password' ? SetIconShowPassword(false) : SetIconShowPassword(true);
 	};
 	return (
