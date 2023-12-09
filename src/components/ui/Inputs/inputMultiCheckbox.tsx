@@ -3,28 +3,9 @@ import { ICheckboxDataProps, IMultiplyCheckBoxProps, ISelectDataProps } from './
 import { Box, Checkbox, FormControlLabel } from '@material-ui/core';
 import { ChangeEvent, createContext, useContext, useState } from 'react';
 
-const updateChecked = (checked: any, index: number, event: any) => {
-	const newSetChecked = [...checked];
-	newSetChecked[index] = !newSetChecked[index];
-
-	if (newSetChecked.slice(1).some((item: boolean) => item === true)) {
-		newSetChecked[0] = true;
-	}
-	event(newSetChecked);
-	return newSetChecked;
-};
-
-const checkAllTrue = (checks: any, event: any) => {
-	const newSetChecked = checks.map((e: boolean) => (e = true));
-	event(newSetChecked);
-	return newSetChecked;
-};
-const checkAllFalse = (checks: any, event: any) => {
-	const newSetChecked = checks.map((e: boolean) => (e = false));
-	event(newSetChecked);
-	return newSetChecked;
-};
 export const InputMultiCheckbox = ({ name, form, data }: IMultiplyCheckBoxProps) => {
+	const planeData = data;
+	const [allChecked, setAllChecked] = useState();
 	const [field, meta, helpers] = useField({ name, form });
 	const event = (event: any) => {
 		console.log(event);
@@ -32,8 +13,8 @@ export const InputMultiCheckbox = ({ name, form, data }: IMultiplyCheckBoxProps)
 	};
 	return (
 		<div>
-			{data.map((item: ICheckboxDataProps) => {
-				return <CheckBoxParent key={item.value} data={item} event={event}></CheckBoxParent>;
+			{data.map((item: ICheckboxDataProps, pos: number) => {
+				return <CheckBoxParent key={item.value} data={item} event={event} pos={pos}></CheckBoxParent>;
 			})}
 		</div>
 	);
@@ -48,10 +29,42 @@ const CheckBoxDataContext = createContext<IContext>({
 	checked: [],
 	setChecked: () => {},
 });
-const CheckBoxParent = ({ data, event }: { data: ICheckboxDataProps; event: Function }) => {
+
+const compareToData = (data: any[], checks: boolean[]) => {
+	return data
+		.map((e, index: number) => {
+			if (checks[index] == true) {
+				return e;
+			}
+		})
+		.filter(Boolean);
+};
+const CheckBoxParent = ({ data, event, pos }: { data: ICheckboxDataProps; pos: number; event: Function }) => {
 	const newData = [{ value: data.value, label: data.label }, data.data].flat();
 	const checks = Array(newData.length).fill(true) || [];
 	const [checked, setChecked] = useState(checks);
+
+	const updateChecked = (checked: any, index: number, event: any) => {
+		const newSetChecked = [...checked];
+		newSetChecked[index] = !newSetChecked[index];
+
+		if (newSetChecked.slice(1).some((item: boolean) => item === true)) {
+			newSetChecked[0] = true;
+		}
+		event(compareToData(newData, newSetChecked));
+		return newSetChecked;
+	};
+
+	const checkAllTrue = (checks: any, event: any) => {
+		const newSetChecked = checks.map((e: boolean) => (e = true));
+		event(compareToData(newData, newSetChecked));
+		return newSetChecked;
+	};
+	const checkAllFalse = (checks: any, event: any) => {
+		const newSetChecked = checks.map((e: boolean) => (e = false));
+		event(compareToData(newData, newSetChecked));
+		return newSetChecked;
+	};
 
 	const handleParent = () => {
 		if (checked.every(e => e === true)) {
