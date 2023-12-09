@@ -15,12 +15,13 @@ export interface IPropsGetNote {
 	uuid?: string;
 }
 export interface IPropsUpdateNote {
-	uuid: string;
 	status: boolean;
+	uuid: string;
 	title: string;
+	description: string;
 	content?: string;
-	description?: string;
-	categoryId?: string;
+	categoryId?: any[];
+	color?: string;
 }
 
 export interface IPropsDeleteNote {
@@ -33,7 +34,7 @@ export interface IPropsSearchNote {
 export interface INote {
 	status: boolean;
 	uuid: string;
-	title: string;
+	name: string;
 	description: string;
 	content: string;
 	color: string;

@@ -1,3 +1,5 @@
+import { ICategory } from '../../../../../common/interface';
+import { INote } from '../../../../../store/api/interface';
 import { BASE_API_LOCAL } from '../../../../../store/config';
 interface IProps {
 	data: {
@@ -25,8 +27,12 @@ export const getData = async (): Promise<IProps> => {
 	const res: IProps = await fetch(BASE_API_LOCAL + '/categories/parents')
 		.then(res => res.json())
 		.catch(err => console.log(err));
-	// const data = partials(res.data);
 	return res;
-	// setData(res.data);
-	// setData(res);
+};
+
+export const getDataParentAndChild = async (): Promise<ICategory[]> => {
+	const res = await fetch(BASE_API_LOCAL + '/categories/parentsandchilds')
+		.then(res => res.json())
+		.catch(err => console.log(err));
+	return res;
 };

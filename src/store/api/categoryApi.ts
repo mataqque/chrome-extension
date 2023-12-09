@@ -29,6 +29,17 @@ export const categoryApi = createApi({
 				};
 			},
 		}),
+		parentsandchilds: builder.mutation({
+			query: ({ parent = '', page = 1, cant = 100 }) => {
+				return {
+					url: `/categories/children?parent=${parent}&page=${page}&cant=${cant}`,
+					method: 'GET',
+					headers: {
+						authorization: `Bearer ${localStorage.getItem('token')}`,
+					},
+				};
+			},
+		}),
 		deleteCategory: builder.mutation({
 			query: ({ uuid }: { uuid: string }) => {
 				return {

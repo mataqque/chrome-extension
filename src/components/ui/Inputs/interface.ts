@@ -22,6 +22,11 @@ export interface IInputPropsDate {
 	disabledDate?: (date: Date) => boolean;
 }
 
+export interface ICheckboxDataProps {
+	value: string;
+	label: string;
+	data?: ISelectDataProps[];
+}
 export interface ISelectDataProps {
 	value: string;
 	label: string;
@@ -33,4 +38,11 @@ export interface ISelectProps {
 	className?: string;
 	color?: string;
 	tabIndex?: number;
+}
+
+export interface IMultiplyCheckBoxProps {
+	name: string;
+	form: any;
+	data: ICheckboxDataProps[];
+	className?: string;
 }
