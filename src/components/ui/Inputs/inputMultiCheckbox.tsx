@@ -9,8 +9,6 @@ const updateChecked = (checked: any, index: number, event: any) => {
 
 	if (newSetChecked.slice(1).some((item: boolean) => item === true)) {
 		newSetChecked[0] = true;
-	} else {
-		newSetChecked[0] = false;
 	}
 	event(newSetChecked);
 	return newSetChecked;

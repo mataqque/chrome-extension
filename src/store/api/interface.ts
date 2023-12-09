@@ -34,7 +34,7 @@ export interface IPropsSearchNote {
 export interface INote {
 	status: boolean;
 	uuid: string;
-	name: string;
+	title: string;
 	description: string;
 	content: string;
 	color: string;
