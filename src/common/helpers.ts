@@ -23,7 +23,7 @@ export const generateUrl = (props: IFile, host?: string): string => {
 		let url = dir + '/' + fileName;
 		return url;
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		return '';
 	}
 };

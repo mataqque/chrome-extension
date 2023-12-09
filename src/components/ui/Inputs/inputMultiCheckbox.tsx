@@ -12,23 +12,25 @@ const updateChecked = (checked: any, index: number, event: any) => {
 	} else {
 		newSetChecked[0] = false;
 	}
+	event(newSetChecked);
 	return newSetChecked;
 };
 
 const checkAllTrue = (checks: any, event: any) => {
 	const newSetChecked = checks.map((e: boolean) => (e = true));
+	event(newSetChecked);
 	return newSetChecked;
 };
 const checkAllFalse = (checks: any, event: any) => {
 	const newSetChecked = checks.map((e: boolean) => (e = false));
-
+	event(newSetChecked);
 	return newSetChecked;
 };
 export const InputMultiCheckbox = ({ name, form, data }: IMultiplyCheckBoxProps) => {
 	const [field, meta, helpers] = useField({ name, form });
 	const event = (event: any) => {
 		console.log(event);
-		helpers.setValue([{ value: 'flavio', label: 'flavio' }]);
+		// helpers.setValue([{ value: 'flavio', label: 'flavio' }]);
 	};
 	return (
 		<div>
