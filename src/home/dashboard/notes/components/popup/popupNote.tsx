@@ -147,7 +147,9 @@ export const PopupNoteAdd = () => {
 
 									<div className='flex flex-col w-full'>
 										<span className='flex text-sixth text-1/1 mb-2'>Categoría relacionada</span>
-										<InputMultiCheckbox name='categoryId' form={form} data={data} dataCheckes={dataChecks}></InputMultiCheckbox>
+										<div className='overflow-x-auto h-[12rem]'>
+											<InputMultiCheckbox name='categoryId' form={form} data={data} dataCheckes={dataChecks}></InputMultiCheckbox>
+										</div>
 									</div>
 									<button type='submit' className='cursor-pointer h-12 w-max bg-success p-4 text-white flex items-center justify-center rounded-md select-none ml-auto text-1/0'>
 										Guardar los cambios
