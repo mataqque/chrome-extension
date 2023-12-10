@@ -43,6 +43,7 @@ export interface ISelectProps {
 export interface IMultiplyCheckBoxProps {
 	name: string;
 	form: any;
+	dataCheckes: ICheckboxDataProps[];
 	data: ICheckboxDataProps[];
 	className?: string;
 }

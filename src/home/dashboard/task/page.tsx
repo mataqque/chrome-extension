@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useCategoriesMutation, useSubcategoriesMutation } from '../../../store/api/categoryApi';
 import { LazyImage } from '../gestion-de-archivos/components/lazyImages/images';
 import { ButtonAddCategoryTask } from './components/buttons/ButtonAddCategoryTask';
@@ -66,29 +66,42 @@ const ContentCategories = () => {
 };
 
 const ContentSubCategories = () => {
-	const textoColorBlanco = [255, 255, 255];
+	const [getSubCategories, {}] = useSubcategoriesMutation();
+	const [getNotes, {}] = useNotesMutation();
+	const dispatch = useDispatch();
+
 	const subCategory = useSelector((state: any) => state.categorySlice.subCategory);
-	const colorRandom = (textoColor: any[]) => {
-		const randomColor = Array.from({ length: 3 }, () => Math.floor(Math.random() * 128) + 64);
 
-		// Convierte los componentes RGB a formato hexadecimal
-		const hexColor = randomColor.map(component => component.toString(16).padStart(2, '0')).join('');
+	const handleSubCategory = async (c: any) => {
+		const { data }: any = await getNotes({ uuid: c.uuid });
+		dispatch(updateNotes(data.data));
 
-		return `#${hexColor}`;
+		// dispatch(updateNotes(resNotes.data.data));
 	};
 	return (
 		<div className='w-full h-8 flex gap-4'>
 			{subCategory.map((item: any) => {
-				return (
-					<div
-						className={`w-max h-full px-4 rounded-full flex items-center justify-center text-white text-sub-category cursor-pointer`}
-						key={item.uuid}
-						style={{ backgroundColor: colorRandom(textoColorBlanco) }}
-					>
-						{item.name}
-					</div>
-				);
+				return <SubCategory handleSubCategory={handleSubCategory} item={item} key={item.uuid} />;
 			})}
+		</div>
+	);
+};
+
+const SubCategory = ({ handleSubCategory, item }: { handleSubCategory: (c: any) => void; item: any }) => {
+	const colorRandom = useMemo(() => {
+		const randomColor = Array.from({ length: 3 }, () => Math.floor(Math.random() * 128) + 64);
+		const hexColor = randomColor.map(component => component.toString(16).padStart(2, '0')).join('');
+		return `#${hexColor}`;
+	}, []);
+	return (
+		<div
+			className={`w-max h-full px-4 rounded-full flex items-center justify-center text-white text-sub-category cursor-pointer`}
+			style={{ backgroundColor: colorRandom }}
+			onClick={() => {
+				handleSubCategory(item);
+			}}
+		>
+			{item.name}
 		</div>
 	);
 };
@@ -155,7 +168,7 @@ const TypesTask = () => {
 		dispatch(updateNotes(resNotes.data.data));
 	};
 	return (
-		<div className='min-w-[25rem] w-[25rem] h-max bg-white rounded-xl p-4 shadow-[0px_0px_10px_-2px_#b8cad9] max-h-[100%] overflow-hidden flex flex-col'>
+		<div className='min-w-[25rem] w-[25rem] h-max bg-white rounded-xl p-4 max-h-[100%] overflow-hidden flex flex-col'>
 			<div className='flex mb-2'>
 				<div className='flex items-center'>
 					<div className='mask-left icon-notepad w-6 h-6 bg-sixth mr-2'></div>

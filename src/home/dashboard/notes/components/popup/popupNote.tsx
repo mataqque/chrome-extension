@@ -7,23 +7,61 @@ import { ModalContext } from '../../../../../components/ui/modal/modal';
 import { useContext, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { ICheckboxDataProps, ISelectDataProps } from '../../../../../components/ui/Inputs/interface';
-import { BASE_API_LOCAL } from '../../../../../store/config';
-import { delayfunc, generateId, partials } from '../../../../../common/helpers';
-import { getData, getDataParentAndChild } from './fetch';
-import { useAddCategoryMutation, useCategoriesMutation, categoryApi } from '../../../../../store/api/categoryApi';
+import { getDataParentAndChild } from './fetch';
+import { useCategoriesMutation } from '../../../../../store/api/categoryApi';
 import { InputToggle } from '../../../../../components/ui/Inputs/inputToggle';
-import { InputAddImage } from '../../../../../components/ui/Inputs/inputAddImage';
-import { updateCategories } from '../../../../../store/slice/categorySlice';
 import { useDispatch } from 'react-redux';
-import { FormikHandlers, FormikState } from 'formik';
-import { InputTextArea } from '../../../../../components/ui/Inputs/inputTextArea';
 import { useAddNotesMutation, useNotesMutation } from '../../../../../store/api/notesApi';
 import { Id } from '../../../../../components/ui/Inputs/inputId';
-import { updateNotes } from '../../../../../store/slice/notesSlide';
 import { InputMultiCheckbox } from '../../../../../components/ui/Inputs/inputMultiCheckbox';
-import { INote } from '../../../../../store/api/interface';
 import { ICategory } from '../../../../../common/interface';
+import { DataSaverOnTwoTone } from '@mui/icons-material';
+import { data } from '../../../config';
 
+const dataAll = [
+	{
+		value: '65hv4sqwk48',
+		label: 'Javascript',
+		data: [
+			{
+				value: '0qhbp2et4be',
+				label: 'Data',
+			},
+			{
+				value: 'takwcwt45j',
+				label: 'algoritmo',
+			},
+		],
+	},
+	{
+		value: 'po2z5ysizf',
+		label: 'Typescript',
+		data: [
+			{
+				value: 'h3vsze535x6',
+				label: 'el mejor tipado',
+			},
+		],
+	},
+];
+
+const dataChecks = [
+	{
+		value: '65hv4sqwk48',
+		label: 'Javascript',
+		data: [
+			{
+				value: 'takwcwt45j',
+				label: 'algoritmo',
+			},
+		],
+	},
+	{
+		value: '65hv4sqwk4158',
+		label: 'Javascript',
+	},
+];
+// console.log(all);
 export const PopupNoteAdd = () => {
 	const [data, setData] = useState<ICheckboxDataProps[]>([]);
 	const dispatch = useDispatch();
@@ -43,7 +81,7 @@ export const PopupNoteAdd = () => {
 	const schemaType = noteSchema();
 
 	const onSubmit: FormikSubmitHandler<Yup.InferType<typeof schemaType>> = async (values, form) => {
-		// console.log(values);
+		console.log(values);
 		// const res: any = await createNote(values);
 		// if (res?.data?.status == 200) {
 		// 	const resNotes: any = await getDataNotes({ page: 1, cant: 10 });
@@ -60,6 +98,7 @@ export const PopupNoteAdd = () => {
 					...(item.childCategories ? { data: item.childCategories.map((child: ICategory) => ({ value: child.uuid, label: child.name })) } : {}),
 				};
 			});
+
 			setData(data);
 		});
 	}, []);
@@ -100,7 +139,7 @@ export const PopupNoteAdd = () => {
 								<div className='flex flex-col w-full'>
 									<span className='flex text-sixth text-1/1'>Categoría relacionada</span>
 									<span className='text-gray-500 text-1/0 mb-2'>Si la categoría es superior no seleccione una opción</span>
-									<InputMultiCheckbox name='categoryId' form={form} data={data}></InputMultiCheckbox>
+									<InputMultiCheckbox name='categoryId' form={form} data={data} dataCheckes={dataChecks}></InputMultiCheckbox>
 								</div>
 							</div>
 							<button type='submit' className='cursor-pointer h-12 w-max bg-success p-4 text-white flex items-center justify-center rounded-md select-none ml-auto text-1/0'>
