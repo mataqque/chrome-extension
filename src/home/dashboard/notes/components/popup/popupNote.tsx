@@ -20,34 +20,6 @@ import { data } from '../../../config';
 import Editor from '@monaco-editor/react';
 import { updateNotes } from '../../../../../store/slice/notesSlide';
 import { InputEditor } from '../../../../../components/ui/Inputs/inputEditor';
-
-const dataAll = [
-	{
-		value: '65hv4sqwk48',
-		label: 'Javascript',
-		data: [
-			{
-				value: '0qhbp2et4be',
-				label: 'Data',
-			},
-			{
-				value: 'takwcwt45j',
-				label: 'algoritmo',
-			},
-		],
-	},
-	{
-		value: 'po2z5ysizf',
-		label: 'Typescript',
-		data: [
-			{
-				value: 'h3vsze535x6',
-				label: 'el mejor tipado',
-			},
-		],
-	},
-];
-
 const dataChecks = [] as ICheckboxDataProps[];
 // console.log(all);
 export const PopupNoteAdd = () => {
@@ -63,7 +35,7 @@ export const PopupNoteAdd = () => {
 		title: '',
 		description: '',
 		content: '',
-		categoryId: [],
+		categories: [],
 		color: '',
 	};
 	const schemaType = noteSchema();
@@ -130,7 +102,7 @@ export const PopupNoteAdd = () => {
 									<div className='flex flex-col w-full'>
 										<span className='flex text-sixth text-1/1 mb-2'>Categoría relacionada</span>
 										<div className='overflow-x-auto h-[12rem]'>
-											<InputMultiCheckbox name='categoryId' form={form} data={data} dataCheckes={dataChecks}></InputMultiCheckbox>
+											<InputMultiCheckbox name='categories' form={form} data={data} dataCheckes={dataChecks}></InputMultiCheckbox>
 										</div>
 									</div>
 									<button type='submit' className='cursor-pointer h-12 w-max bg-success p-4 text-white flex items-center justify-center rounded-md select-none ml-auto text-1/0'>

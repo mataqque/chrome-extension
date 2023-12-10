@@ -39,9 +39,11 @@ export const InputMultiCheckbox = ({ name, form, data, dataCheckes }: IMultiplyC
 		console.log(newData.filter((e: any) => e == true));
 		setAllChecked(newData);
 		helpers.setValue(
-			newData.filter(e => {
-				if (e.length > 0) return e;
-			})
+			newData
+				.filter(e => {
+					if (e.length > 0) return e;
+				})
+				.flat()
 		);
 	};
 	length;

@@ -15,6 +15,6 @@ export const noteSchema = () =>
 		title: Yup.string().required(),
 		description: Yup.string().required(),
 		content: Yup.string(),
-		categoryId: Yup.array(),
+		categories: Yup.array(),
 		color: Yup.string(),
 	});
