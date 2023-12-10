@@ -36,12 +36,17 @@ export const InputMultiCheckbox = ({ name, form, data, dataCheckes }: IMultiplyC
 	const event = ({ list, index }: IEvent) => {
 		const newData = allChecked;
 		newData[index] = list;
+		console.log(newData.filter((e: any) => e == true));
 		setAllChecked(newData);
-		helpers.setValue(newData);
+		helpers.setValue(
+			newData.filter(e => {
+				if (e.length > 0) return e;
+			})
+		);
 	};
-
+	length;
 	return (
-		<div>
+		<div className=''>
 			{data.map((item: ICheckboxDataProps, pos: number) => {
 				return <CheckBoxParent key={item.value} data={item} event={event} pos={pos} checkBoolean={checkBoolean[pos]}></CheckBoxParent>;
 			})}
@@ -103,7 +108,7 @@ const CheckBoxParent = ({ data, event, pos, checkBoolean }: { data: ICheckboxDat
 		event({ list: compareToData(newData, newSetChecked), index: pos });
 	}, []);
 	return (
-		<div>
+		<div className='py-1'>
 			<FormControlLabel
 				label={data.label}
 				key={data.value}

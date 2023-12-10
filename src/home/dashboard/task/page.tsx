@@ -75,8 +75,6 @@ const ContentSubCategories = () => {
 	const handleSubCategory = async (c: any) => {
 		const { data }: any = await getNotes({ uuid: c.uuid });
 		dispatch(updateNotes(data.data));
-
-		// dispatch(updateNotes(resNotes.data.data));
 	};
 	return (
 		<div className='w-full h-8 flex gap-4'>

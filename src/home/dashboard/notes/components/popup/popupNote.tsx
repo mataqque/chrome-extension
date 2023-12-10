@@ -18,6 +18,8 @@ import { ICategory } from '../../../../../common/interface';
 import { DataSaverOnTwoTone } from '@mui/icons-material';
 import { data } from '../../../config';
 import Editor from '@monaco-editor/react';
+import { updateNotes } from '../../../../../store/slice/notesSlide';
+import { InputEditor } from '../../../../../components/ui/Inputs/inputEditor';
 
 const dataAll = [
 	{
@@ -46,22 +48,7 @@ const dataAll = [
 	},
 ];
 
-const dataChecks = [
-	{
-		value: '65hv4sqwk48',
-		label: 'Javascript',
-		data: [
-			{
-				value: 'takwcwt45j',
-				label: 'algoritmo',
-			},
-		],
-	},
-	{
-		value: '65hv4sqwk4158',
-		label: 'Javascript',
-	},
-];
+const dataChecks = [] as ICheckboxDataProps[];
 // console.log(all);
 export const PopupNoteAdd = () => {
 	const [data, setData] = useState<ICheckboxDataProps[]>([]);
@@ -93,7 +80,7 @@ export const PopupNoteAdd = () => {
 		// if (res?.data?.status == 200) {
 		// 	const resNotes: any = await getDataNotes({ page: 1, cant: 10 });
 		// 	dispatch(updateNotes(resNotes.data.data));
-		// 	// form.resetForm();
+		// 	form.resetForm();
 		// }
 	};
 	useEffect(() => {
@@ -140,11 +127,6 @@ export const PopupNoteAdd = () => {
 										<span className='flex text-sixth text-1/1 mb-0'>Descripción</span>
 										<InputText name='description' form={form} placeholder='Descripción' />
 									</div>
-									{/* <div className='flex flex-col w-full'>
-										<span className='flex text-sixth text-1/1 mb-2'>Contenido</span>
-										<InputTextArea name='content' form={form} placeholder='Descripción' />
-									</div> */}
-
 									<div className='flex flex-col w-full'>
 										<span className='flex text-sixth text-1/1 mb-2'>Categoría relacionada</span>
 										<div className='overflow-x-auto h-[12rem]'>
@@ -158,20 +140,7 @@ export const PopupNoteAdd = () => {
 								<div className='flex flex-col w-full h-full my-0 py-0'>
 									<span className='flex text-sixth text-1/1 mb-2'>Editor</span>
 									<div className='w-full h-full'>
-										<Editor
-											height='100%'
-											defaultLanguage='typescript'
-											theme='vs-dark'
-											defaultValue='interface IUser {
-													
-												}'
-											onValidate={handleEditorValidation}
-											onChange={handleEditorChange}
-											options={{
-												insertSpaces: true,
-												tabSize: 6,
-											}}
-										/>
+										<InputEditor name='content' form={form} data={'//Hola mundo'} />
 									</div>
 								</div>
 							</div>

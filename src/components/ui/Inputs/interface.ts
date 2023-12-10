@@ -8,6 +8,11 @@ export interface IInputProps {
 	tabIndex?: number;
 }
 
+export interface IInputEditor {
+	name: string;
+	form: any;
+	data: string;
+}
 export interface IInputPropsDate {
 	title?: string;
 	type?: string;
