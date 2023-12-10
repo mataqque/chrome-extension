@@ -36,7 +36,6 @@ export const InputMultiCheckbox = ({ name, form, data, dataCheckes }: IMultiplyC
 	const event = ({ list, index }: IEvent) => {
 		const newData = allChecked;
 		newData[index] = list;
-		console.log(newData.filter((e: any) => e == true));
 		setAllChecked(newData);
 		helpers.setValue(
 			newData
@@ -130,7 +129,7 @@ const CheckBoxParent = ({ data, event, pos, checkBoolean }: { data: ICheckboxDat
 					return (
 						<Box sx={{ display: 'flex', flexDirection: 'column', ml: '24px' }} key={index + 'check'}>
 							<FormControlLabel
-								label={data.label}
+								label={item.label}
 								style={{ marginRight: '0', marginLeft: '0' }}
 								control={
 									<Checkbox

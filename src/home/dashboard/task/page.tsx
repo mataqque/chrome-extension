@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useCategoriesMutation, useSubcategoriesMutation } from '../../../store/api/categoryApi';
+import { useCategoriesMutation, useDeleteCategoryMutation, useSubcategoriesMutation } from '../../../store/api/categoryApi';
 import { LazyImage } from '../gestion-de-archivos/components/lazyImages/images';
 import { ButtonAddCategoryTask } from './components/buttons/ButtonAddCategoryTask';
 import { ButtonDeleteTask } from './components/buttons/buttonDelete';
 import { SearchInput } from './components/inputs/searchInput';
 import { useDispatch } from 'react-redux';
-import { selectCategory, updateCategories, updateSubCategories } from '../../../store/slice/categorySlice';
+import { deleteSubCategory, selectCategory, updateCategories, updateSubCategories } from '../../../store/slice/categorySlice';
 import { useSelector } from 'react-redux';
 import { ButtonAddTask } from './components/buttons/buttonAddTask';
 import { convertToDate, dateToString, generateUrl, resumeText } from '../../../common/helpers';
@@ -15,6 +15,8 @@ import { updateNotes } from '../../../store/slice/notesSlide';
 import { data } from '../config';
 import { useDeleteNotesMutation, useNotesMutation } from '../../../store/api/notesApi';
 import { INote, IPropsGetNote } from '../../../store/api/interface';
+import { obsModal } from '../../../components/ui/modal/obsModal';
+import { obsNote } from '../notes/components/popup/obspopup';
 
 export const TaskPage = () => {
 	const dispatch = useDispatch();
@@ -70,7 +72,7 @@ const ContentSubCategories = () => {
 	const [getNotes, {}] = useNotesMutation();
 	const dispatch = useDispatch();
 
-	const subCategory = useSelector((state: any) => state.categorySlice.subCategory);
+	const subCategory: ICategory[] = useSelector((state: any) => state.categorySlice.subCategory);
 
 	const handleSubCategory = async (c: any) => {
 		const { data }: any = await getNotes({ uuid: c.uuid });
@@ -78,28 +80,47 @@ const ContentSubCategories = () => {
 	};
 	return (
 		<div className='w-full h-8 flex gap-4'>
-			{subCategory.map((item: any) => {
+			{subCategory.map((item: ICategory) => {
 				return <SubCategory handleSubCategory={handleSubCategory} item={item} key={item.uuid} />;
 			})}
 		</div>
 	);
 };
 
-const SubCategory = ({ handleSubCategory, item }: { handleSubCategory: (c: any) => void; item: any }) => {
+const SubCategory = ({ handleSubCategory, item }: { handleSubCategory: (c: any) => void; item: ICategory }) => {
+	const dispatch = useDispatch();
+	const [deleteCategory, {}] = useDeleteCategoryMutation();
+	const [getCategories, {}] = useCategoriesMutation();
+	const handleDelete = async () => {
+		const { data }: any = await deleteCategory({ uuid: item.uuid });
+		if (data.status == 200) {
+			dispatch(deleteSubCategory(item));
+		}
+	};
 	const colorRandom = useMemo(() => {
 		const randomColor = Array.from({ length: 3 }, () => Math.floor(Math.random() * 128) + 64);
 		const hexColor = randomColor.map(component => component.toString(16).padStart(2, '0')).join('');
 		return `#${hexColor}`;
 	}, []);
 	return (
-		<div
-			className={`w-max h-full px-4 rounded-full flex items-center justify-center text-white text-sub-category cursor-pointer`}
-			style={{ backgroundColor: colorRandom }}
-			onClick={() => {
-				handleSubCategory(item);
-			}}
-		>
-			{item.name}
+		<div className='relative'>
+			<div
+				className={`w-max h-full px-4 rounded-full flex items-center justify-center text-white text-sub-category cursor-pointer`}
+				style={{ backgroundColor: colorRandom }}
+				onClick={() => {
+					handleSubCategory(item);
+				}}
+			>
+				{item.name}
+			</div>
+			<div
+				className='w-5 h-5 bg-danger flex items-center justify-center rounded-full absolute top-0 right-0 transform translate-x-[40%] -translate-y-[40%] cursor-pointer'
+				onClick={() => {
+					handleDelete();
+				}}
+			>
+				<div className='w-[60%] h-[60%] bg-white rounded-full mask-center icon-close'></div>
+			</div>
 		</div>
 	);
 };
@@ -126,7 +147,18 @@ export const Task = ({ note }: { note: INote }) => {
 			dispatch(updateNotes(resNotes.data.data));
 		}
 	};
-	const handleEdit = () => {};
+	const handleEdit = () => {
+		obsModal.next({ ['popupNote']: { value: true } });
+		obsNote.next({
+			status: true,
+			uuid: note.uuid,
+			title: note.title,
+			description: note.description,
+			content: note.content,
+			color: note.color,
+			categories: [],
+		});
+	};
 	return (
 		<div className='h-[15rem] w-full rounded-xl bg-white border-solid border border-gray-100 p-4 flex flex-col'>
 			<div className='flex'>

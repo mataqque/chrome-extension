@@ -20,16 +20,18 @@ import { data } from '../../../config';
 import Editor from '@monaco-editor/react';
 import { updateNotes } from '../../../../../store/slice/notesSlide';
 import { InputEditor } from '../../../../../components/ui/Inputs/inputEditor';
+import { initDataNote, obsNote } from './obspopup';
 const dataChecks = [] as ICheckboxDataProps[];
 // console.log(all);
 export const PopupNoteAdd = () => {
+	const schemaType = noteSchema();
 	const [data, setData] = useState<ICheckboxDataProps[]>([]);
 	const dispatch = useDispatch();
 	const [getDataNotes, {}] = useNotesMutation();
 	const [getDataCategories, {}] = useCategoriesMutation();
 	const [createNote, {}] = useAddNotesMutation();
 	const { onClose } = useContext(ModalContext);
-	const initialValues = {
+	const [initialValues, setInitialValues] = useState({
 		status: true,
 		uuid: '',
 		title: '',
@@ -37,23 +39,16 @@ export const PopupNoteAdd = () => {
 		content: '',
 		categories: [],
 		color: '',
-	};
-	const schemaType = noteSchema();
-	function handleEditorValidation(markers: any) {
-		// model markers
-		markers.forEach((marker: any) => console.log('onValidate:', marker.message));
-	}
-	function handleEditorChange(value: any, event: any) {
-		console.log('here is the current model value:', value);
-	}
+	});
+
 	const onSubmit: FormikSubmitHandler<Yup.InferType<typeof schemaType>> = async (values, form) => {
-		console.log(values);
-		// const res: any = await createNote(values);
-		// if (res?.data?.status == 200) {
-		// 	const resNotes: any = await getDataNotes({ page: 1, cant: 10 });
-		// 	dispatch(updateNotes(resNotes.data.data));
-		// 	form.resetForm();
-		// }
+		const res: any = await createNote(values);
+		if (res?.data?.status == 200) {
+			const resNotes: any = await getDataNotes({ page: 1, cant: 10 });
+			dispatch(updateNotes(resNotes.data.data));
+			obsNote.next(initDataNote);
+			form.resetForm();
+		}
 	};
 	useEffect(() => {
 		getDataParentAndChild().then(res => {
@@ -67,11 +62,17 @@ export const PopupNoteAdd = () => {
 
 			setData(data);
 		});
+		const subs = obsNote.subscribe(data => {
+			setInitialValues(data);
+		});
+		return () => {
+			subs.unsubscribe();
+		};
 	}, []);
 	return (
 		<div className='w-[70rem] max-h-[80vh] bg-white rounded-xl relative'>
 			<div
-				className='mask-center icon-close cursor-pointer absolute w-4 h-4 bg-gray-400 top-3 right-3 z-[1]'
+				className='mask-center icon-close cursor-pointer absolute w-5 h-5 bg-gray-400 top-3 right-3 z-[1]'
 				onClick={() => {
 					onClose(false);
 				}}
@@ -89,7 +90,7 @@ export const PopupNoteAdd = () => {
 										<InputToggle name='status' form={form} />
 									</div>
 									<div className='flex text-1/2 text-gray-500 leading-none'>
-										ID : <Id name='uuid' form={form}></Id>
+										ID : <Id name='uuid' form={form} defaultValue={initialValues.uuid}></Id>
 									</div>
 									<div className='flex flex-col w-full'>
 										<span className=' flex text-sixth text-1/1 mb-0'>Titulo</span>

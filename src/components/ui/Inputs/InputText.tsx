@@ -1,5 +1,5 @@
 import { IInputProps } from './interface';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IconTogglePassword } from './iconInputs';
 import iconValid from '../../../assets/multimedia/icons/check.png';
 import iconError from '../../../assets/multimedia/icons/error.png';
@@ -9,6 +9,7 @@ import { getInputClasses } from './helpers';
 
 export const InputText = (props: IInputProps) => {
 	const { name, placeholder, form, defaultValue = '', ...rest } = props;
+	useEffect(() => {}, [defaultValue]);
 	return (
 		<div className={`relative ${rest?.className ? rest.className : ''}`}>
 			<div className={`content-sub-input ${props.icon ? 'include-icon' : ''}`}>

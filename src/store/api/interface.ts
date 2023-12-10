@@ -20,7 +20,7 @@ export interface IPropsUpdateNote {
 	title: string;
 	description: string;
 	content?: string;
-	categoryId?: any[];
+	categories?: any[];
 	color?: string;
 }
 

@@ -13,9 +13,6 @@ export const notesApi = createApi({
 				return {
 					url: `/notes?page=${page}&cant=${cant}&category=${uuid}`,
 					method: 'GET',
-					headers: {
-						authorization: `Bearer ${localStorage.getItem('token')}`,
-					},
 				};
 			},
 		}),
