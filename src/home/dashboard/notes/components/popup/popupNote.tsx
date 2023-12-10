@@ -17,6 +17,7 @@ import { InputMultiCheckbox } from '../../../../../components/ui/Inputs/inputMul
 import { ICategory } from '../../../../../common/interface';
 import { DataSaverOnTwoTone } from '@mui/icons-material';
 import { data } from '../../../config';
+import Editor from '@monaco-editor/react';
 
 const dataAll = [
 	{
@@ -79,7 +80,13 @@ export const PopupNoteAdd = () => {
 		color: '',
 	};
 	const schemaType = noteSchema();
-
+	function handleEditorValidation(markers: any) {
+		// model markers
+		markers.forEach((marker: any) => console.log('onValidate:', marker.message));
+	}
+	function handleEditorChange(value: any, event: any) {
+		console.log('here is the current model value:', value);
+	}
 	const onSubmit: FormikSubmitHandler<Yup.InferType<typeof schemaType>> = async (values, form) => {
 		console.log(values);
 		// const res: any = await createNote(values);
@@ -136,6 +143,25 @@ export const PopupNoteAdd = () => {
 									<span className='flex text-sixth text-1/1 mb-2'>Contenido</span>
 									<InputTextArea name='content' form={form} placeholder='Descripción' />
 								</div> */}
+								<div className='flex flex-col w-full'>
+									<span className='flex text-sixth text-1/1 mb-2'>Editor</span>
+									<div className='h-[10rem] w-full'>
+										<Editor
+											height='100%'
+											defaultLanguage='typescript'
+											theme='vs-dark'
+											defaultValue='interface IUser {
+												
+											}'
+											onValidate={handleEditorValidation}
+											onChange={handleEditorChange}
+											options={{
+												insertSpaces: true,
+												tabSize: 6,
+											}}
+										/>
+									</div>
+								</div>
 								<div className='flex flex-col w-full'>
 									<span className='flex text-sixth text-1/1'>Categoría relacionada</span>
 									<span className='text-gray-500 text-1/0 mb-2'>Si la categoría es superior no seleccione una opción</span>

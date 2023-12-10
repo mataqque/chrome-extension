@@ -76,6 +76,7 @@ export const PopupTask = () => {
 									<span className='flex text-sixth text-1/1 mb-2'>Descripción</span>
 									<InputText name='description' form={form} placeholder='Descripción' />
 								</div>
+
 								<div className='flex flex-col w-full'>
 									<span className='flex text-sixth text-1/1'>Categoría padre</span>
 									<span className='text-gray-500 text-1/0 mb-2'>Si la categoría es superior no seleccione una opción</span>
