@@ -117,3 +117,13 @@ input.--invalid {
 .MuiFormControlLabel-label {
 	color: black !important;
 }
+
+.monaco-editor {
+	width: 100% !important;
+	border-radius: 0.8rem;
+	overflow: hidden !important;
+}
+.monaco-editor .overflow-guard {
+	width: 100% !important;
+	display: flex;
+}

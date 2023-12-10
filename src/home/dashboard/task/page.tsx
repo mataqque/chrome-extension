@@ -169,7 +169,7 @@ const TypesTask = () => {
 	};
 	return (
 		<div className='min-w-[25rem] w-[25rem] h-max bg-white rounded-xl p-4 max-h-[100%] overflow-hidden flex flex-col'>
-			<div className='flex mb-2'>
+			<div className='flex mb-4'>
 				<div className='flex items-center'>
 					<div className='mask-left icon-notepad w-6 h-6 bg-sixth mr-2'></div>
 					<span className='text-sixth text-1/3 leading-none h-max'>Categorías de Notas</span>
