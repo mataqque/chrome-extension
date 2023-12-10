@@ -15,7 +15,7 @@ export interface IFile {
 	fileName: string;
 	mimeType: string;
 	size: number;
-	updatedAt: string;
+	updatedAt: Date;
 	createdAt: string;
 	id_selected?: string;
 }

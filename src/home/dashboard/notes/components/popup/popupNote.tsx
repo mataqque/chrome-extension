@@ -102,9 +102,10 @@ export const PopupNoteAdd = () => {
 									</div>
 									<div className='flex flex-col w-full'>
 										<span className='flex text-sixth text-1/1 mb-2'>Categoría relacionada</span>
-										<div className='overflow-x-auto h-[12rem]'>
-											<InputMultiCheckbox name='categories' form={form} data={data} dataCheckes={dataChecks}></InputMultiCheckbox>
-										</div>
+										<fieldset className='overflow-x-auto h-[12rem]'>
+											<legend>Categorías</legend>
+											<InputMultiCheckbox name='categories' form={form} data={data} dataChecks={dataChecks}></InputMultiCheckbox>
+										</fieldset>
 									</div>
 									<button type='submit' className='cursor-pointer h-12 w-max bg-success p-4 text-white flex items-center justify-center rounded-md select-none ml-auto text-1/0'>
 										Guardar los cambios
@@ -113,7 +114,7 @@ export const PopupNoteAdd = () => {
 								<div className='flex flex-col w-full h-full my-0 py-0'>
 									<span className='flex text-sixth text-1/1 mb-2'>Editor</span>
 									<div className='w-full h-full'>
-										<InputEditor name='content' form={form} data={'//Hola mundo'} />
+										<InputEditor name='content' form={form} data={initialValues.content} />
 									</div>
 								</div>
 							</div>
