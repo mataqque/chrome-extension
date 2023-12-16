@@ -3,7 +3,6 @@ import { IFileSelected } from '../../common/interface';
 const filesManageSlice = createSlice({
 	name: 'filesManageSlice',
 	initialState: {
-		filesSelected: [] as IFileSelected[],
 		files: [] as IFileSelected[],
 	},
 	reducers: {
@@ -11,19 +10,26 @@ const filesManageSlice = createSlice({
 			state.files = action.payload;
 		},
 		selectMultiplyFile: (state, action: PayloadAction<IFileSelected>) => {
-			let exist = state.filesSelected.find((file: IFileSelected) => file.fileName === action.payload.fileName);
-			if (exist) {
-				state.filesSelected = state.filesSelected.filter((file: IFileSelected) => file.fileName !== action.payload.fileName);
-			} else {
-				state.filesSelected.push(action.payload);
-			}
+			console.log('payload', action.payload);
+			const files = state.files.map((file: IFileSelected) => {
+				if (file.uuid === action.payload.uuid) {
+					file.selected = !file.selected;
+					return file;
+				}
+				return file;
+			});
+			state.files = files;
 			// state.filesSelected.push(action.payload);
 		},
-		selectSingleFile: (state, action: PayloadAction<IFileSelected>) => {
-			state.filesSelected = [action.payload];
-		},
+		selectSingleFile: (state, action: PayloadAction<IFileSelected>) => {},
 	},
 });
 
 export const { updateFiles, selectMultiplyFile, selectSingleFile } = filesManageSlice.actions;
 export default filesManageSlice.reducer;
+export const allFiles = (state: any) => state.filesManageSlice.files;
+export const deleteFilesSelected = (state: any) => {
+	return state.filesManageSlice.files.filter((file: IFileSelected) => {
+		return file.selected == true;
+	});
+};

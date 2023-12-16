@@ -103,7 +103,6 @@ export const PopupNoteAdd = () => {
 									<div className='flex flex-col w-full'>
 										<span className='flex text-sixth text-1/1 mb-2'>Categoría relacionada</span>
 										<fieldset className='overflow-x-auto h-[12rem]'>
-											<legend>Categorías</legend>
 											<InputMultiCheckbox name='categories' form={form} data={data} dataChecks={dataChecks}></InputMultiCheckbox>
 										</fieldset>
 									</div>

@@ -30,6 +30,7 @@ function TreeChecks(dataAll: any, dataChecks: any) {
 }
 
 export const InputMultiCheckbox = ({ name, form, data, dataChecks }: IMultiplyCheckBoxProps) => {
+	console.log(data, dataChecks);
 	const checkBoolean = TreeChecks(data, dataChecks);
 	const [allChecked, setAllChecked] = useState<any[]>([]);
 	const [field, meta, helpers] = useField({ name, form });

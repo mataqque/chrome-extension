@@ -16,11 +16,11 @@ export const addShy = (text: string) => {
 
 export const generateUrl = (props: IFile, host?: string): string => {
 	try {
-		const { fileName = 'no-image.png', dir = 'no-image.png' } = props;
+		const { fileName = 'no-image.png', dir = 'no-image.png', compress = '' } = props;
 		if (host) {
-			return host + '/' + dir + '/' + fileName;
+			return host + '/' + dir + '/' + compress;
 		}
-		let url = dir + '/' + fileName;
+		let url = dir + '/' + compress;
 		return url;
 	} catch (error) {
 		console.error(error);
