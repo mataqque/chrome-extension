@@ -1,9 +1,17 @@
-export interface IInputProps {
+export interface IInputPasswordProps {
 	name: string;
 	placeholder: string;
 	defaultValue?: string;
 	className?: string;
 	form?: any;
+	icon?: any;
+	tabIndex?: number;
+}
+export interface IInputProps {
+	name: string;
+	placeholder: string;
+	defaultValue?: string;
+	className?: string;
 	icon?: any;
 	tabIndex?: number;
 }

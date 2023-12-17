@@ -4,7 +4,7 @@ import { obsModal } from './obsModal';
 
 interface ModalProps {
 	id?: string;
-	value?: boolean;
+	initActive?: boolean;
 	index?: number;
 	children: React.ReactElement<{ onClose: (value: boolean) => void }>;
 }
@@ -19,15 +19,17 @@ interface ModalContextProps {
 
 export const ModalContext = createContext<ModalContextProps>({} as ModalContextProps);
 
-export const Modal = ({ index = 10, children, value = false, id = generateId({ type: 'string' }) }: ModalProps) => {
+export const Modal = ({ index = 10, children, initActive = false, id = generateId({ type: 'string' }) }: ModalProps) => {
 	const [onMouseModal, setMouseModal] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const closeModal = (value: boolean) => {
 		setShowModal(value);
 		obsModal.next({ [id]: { value } });
 	};
-
 	useEffect(() => {
+		if (initActive) {
+			setShowModal(true);
+		}
 		const handleEscapeKey = (e: KeyboardEvent, nameID: string) => {
 			if (e.key === 'Escape' && onMouseModal) {
 				closeModal(false);

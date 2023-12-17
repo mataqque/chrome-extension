@@ -11,12 +11,16 @@ import { obsSidebar } from './obsSidebar';
 import { PopupTask } from './notes/components/popup/popup';
 import { ModalUpload } from './gestion-de-archivos/popup';
 import { PopupNoteAdd } from './notes/components/popup/popupNote';
+import { ConfirmAction } from '../../components/ui/confirmAction/confirmAction';
 export default function LayoutDashboard({ children }: { children: React.ReactNode }) {
 	const closeAside = () => {
 		obsSidebar.next(true);
 	};
 	return (
 		<main className='dashboard flex'>
+			<Modal index={14} id='confirm'>
+				<ConfirmAction></ConfirmAction>
+			</Modal>
 			<Modal index={12} id='modalupload'>
 				<Upload></Upload>
 			</Modal>

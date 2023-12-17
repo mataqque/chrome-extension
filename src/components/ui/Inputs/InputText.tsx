@@ -1,25 +1,25 @@
-import { IInputProps } from './interface';
+import { IInputPasswordProps, IInputProps } from './interface';
 import { useEffect, useRef, useState } from 'react';
 import { IconTogglePassword } from './iconInputs';
 import iconValid from '../../../assets/multimedia/icons/check.png';
 import iconError from '../../../assets/multimedia/icons/error.png';
 import { setInputTextProps } from '../../../common/form';
-import { Field } from 'formik';
-import { getInputClasses } from './helpers';
+import { Field, useField } from 'formik';
+import { getInputClasses, getValidClass } from './helpers';
 
 export const InputText = (props: IInputProps) => {
-	const { name, placeholder, form, defaultValue = '', ...rest } = props;
-	useEffect(() => {}, [defaultValue]);
+	const { name, placeholder, defaultValue = '', ...rest } = props;
+	const [field, meta, helpers] = useField({ name });
 	return (
 		<div className={`relative ${rest?.className ? rest.className : ''}`}>
 			<div className={`content-sub-input ${props.icon ? 'include-icon' : ''}`}>
-				<Field
-					className={`w-full border border-solid border-fifth h-12 px-4 rounded-lg text-gray-400 placeholder:text-gray-300 bg-white ${getInputClasses(name, form)}`}
+				<input
+					{...field}
+					className={`w-full border border-solid border-fifth h-12 px-4 rounded-lg text-gray-400 placeholder:text-gray-300 bg-white ${getValidClass(meta)}`}
 					type='text'
 					autoComplete='off'
 					placeholder={placeholder || ''}
 					tabIndex={props.tabIndex || 0}
-					{...setInputTextProps(name, form)}
 				/>
 				{props.icon && (
 					<div className='w-[35px] absolute top-0 bottom-0 my-auto left-[1px] flex items-center justify-center'>
@@ -33,7 +33,7 @@ export const InputText = (props: IInputProps) => {
 	);
 };
 
-export const InputTextPassword = (props: IInputProps) => {
+export const InputTextPassword = (props: IInputPasswordProps) => {
 	const { name, placeholder, form, ...rest } = props;
 	const inputPassword = useRef<HTMLInputElement>(null);
 	const [iconShowPassword, SetIconShowPassword] = useState<boolean>(true);

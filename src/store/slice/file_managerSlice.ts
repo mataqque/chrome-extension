@@ -10,7 +10,6 @@ const filesManageSlice = createSlice({
 			state.files = action.payload;
 		},
 		selectMultiplyFile: (state, action: PayloadAction<IFileSelected>) => {
-			console.log('payload', action.payload);
 			const files = state.files.map((file: IFileSelected) => {
 				if (file.uuid === action.payload.uuid) {
 					file.selected = !file.selected;

@@ -35,7 +35,6 @@ const config: Config = {
 				accent: '#D53F8C',
 				background: '#1A202C',
 				text: '#E2E8F0',
-				gray: '#718096',
 				border: '#2D3748',
 				hover: '#2D3748',
 				info: '#3695fbfa',
@@ -49,7 +48,6 @@ const config: Config = {
 				green: {
 					100: '#39c6a4',
 				},
-
 				gray: {
 					10: '#fafafa',
 					20: '#fafafa',
@@ -119,6 +117,9 @@ const config: Config = {
 				'6/0': '6rem',
 				'7/0': '7rem',
 				'8/0': '8rem',
+			},
+			textWrap: {
+				balance: 'balance',
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

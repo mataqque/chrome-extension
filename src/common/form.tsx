@@ -10,7 +10,7 @@ interface FormProps {
 
 export const FormContainer = ({ initialValues, validationSchema, onSubmit, children }: FormProps) => {
 	return (
-		<Formik enableReinitialize initialValues={initialValues} validate={validate(validationSchema)} onSubmit={onSubmit}>
+		<Formik enableReinitialize isInitialValid={true} initialValues={initialValues} validate={validate(validationSchema)} onSubmit={onSubmit}>
 			{children}
 		</Formik>
 	);

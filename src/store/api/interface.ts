@@ -40,4 +40,5 @@ export interface INote {
 	color: string;
 	createdAt: Date;
 	updatedAt: Date;
+	categories?: any[];
 }

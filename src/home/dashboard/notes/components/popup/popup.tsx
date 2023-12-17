@@ -16,6 +16,7 @@ import { InputAddImage } from '../../../../../components/ui/Inputs/inputAddImage
 import { updateCategories } from '../../../../../store/slice/categorySlice';
 import { useDispatch } from 'react-redux';
 import { FormikHandlers, FormikState } from 'formik';
+import { Form } from 'react-router-dom';
 
 export const PopupTask = () => {
 	const [data, setData] = useState<ISelectDataProps[]>([]);
@@ -62,7 +63,7 @@ export const PopupTask = () => {
 							<div className='flex flex-col gap-5 mb-4'>
 								<div className='flex flex-col w-full'>
 									<span className='mb-2 flex text-sixth text-1/1'>Estado</span>
-									<InputToggle name='status' form={form} />
+									<InputToggle name='status' />
 								</div>
 								<div className='flex flex-col w-full'>
 									<span className='mb-2 flex text-sixth text-1/1'>Agregar Imagen</span>
@@ -70,11 +71,11 @@ export const PopupTask = () => {
 								</div>
 								<div className='flex flex-col w-full'>
 									<span className='mb-2 flex text-sixth text-1/1'>Nombre de la categoría</span>
-									<InputText name='name' form={form} placeholder='Nombre de la categoría' />
+									<InputText name='name' placeholder='Nombre de la categoría' />
 								</div>
 								<div className='flex flex-col w-full'>
 									<span className='flex text-sixth text-1/1 mb-2'>Descripción</span>
-									<InputText name='description' form={form} placeholder='Descripción' />
+									<InputText name='description' placeholder='Descripción' />
 								</div>
 
 								<div className='flex flex-col w-full'>

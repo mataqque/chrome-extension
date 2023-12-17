@@ -15,7 +15,6 @@ export const ButtonDeleteFile = () => {
 		dispatch(updateFiles(data.data));
 	};
 	const handle = async () => {
-		console.log(filesSelected);
 		const { data }: any = await deleteFiles({ data: filesSelected.map((file: IFileSelected) => file.uuid) });
 		if (data.status == 200) {
 			handleGetData();

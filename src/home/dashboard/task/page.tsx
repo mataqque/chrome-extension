@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { deleteSubCategory, selectCategory, updateCategories, updateSubCategories } from '../../../store/slice/categorySlice';
 import { useSelector } from 'react-redux';
 import { ButtonAddTask } from './components/buttons/buttonAddTask';
-import { convertToDate, dateToString, generateUrl, resumeText } from '../../../common/helpers';
+import { confirmAction, convertToDate, dateToString, generateUrl, resumeText } from '../../../common/helpers';
 import { BASE_API } from '../../../store/config';
 import { ICategory, IFile } from '../../../common/interface';
 import { updateNotes } from '../../../store/slice/notesSlide';
@@ -141,11 +141,13 @@ export const Task = ({ note }: { note: INote }) => {
 	const [deleteNote, {}] = useDeleteNotesMutation();
 	const [getNotes, {}] = useNotesMutation();
 	const handleDelete = async () => {
-		const resDelete: any = await deleteNote({ uuid: note.uuid });
-		if (resDelete.data.status == 200) {
-			const resNotes: any = await getNotes({ page: 1, cant: 10 });
-			dispatch(updateNotes(resNotes.data.data));
-		}
+		confirmAction('¿Seguro que deseas eliminar esta nota?', async () => {
+			const resDelete: any = await deleteNote({ uuid: note.uuid });
+			if (resDelete.data.status == 200) {
+				const resNotes: any = await getNotes({ page: 1, cant: 10 });
+				dispatch(updateNotes(resNotes.data.data));
+			}
+		});
 	};
 	const handleEdit = () => {
 		obsModal.next({ ['popupNote']: { value: true } });
@@ -156,7 +158,7 @@ export const Task = ({ note }: { note: INote }) => {
 			description: note.description,
 			content: note.content,
 			color: note.color,
-			categories: [],
+			categories: note.categories || [],
 		});
 	};
 	return (

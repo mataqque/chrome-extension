@@ -5,7 +5,7 @@ export const initDataNote = {
 	title: '',
 	description: '',
 	content: '',
-	categories: [],
+	categories: [] as any[],
 	color: '',
 };
 export const obsNote = new BehaviorSubject(initDataNote);

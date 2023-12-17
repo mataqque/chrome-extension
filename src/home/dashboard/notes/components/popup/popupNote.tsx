@@ -22,7 +22,6 @@ import { updateNotes } from '../../../../../store/slice/notesSlide';
 import { InputEditor } from '../../../../../components/ui/Inputs/inputEditor';
 import { initDataNote, obsNote } from './obspopup';
 const dataChecks = [] as ICheckboxDataProps[];
-// console.log(all);
 export const PopupNoteAdd = () => {
 	const schemaType = noteSchema();
 	const [data, setData] = useState<ICheckboxDataProps[]>([]);
@@ -37,7 +36,7 @@ export const PopupNoteAdd = () => {
 		title: '',
 		description: '',
 		content: '',
-		categories: [],
+		categories: [] as any[],
 		color: '',
 	});
 
@@ -46,8 +45,8 @@ export const PopupNoteAdd = () => {
 		if (res?.data?.status == 200) {
 			const resNotes: any = await getDataNotes({ page: 1, cant: 10 });
 			dispatch(updateNotes(resNotes.data.data));
-			obsNote.next(initDataNote);
-			form.resetForm();
+			// obsNote.next(initDataNote);
+			// form.resetForm();
 		}
 	};
 	useEffect(() => {
@@ -87,23 +86,30 @@ export const PopupNoteAdd = () => {
 								<div className='flex flex-col min-w-[20rem] w-[20rem] gap-5'>
 									<div className='flex flex-col w-full'>
 										<span className='mb-2 flex text-sixth text-1/1 leading-none'>Estado</span>
-										<InputToggle name='status' form={form} />
+										<InputToggle name='status' />
 									</div>
 									<div className='flex text-1/2 text-gray-500 leading-none'>
 										ID : <Id name='uuid' form={form} defaultValue={initialValues.uuid}></Id>
 									</div>
 									<div className='flex flex-col w-full'>
 										<span className=' flex text-sixth text-1/1 mb-0'>Titulo</span>
-										<InputText name='title' form={form} placeholder='Nombre de la categoría' />
+										<InputText name='title' placeholder='Nombre de la categoría' />
 									</div>
 									<div className='flex flex-col w-full'>
 										<span className='flex text-sixth text-1/1 mb-0'>Descripción</span>
-										<InputText name='description' form={form} placeholder='Descripción' />
+										<InputText name='description' placeholder='Descripción' />
 									</div>
 									<div className='flex flex-col w-full'>
 										<span className='flex text-sixth text-1/1 mb-2'>Categoría relacionada</span>
 										<fieldset className='overflow-x-auto h-[12rem]'>
-											<InputMultiCheckbox name='categories' form={form} data={data} dataChecks={dataChecks}></InputMultiCheckbox>
+											<InputMultiCheckbox
+												name='categories'
+												form={form}
+												data={data}
+												dataChecks={initialValues.categories.map(e => {
+													return { value: e.categoriesUuid, label: e.notesUuid };
+												})}
+											></InputMultiCheckbox>
 										</fieldset>
 									</div>
 									<button type='submit' className='cursor-pointer h-12 w-max bg-success p-4 text-white flex items-center justify-center rounded-md select-none ml-auto text-1/0'>

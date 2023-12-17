@@ -30,10 +30,10 @@ function TreeChecks(dataAll: any, dataChecks: any) {
 }
 
 export const InputMultiCheckbox = ({ name, form, data, dataChecks }: IMultiplyCheckBoxProps) => {
-	console.log(data, dataChecks);
 	const checkBoolean = TreeChecks(data, dataChecks);
 	const [allChecked, setAllChecked] = useState<any[]>([]);
 	const [field, meta, helpers] = useField({ name, form });
+	console.log(dataChecks);
 	const event = ({ list, index }: IEvent) => {
 		const newData = allChecked;
 		newData[index] = list;
@@ -46,7 +46,6 @@ export const InputMultiCheckbox = ({ name, form, data, dataChecks }: IMultiplyCh
 				.flat()
 		);
 	};
-	length;
 	return (
 		<div className=''>
 			{data.map((item: ICheckboxDataProps, pos: number) => {

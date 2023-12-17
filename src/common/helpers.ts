@@ -1,4 +1,6 @@
 import { ISelectDataProps } from '../components/ui/Inputs/interface';
+import { obsConfirmAction } from '../components/ui/confirmAction/obsConfirmAction';
+import { obsModal } from '../components/ui/modal/obsModal';
 import { ICombined, Item, TypeGeneric } from './ihelpers';
 import { EventType, IFile } from './interface';
 
@@ -14,8 +16,14 @@ export const addShy = (text: string) => {
 	return text.slice(0, 20) + shy + text.slice(20);
 };
 
+export const confirmAction = (message: string, callback: Function) => {
+	obsModal.next({ ['confirm']: { value: true } });
+	obsConfirmAction.next({ message, fn: callback });
+};
+
 export const generateUrl = (props: IFile, host?: string): string => {
 	try {
+		if (props == null) return '';
 		const { fileName = 'no-image.png', dir = 'no-image.png', compress = '' } = props;
 		if (host) {
 			return host + '/' + dir + '/' + compress;
