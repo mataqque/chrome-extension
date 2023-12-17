@@ -40,21 +40,29 @@ export const itemSidebar = [
 		title: 'Menú',
 		list_items: [
 			{
-				title: 'Inicio',
-				icon: 'icon-home',
-				segment: null,
-				to: '/dashboard',
+				title: 'Notas',
+				icon: 'icon-form',
+				segment: 'gestion-de-tareas',
+				to: '/dashboard/gestion-de-tareas',
 				component: <NotePage />,
 				id: generateId({ type: 'string' }),
 			},
-			{
-				title: 'Actividad',
-				icon: 'icon-list',
-				segment: 'actividad',
-				to: '/dashboard/actividad',
-				notification: 2,
-				id: generateId({ type: 'string' }),
-			},
+			// {
+			// 	title: 'Inicio',
+			// 	icon: 'icon-home',
+			// 	segment: null,
+			// 	to: '/dashboard',
+			// 	component: <NotePage />,
+			// 	id: generateId({ type: 'string' }),
+			// },
+			// {
+			// 	title: 'Actividad',
+			// 	icon: 'icon-list',
+			// 	segment: 'actividad',
+			// 	to: '/dashboard/actividad',
+			// 	notification: 2,
+			// 	id: generateId({ type: 'string' }),
+			// },
 			{
 				title: 'Tareas',
 				icon: 'icon-form',
@@ -63,14 +71,7 @@ export const itemSidebar = [
 				component: <TaskPage />,
 				id: generateId({ type: 'string' }),
 			},
-			{
-				title: 'Notas',
-				icon: 'icon-form',
-				segment: 'gestion-de-tareas',
-				to: '/dashboard/gestion-de-tareas',
-				component: <NotePage />,
-				id: generateId({ type: 'string' }),
-			},
+
 			// {
 			// 	title: 'Usuarios',
 			// 	icon: 'icon-users',
