@@ -37,7 +37,6 @@ export const TaskPage = () => {
 				<SearchInput />
 				<ButtonAddTask />
 				<ButtonAddCategoryTask />
-				<ButtonDeleteTask />
 			</div>
 			<div className='flex w-full bg-seventh rounded-lg h-full p-4 gap-4 overflow-hidden'>
 				<TypesTask></TypesTask>
@@ -92,10 +91,12 @@ const SubCategory = ({ handleSubCategory, item }: { handleSubCategory: (c: any) 
 	const [deleteCategory, {}] = useDeleteCategoryMutation();
 	const [getCategories, {}] = useCategoriesMutation();
 	const handleDelete = async () => {
-		const { data }: any = await deleteCategory({ uuid: item.uuid });
-		if (data.status == 200) {
-			dispatch(deleteSubCategory(item));
-		}
+		confirmAction('¿Estas seguro de eliminar esta categoria?', async () => {
+			const { data }: any = await deleteCategory({ uuid: item.uuid });
+			if (data.status == 200) {
+				dispatch(deleteSubCategory(item));
+			}
+		});
 	};
 	const colorRandom = useMemo(() => {
 		const randomColor = Array.from({ length: 3 }, () => Math.floor(Math.random() * 128) + 64);
@@ -200,8 +201,8 @@ const TypesTask = () => {
 		dispatch(updateNotes(resNotes.data.data));
 	};
 	return (
-		<div className='min-w-[25rem] w-[25rem] h-max bg-white rounded-xl p-4 max-h-[100%] overflow-hidden flex flex-col'>
-			<div className='flex mb-4'>
+		<div className='min-w-[25rem] w-[25rem] h-max bg-white rounded-xl max-h-[100%] overflow-hidden flex flex-col'>
+			<div className='flex mb-2 pt-4 px-4'>
 				<div className='flex items-center'>
 					<div className='mask-left icon-notepad w-6 h-6 bg-sixth mr-2'></div>
 					<span className='text-sixth text-1/3 leading-none h-max'>Categorías de Notas</span>
@@ -216,7 +217,7 @@ const TypesTask = () => {
 				</div>
 			</div>
 			{/* <span className='text-[#3360b1] text-1/1 mb-2 flex'>130 Tareas</span> */}
-			<div className='flex flex-col gap-2 scroll overflow-y-auto'>
+			<div className='flex flex-col gap-2 scroll overflow-y-auto p-4'>
 				{categories?.data?.map((item: any) => {
 					return <ItemTypeTask key={item.uuid} category={item}></ItemTypeTask>;
 				})}
@@ -231,9 +232,11 @@ interface IProps extends ICategory {
 
 const ItemTypeTask = ({ category }: { category: IProps }) => {
 	const [getSubCategories, {}] = useSubcategoriesMutation();
+	const [getCategories, {}] = useCategoriesMutation();
+	const [deleteCategory, {}] = useDeleteCategoryMutation();
 	const [getNotes, {}] = useNotesMutation();
-	const categoriesSelected = useSelector((state: any) => state.categorySlice.categoriesSelected);
 	const dispatch = useDispatch();
+	const categoriesSelected = useSelector((state: any) => state.categorySlice.categoriesSelected);
 	const handleSelect = async (c: any) => {
 		const { data }: any = await getSubCategories({ parent: c.uuid });
 		const resNotes: any = await getNotes({ uuid: c.uuid });
@@ -241,24 +244,45 @@ const ItemTypeTask = ({ category }: { category: IProps }) => {
 		dispatch(updateNotes(resNotes.data.data));
 		dispatch(selectCategory(category));
 	};
+	const handleDelete = async () => {
+		confirmAction('¿Seguro que deseas eliminar esta categoria?', async () => {
+			const { data }: any = await deleteCategory({ uuid: category.uuid });
+			if (data.status) {
+				const res: any = await getCategories({ page: 1, cant: 10 });
+				if (res.data) {
+					dispatch(updateCategories(res.data));
+				}
+			}
+		});
+	};
 	return (
 		<div
 			className={`w-full h-[8rem] rounded-xl bg-[#f1f4ff] cursor-pointer hover:bg-[#dce4ff] duration-300 group p-3 flex gap-4 [&.active]:bg-[#dce4ff] relative ${
 				categoriesSelected.uuid == category.uuid ? 'active' : ''
 			}`}
-			onClick={() => {
-				handleSelect(category);
-			}}
 		>
-			<div className='w-7 h-7 cursor-pointer rounded-full bg-[#3360b1] absolute top-2 right-2 flex items-center justify-center'>
+			<div
+				className='w-5 h-5 bg-danger flex items-center justify-center rounded-full absolute top-0 right-0 transform translate-x-[40%] -translate-y-[40%] cursor-pointer'
+				onClick={() => handleDelete()}
+			>
+				<div className='w-[60%] h-[60%] bg-white rounded-full mask-center icon-close'></div>
+			</div>
+			<div className='w-7 h-7 cursor-pointer rounded-full bg-[#3360b1] absolute bottom-3 right-2 flex items-center justify-center'>
 				<div className='bg-white mask-center icon-edit w-1/2 h-1/2'></div>
 			</div>
-			<LazyImage src={generateUrl(category.image, BASE_API)} class='w-[6rem] h-full rounded-xl overflow-hidden'></LazyImage>
-			<div className='flex flex-col'>
-				<span className='text-1/2 text-sixth'>{category.name}</span>
-				<p className='text-sixth text-0/9'>lore</p>
-				<div className='flex mt-auto'>
-					<div className='text-gray-500 group-hover:text-primary group-hover:bg-white text-0/8 rounded-full bg-gray-100 px-4 h-7 flex items-center duration-300'>hace 4min</div>
+			<div
+				className='w-full h-full flex gap-4'
+				onClick={() => {
+					handleSelect(category);
+				}}
+			>
+				<LazyImage src={generateUrl(category.image, BASE_API)} class='w-[6rem] h-full rounded-xl overflow-hidden'></LazyImage>
+				<div className='flex flex-col'>
+					<span className='text-1/2 text-sixth'>{category.name}</span>
+					<p className='text-sixth text-0/9'>lore</p>
+					<div className='flex mt-auto'>
+						<div className='text-gray-500 group-hover:text-primary group-hover:bg-white text-0/8 rounded-full bg-gray-100 px-4 h-7 flex items-center duration-300'>hace 4min</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -71,61 +71,60 @@ export const itemSidebar = [
 				component: <NotePage />,
 				id: generateId({ type: 'string' }),
 			},
-			{
-				title: 'Usuarios',
-				icon: 'icon-users',
-				segment: 'usuarios',
-				to: '/dashboard/usuarios',
-				id: generateId({ type: 'string' }),
-			},
-			{
-				title: 'Productos',
-				icon: 'icon-product',
-				segment: 'gestion-de-productos',
-				to: '/dashboard/gestion-de-productos',
-				id: generateId({ type: 'string' }),
-			},
-			{
-				title: 'Categorias',
-				icon: 'icon-tags',
-				segment: 'gestion-de-categorias',
-				to: '/dashboard/gestion-de-categorias',
-				id: generateId({ type: 'string' }),
-			},
-
-			{
-				title: 'Plugins',
-				icon: 'icon-plugins',
-				segment: 'plugins',
-				to: '/dashboard/plugins',
-				id: generateId({ type: 'string' }),
-			},
+			// {
+			// 	title: 'Usuarios',
+			// 	icon: 'icon-users',
+			// 	segment: 'usuarios',
+			// 	to: '/dashboard/usuarios',
+			// 	id: generateId({ type: 'string' }),
+			// },
+			// {
+			// 	title: 'Productos',
+			// 	icon: 'icon-product',
+			// 	segment: 'gestion-de-productos',
+			// 	to: '/dashboard/gestion-de-productos',
+			// 	id: generateId({ type: 'string' }),
+			// },
+			// {
+			// 	title: 'Categorias',
+			// 	icon: 'icon-tags',
+			// 	segment: 'gestion-de-categorias',
+			// 	to: '/dashboard/gestion-de-categorias',
+			// 	id: generateId({ type: 'string' }),
+			// },
+			// {
+			// 	title: 'Plugins',
+			// 	icon: 'icon-plugins',
+			// 	segment: 'plugins',
+			// 	to: '/dashboard/plugins',
+			// 	id: generateId({ type: 'string' }),
+			// },
 		],
 	},
-	{
-		title: 'Extensiones',
-		list_items: [
-			{
-				title: 'Bot Whatsapp',
-				icon: 'icon-bot',
-				segment: 'gestion-de-bot-whatsapp',
-				to: '/dashboard/gestion-de-bot-whatsapp',
-				id: generateId({ type: 'string' }),
-			},
-		],
-	},
-	{
-		title: 'Componentes',
-		list_items: [
-			{
-				title: 'Whatsapp',
-				icon: 'icon-whatsapp',
-				segment: 'gestion-whatsapp',
-				to: '/dashboard/gestion-whatsapp',
-				id: generateId({ type: 'string' }),
-			},
-		],
-	},
+	// {
+	// 	title: 'Extensiones',
+	// 	list_items: [
+	// 		{
+	// 			title: 'Bot Whatsapp',
+	// 			icon: 'icon-bot',
+	// 			segment: 'gestion-de-bot-whatsapp',
+	// 			to: '/dashboard/gestion-de-bot-whatsapp',
+	// 			id: generateId({ type: 'string' }),
+	// 		},
+	// 	],
+	// },
+	// {
+	// 	title: 'Componentes',
+	// 	list_items: [
+	// 		{
+	// 			title: 'Whatsapp',
+	// 			icon: 'icon-whatsapp',
+	// 			segment: 'gestion-whatsapp',
+	// 			to: '/dashboard/gestion-whatsapp',
+	// 			id: generateId({ type: 'string' }),
+	// 		},
+	// 	],
+	// },
 ];
 
 export const data = new Map<string, any>();

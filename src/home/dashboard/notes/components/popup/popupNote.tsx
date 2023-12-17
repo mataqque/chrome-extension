@@ -21,6 +21,8 @@ import Editor from '@monaco-editor/react';
 import { updateNotes } from '../../../../../store/slice/notesSlide';
 import { InputEditor } from '../../../../../components/ui/Inputs/inputEditor';
 import { initDataNote, obsNote } from './obspopup';
+import { obsModal } from '../../../../../components/ui/modal/obsModal';
+import { toast } from 'react-toastify';
 const dataChecks = [] as ICheckboxDataProps[];
 export const PopupNoteAdd = () => {
 	const schemaType = noteSchema();
@@ -44,9 +46,9 @@ export const PopupNoteAdd = () => {
 		const res: any = await createNote(values);
 		if (res?.data?.status == 200) {
 			const resNotes: any = await getDataNotes({ page: 1, cant: 10 });
+			toast.success('Nota creada con éxito');
+			obsModal.next({ ['popupNote']: { value: false } });
 			dispatch(updateNotes(resNotes.data.data));
-			// obsNote.next(initDataNote);
-			// form.resetForm();
 		}
 	};
 	useEffect(() => {
