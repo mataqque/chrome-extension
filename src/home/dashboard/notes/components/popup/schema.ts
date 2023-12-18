@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const taskSchema = () =>
+export const categoryNoteSchema = () =>
 	Yup.object().shape({
 		status: Yup.boolean().required(),
 		name: Yup.string().required(),

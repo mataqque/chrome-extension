@@ -13,6 +13,7 @@ export interface IInputProps {
 	defaultValue?: string;
 	className?: string;
 	icon?: any;
+	form?: any;
 	tabIndex?: number;
 }
 

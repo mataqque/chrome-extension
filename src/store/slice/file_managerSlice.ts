@@ -27,6 +27,7 @@ const filesManageSlice = createSlice({
 export const { updateFiles, selectMultiplyFile, selectSingleFile } = filesManageSlice.actions;
 export default filesManageSlice.reducer;
 export const allFiles = (state: any) => state.filesManageSlice.files;
+export const filesSelected = (state: any) => state.filesManageSlice.files.find((e: IFileSelected) => e.selected);
 export const deleteFilesSelected = (state: any) => {
 	return state.filesManageSlice.files.filter((file: IFileSelected) => {
 		return file.selected == true;

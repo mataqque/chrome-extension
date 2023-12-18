@@ -12,7 +12,6 @@ import { useGetFilesMutation } from '../../../store/api/filesApi';
 import { BASE_API, BASE_API_LOCAL } from '../../../store/config';
 import { ButtonOpenFolder } from './components/buttons/buttonOpenFolder';
 import { ButtonEvent } from './components/buttons/buttonEvent';
-import { obsFileManager } from './obsFileManager';
 
 /**
  * type modal | page

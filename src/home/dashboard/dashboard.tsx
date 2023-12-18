@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { Modal } from '../../components/ui/modal/modal';
 import Upload from '../../components/modalupload/modalupload';
 import { obsSidebar } from './obsSidebar';
-import { PopupTask } from './notes/components/popup/popup';
+import { PopupCategoryNote } from './notes/components/popup/popupCategoryNote';
 import { ModalUpload } from './gestion-de-archivos/popup';
 import { PopupNoteAdd } from './notes/components/popup/popupNote';
 import { ConfirmAction } from '../../components/ui/confirmAction/confirmAction';
@@ -27,8 +27,8 @@ export default function LayoutDashboard({ children }: { children: React.ReactNod
 			<Modal index={11} id='modalGallery'>
 				<ModalUpload></ModalUpload>
 			</Modal>
-			<Modal index={10} id='popupTask'>
-				<PopupTask></PopupTask>
+			<Modal index={10} id='popupCategoryNote'>
+				<PopupCategoryNote></PopupCategoryNote>
 			</Modal>
 			<Modal index={10} id='popupNote'>
 				<PopupNoteAdd></PopupNoteAdd>

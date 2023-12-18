@@ -45,17 +45,7 @@ export const TaskPage = () => {
 		</section>
 	);
 };
-interface Props {
-	data: any[];
-	meta: {
-		currentPage: number;
-		lastPage: number;
-		next: number;
-		perPage: number;
-		prev: null | number;
-		total: number;
-	};
-}
+
 const ContentCategories = () => {
 	return (
 		<div className='w-full h-full bg-white rounded-lg p-4 flex flex-col'>

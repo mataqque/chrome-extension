@@ -1,8 +1,7 @@
 import { FormContainer } from '../../../../../common/form';
 import { InputText } from '../../../../../components/ui/Inputs/InputText';
-import { InputSelect } from '../../../../../components/ui/Inputs/inputSelect';
 import { FormikSubmitHandler, ParametersForm } from '../../../../schema';
-import { noteSchema, taskSchema } from './schema';
+import { noteSchema } from './schema';
 import { ModalContext } from '../../../../../components/ui/modal/modal';
 import { useContext, useEffect, useState } from 'react';
 import * as Yup from 'yup';
@@ -15,15 +14,12 @@ import { useAddNotesMutation, useNotesMutation } from '../../../../../store/api/
 import { Id } from '../../../../../components/ui/Inputs/inputId';
 import { InputMultiCheckbox } from '../../../../../components/ui/Inputs/inputMultiCheckbox';
 import { ICategory } from '../../../../../common/interface';
-import { DataSaverOnTwoTone } from '@mui/icons-material';
-import { data } from '../../../config';
-import Editor from '@monaco-editor/react';
 import { updateNotes } from '../../../../../store/slice/notesSlide';
 import { InputEditor } from '../../../../../components/ui/Inputs/inputEditor';
-import { initDataNote, obsNote } from './obspopup';
+import { obsNote } from './obspopup';
 import { obsModal } from '../../../../../components/ui/modal/obsModal';
 import { toast } from 'react-toastify';
-const dataChecks = [] as ICheckboxDataProps[];
+
 export const PopupNoteAdd = () => {
 	const schemaType = noteSchema();
 	const [data, setData] = useState<ICheckboxDataProps[]>([]);
