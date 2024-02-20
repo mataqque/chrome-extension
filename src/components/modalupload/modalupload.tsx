@@ -6,6 +6,7 @@ import { bytesToSize, delayfunc, generateId } from '../../common/helpers';
 import { ModalContext } from '../ui/modal/modal';
 import { useGetFilesMutation } from '../../store/api/filesApi';
 import { updateFiles } from '../../store/slice/file_managerSlice';
+import { BASE_API_LOCAL } from '../../store/config';
 
 interface IFile {
 	uuid: number | string;
@@ -36,7 +37,7 @@ export default function Upload() {
 			const formData = new FormData();
 			formData.append('file', file.file);
 			const xhr = new XMLHttpRequest();
-			xhr.open('POST', 'http://localhost:5000/api/v1/upload');
+			xhr.open('POST', `${BASE_API_LOCAL}/upload`);
 			xhr.upload.addEventListener('progress', event => {
 				if (event.lengthComputable) {
 					const percentComplete = (event.loaded / event.total) * 100;

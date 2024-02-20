@@ -1,5 +1,5 @@
 {
-	"name": "infinix-frontend",
+	"name": "chrome-extension-frontend",
 	"private": true,
 	"version": "latest",
 	"scripts": {
