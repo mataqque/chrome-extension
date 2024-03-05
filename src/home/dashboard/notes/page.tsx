@@ -22,7 +22,7 @@ export const NotePage = () => {
 	const [getData, {}] = useCategoriesMutation<any>();
 
 	const handleGetData = async () => {
-		const { data }: any = await getData({ page: 1, cant: 4 });
+		const { data }: any = await getData({ page: 1, cant: 100 });
 		dispatch(updateCategories(data));
 	};
 	useEffect(() => {
@@ -37,7 +37,7 @@ export const NotePage = () => {
 				<ButtonAddTask />
 				<ButtonAddCategoryTask />
 			</div>
-			<div className='flex w-full bg-seventh rounded-lg h-full p-4 gap-4'>
+			<div className='flex w-full bg-seventh rounded-lg h-full xsm:p-4 gap-4 relative overflow-hidden'>
 				<ContentCategoryNote />
 				<AllNotes />
 			</div>

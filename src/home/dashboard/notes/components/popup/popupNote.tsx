@@ -116,7 +116,7 @@ export const PopupNoteAdd = () => {
 								</div>
 								<div className='flex flex-col w-full h-full my-0 py-0'>
 									<span className='flex text-sixth text-1/1 mb-2'>Editor</span>
-									<div className='w-full h-full'>
+									<div className='w-full h-full border border-solid boder-black rounded-md'>
 										<InputEditor name='content' form={form} data={initialValues.content} />
 									</div>
 								</div>

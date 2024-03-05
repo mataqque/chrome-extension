@@ -14,7 +14,7 @@ export const ButtonAddTask = () => {
 				openPopup();
 			}}
 		>
-			Agregar Tarea
+			Agregar Nota
 		</div>
 	);
 };

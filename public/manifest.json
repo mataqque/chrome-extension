@@ -19,7 +19,9 @@
     }
   ],
   "host_permissions": ["http:\/\/*/*"],
-  
+  "content_security_policy": {
+    "extension_pages": "script-src 'self';"
+  },
   "permissions": ["sidePanel","tabs", "activeTab", "notifications", "scripting","storage","downloads"],
   "side_panel": {
       "default_path": "index.html"

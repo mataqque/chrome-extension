@@ -54,6 +54,10 @@ const AsideBar = () => {
 	const [open, setOpen] = useState(true);
 	const id = useSelector((state: any) => state.dashboardSlice.activeId);
 	const change = (id: string) => {
+		if (window.innerWidth < 600) {
+			obsSidebar.next(false);
+			setOpen(false);
+		}
 		dispatch(changeId(id));
 	};
 	const eventClose = (value: boolean) => {
@@ -71,7 +75,7 @@ const AsideBar = () => {
 		<aside
 			className={`sideractive bg-primary max-w-[0rem] w-full overflow-hidden items-end duration-300 ${
 				open == true ? 'active' : ''
-			} [&.active]:max-w-[20rem] mobile:[&.active]:max-w-[100vw]  mobile:w-full fixed md:relative z-[2] flex flex-col h-screen`}
+			} [&.active]:max-w-[20rem] mobile:[&.active]:max-w-[100vw]  mobile:w-full fixed md:relative z-[3] flex flex-col h-screen`}
 		>
 			<div className='flex flex-col min-w-[20rem] max-w-[20rem] mobile:w-full mobile:max-w-full  bg-primary h-full'>
 				<div className='flex flex-col overflow-hidden w-full'>

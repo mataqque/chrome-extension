@@ -38,7 +38,7 @@ export const TaskPage = () => {
 				<ButtonAddTask />
 				<ButtonAddCategoryTask />
 			</div>
-			<div className='flex w-full bg-seventh rounded-lg h-full p-4 gap-4 overflow-hidden'>
+			<div className='flex w-full bg-seventh rounded-lg h-full xsm:p-4 gap-4 overflow-hidden relative'>
 				<TypesTask></TypesTask>
 				<ContentCategories />
 			</div>

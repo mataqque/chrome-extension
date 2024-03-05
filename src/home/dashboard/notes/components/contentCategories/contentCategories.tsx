@@ -20,7 +20,7 @@ export const ContentCategoryNote = () => {
 		dispatch(updateNotes(resNotes.data.data));
 	};
 	return (
-		<div className='min-w-[25rem] w-[25rem] h-max bg-white rounded-xl max-h-[100%] overflow-hidden flex flex-col'>
+		<div className='min-w-[25rem] w-[25rem] h-max bg-white rounded-xl max-h-[100%] overflow-hidden flex flex-col xsm:relative absolute xsm:w-max  w-full h-full z-[2]'>
 			<div className='flex mb-2 pt-4 px-4'>
 				<div className='flex items-center'>
 					<div className='mask-left icon-notepad w-6 h-6 bg-sixth mr-2'></div>
