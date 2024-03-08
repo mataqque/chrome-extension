@@ -70,7 +70,7 @@ export const PopupCategoryNote = () => {
 				{(form: ParametersForm) => {
 					const { handleSubmit } = form;
 					return (
-						<form className='flex flex-col h-input rounded-5 w-full h-full p-6' onSubmit={handleSubmit}>
+						<form className='flex flex-col h-input rounded-5 w-full h-full p-6 xsm:w-[100%_-_1rem]' onSubmit={handleSubmit}>
 							<h2 className='text-1/5 text-sixth mb-2'>Crear nueva categoría</h2>
 							<div className='flex flex-col gap-5 mb-4'>
 								<div className='flex flex-col w-full'>

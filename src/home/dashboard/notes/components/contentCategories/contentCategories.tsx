@@ -10,6 +10,7 @@ import { LazyImage } from '../../../gestion-de-archivos/components/lazyImages/im
 import { BASE_API } from '../../../../../store/config';
 import { obsModal } from '../../../../../components/ui/modal/obsModal';
 import { obsCategoryNote } from '../popup/obspopup';
+import { format, render, cancel, register } from 'timeago.js';
 
 export const ContentCategoryNote = () => {
 	const dispatch = useDispatch();
@@ -21,7 +22,7 @@ export const ContentCategoryNote = () => {
 	};
 	return (
 		<div className='min-w-[25rem] w-[25rem] h-max bg-white rounded-xl max-h-[100%] overflow-hidden flex flex-col xsm:relative absolute xsm:w-max  w-full h-full z-[2]'>
-			<div className='flex mb-2 pt-4 px-4'>
+			<div className='flex mb-2 pt-4 px-4 mobile:pl-0'>
 				<div className='flex items-center'>
 					<div className='mask-left icon-notepad w-6 h-6 bg-sixth mr-2'></div>
 					<span className='text-sixth text-1/3 leading-none h-max'>Categorías de Notas</span>
@@ -36,7 +37,7 @@ export const ContentCategoryNote = () => {
 				</div>
 			</div>
 			{/* <span className='text-[#3360b1] text-1/1 mb-2 flex'>130 Tareas</span> */}
-			<div className='flex flex-col gap-2 scroll overflow-y-auto p-4'>
+			<div className='flex flex-col gap-2 scroll overflow-y-auto p-4 mobile:pl-0'>
 				{categories?.data?.map((item: any) => {
 					return <ItemCategoryNote key={item.uuid} category={item}></ItemCategoryNote>;
 				})}
@@ -87,6 +88,10 @@ const ItemCategoryNote = ({ category }: { category: IProps }) => {
 			}
 		});
 	};
+
+	const dateToCreated = (date: Date) => {
+		return format(date, 'es_ES');
+	};
 	return (
 		<div
 			className={`w-full h-[8rem] rounded-xl bg-[#f1f4ff] cursor-pointer hover:bg-[#dce4ff] duration-300 group p-3 flex gap-4 [&.active]:bg-[#dce4ff] relative ${
@@ -118,7 +123,9 @@ const ItemCategoryNote = ({ category }: { category: IProps }) => {
 					<span className='text-1/2 text-sixth leading-none'>{category.name}</span>
 					<p className='text-sixth text-0/9'>{resumeText(category.description, 40)}</p>
 					<div className='flex mt-auto'>
-						<div className='text-gray-500 group-hover:text-primary group-hover:bg-white text-0/8 rounded-full bg-gray-100 px-4 h-7 flex items-center duration-300'>hace 4min</div>
+						<div className='text-gray-500 group-hover:text-primary group-hover:bg-white text-0/8 rounded-full bg-gray-100 px-4 h-7 flex items-center duration-300'>
+							{dateToCreated(category.createdAt)}
+						</div>
 					</div>
 				</div>
 			</div>

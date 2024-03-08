@@ -1,8 +1,3 @@
-import Editor from 'react-simple-code-editor';
-import { highlight, languages } from 'prismjs';
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/themes/prism.css';
 import { IInputEditor } from './interface';
 import { useField } from 'formik';
 import { useEffect, useState } from 'react';
@@ -14,15 +9,12 @@ export const InputEditor = ({ name, form, data = '' }: IInputEditor) => {
 		helpers.setValue(value);
 	}
 	return (
-		<Editor
+		<textarea
+			className='scroll'
+			{...field}
 			value={field.value}
-			onValueChange={handleEditorChange}
-			highlight={code => highlight(code, languages.js, 'js')}
-			padding={10}
-			style={{
-				fontFamily: '"Fira code", "Fira Mono", monospace',
-				fontSize: 12,
-			}}
+			onChange={e => handleEditorChange(e.target.value)}
+			style={{ width: '100%', height: '100%', padding: '10px', borderRadius: '10px', resize: 'none' }}
 		/>
 	);
 };
