@@ -58,7 +58,7 @@ const AllNotes = () => {
 export const ContentNotes = () => {
 	const notes = useSelector((state: any) => state.notesSlice.notes);
 	return (
-		<div className='w-full h-full grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4'>
+		<div className='w-full h-full grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4 grid-rows-max-content scroll'>
 			{notes.map((note: any) => {
 				return <Note key={note.uuid} note={note}></Note>;
 			})}
@@ -91,7 +91,7 @@ export const Note = ({ note }: { note: INote }) => {
 		});
 	};
 	return (
-		<div className='h-[15rem] w-full rounded-xl bg-white border-solid border border-gray-100 p-4 flex flex-col'>
+		<div className='md:h-[15rem] h-[10rem] w-full rounded-xl bg-white border-solid border border-gray-100 p-4 flex flex-col scroll'>
 			<div className='flex'>
 				<span className='text-1/2 text-primary w-max'>{resumeText(note.title, 20)}</span>
 				<div className='ml-auto flex gap-2'>
