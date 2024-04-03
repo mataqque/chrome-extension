@@ -98,6 +98,7 @@ export interface ICategory {
 	updatedAt: Date;
 	status: boolean;
 	childCategories?: ICategory[];
+	notes: object[];
 }
 
 export interface Note {

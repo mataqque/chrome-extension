@@ -133,3 +133,11 @@ input.--invalid {
 .grid-rows-max-content {
 	grid-template-rows: max-content;
 }
+
+@media (max-width: 500px) {
+	.toggle-active {
+		width: 0 !important;
+		max-width: 0 !important;
+		min-width: auto !important;
+	}
+}

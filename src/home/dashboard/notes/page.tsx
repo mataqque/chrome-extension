@@ -16,6 +16,7 @@ import { obsModal } from '../../../components/ui/modal/obsModal';
 import { obsNote } from './components/popup/obspopup';
 import { INote } from '../../../store/api/interface';
 import { ContentCategoryNote } from './components/contentCategories/contentCategories';
+import { obsToggleCategorySidebar } from './components/contentCategories/toggle';
 
 export const NotePage = () => {
 	const dispatch = useDispatch();
@@ -32,7 +33,7 @@ export const NotePage = () => {
 		<section className='flex flex-col h-full '>
 			<h1 className='text-1/4 bold mb-1 text-primary'>Notas</h1>
 			<p className='paragraph mb-3 text-letter'>Visualiza tus notas en esta sección</p>
-			<div className='content-tab flex py-3 border-y border-slate-200 d-flex mb-4 border-solid gap-2 flex-wrap xsm:flex-no-wrap'>
+			<div className='content-tab flex py-3 border-y border-slate-200 d-flex mb-0 border-solid gap-2 flex-wrap xsm:flex-no-wrap'>
 				<InputSearchNote />
 				<ButtonAddTask />
 				<ButtonAddCategoryTask />
@@ -47,9 +48,9 @@ export const NotePage = () => {
 
 const AllNotes = () => {
 	return (
-		<div className='w-full h-full bg-white rounded-lg p-4 flex flex-col'>
+		<div className='w-full h-full bg-white rounded-lg mobile:p-0 p-4 flex flex-col'>
 			<ContentSubCategories></ContentSubCategories>
-			<div className='w-full h-[1px] bg-slate-200 my-4'></div>
+			<div className='w-full h-[1px] bg-slate-200 mb-3'></div>
 			<ContentNotes></ContentNotes>
 		</div>
 	);
@@ -131,8 +132,17 @@ const ContentSubCategories = () => {
 		const { data }: any = await getNotes({ uuid: c.uuid });
 		dispatch(updateNotes(data.data));
 	};
+
 	return (
-		<div className='w-full h-8 flex gap-4'>
+		<div className='w-full h-max flex gap-4 py-2'>
+			<div
+				className='flex xsm:hidden w-7 h-7 cursor-pointer border border-solid border-[#b8cad9] rounded-lg flex items-center justify-center cursor-pointer hover:bg-primary group duration-300 toggle-inactive-button'
+				onClick={e => {
+					obsToggleCategorySidebar.next({ toggle: false });
+				}}
+			>
+				<div className='w-[60%]  h-[60%] icon-sidebar mask-center bg-primary group-hover:bg-white group-hover:border-primary duration-300'></div>
+			</div>
 			{subCategory.map((item: ICategory) => {
 				return <SubCategory handleSubCategory={handleSubCategory} item={item} key={item.uuid} />;
 			})}
@@ -157,7 +167,7 @@ const SubCategory = ({ handleSubCategory, item }: { handleSubCategory: (c: any) 
 		return `#${hexColor}`;
 	}, []);
 	return (
-		<div className='relative'>
+		<div className='relative h-[2rem]'>
 			<div
 				className={`w-max h-full px-4 rounded-full flex items-center justify-center text-white text-sub-category cursor-pointer`}
 				style={{ backgroundColor: colorRandom }}
