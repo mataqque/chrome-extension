@@ -67,7 +67,6 @@ export const InputSelect = (props: ISelectProps) => {
 				<div
 					className={`options border border-solid bg-white border-gray-200 shadow rounded-lg overflow-hidden absolute top-0 bottom-0 top-[calc(100%+2px)] w-full z-[2] h-0 
 					${showOptions === true ? 'active' : ''} ${showOptions === false ? 'close' : ''}`}
-					color={color}
 				>
 					<div className='overflow-hidden h-full'>
 						<div className='content-options scroll max-h-10rem' style={{ scrollbarColor: `${color}` }}>
