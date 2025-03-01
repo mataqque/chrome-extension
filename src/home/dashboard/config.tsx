@@ -40,11 +40,19 @@ export const itemSidebar = [
 		title: 'Menú',
 		list_items: [
 			{
-				title: 'Notas',
+				title: 'Notas de programación',
 				icon: 'icon-form',
 				segment: 'gestion-de-tareas',
 				to: '/dashboard/gestion-de-tareas',
 				component: <NotePage />,
+				id: generateId({ type: 'string' }),
+			},
+			{
+				title: 'Notas Apuntes e ideas',
+				icon: 'icon-form',
+				segment: 'gestion-de-tareas',
+				to: '/dashboard/gestion-de-tareas',
+				component: <TaskPage />,
 				id: generateId({ type: 'string' }),
 			},
 			// {
@@ -63,14 +71,6 @@ export const itemSidebar = [
 			// 	notification: 2,
 			// 	id: generateId({ type: 'string' }),
 			// },
-			{
-				title: 'Tareas',
-				icon: 'icon-form',
-				segment: 'gestion-de-tareas',
-				to: '/dashboard/gestion-de-tareas',
-				component: <TaskPage />,
-				id: generateId({ type: 'string' }),
-			},
 
 			// {
 			// 	title: 'Usuarios',

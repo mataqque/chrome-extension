@@ -41,9 +41,13 @@ export const PopupCategoryNote = () => {
 
 	const onSubmit: FormikSubmitHandler<Yup.InferType<typeof schemaType>> = async (values: any, form) => {
 		const res = await createCategory(values);
-		console.log(res);
+
+		console.log('result', res);
+
 		const resCategories: any = await getDataCategories({ page: 1, cant: 10 });
+
 		dispatch(updateCategories(resCategories.data));
+
 		// form.resetForm();
 	};
 	useEffect(() => {
@@ -68,7 +72,7 @@ export const PopupCategoryNote = () => {
 			/>
 			<FormContainer initialValues={initialValues} onSubmit={onSubmit} validationSchema={categoryNoteSchema}>
 				{(form: ParametersForm) => {
-					const { handleSubmit } = form;
+					const { handleSubmit, errors } = form;
 					return (
 						<form className='flex flex-col h-input rounded-5 w-full h-full p-6 xsm:w-[100%_-_1rem]' onSubmit={handleSubmit}>
 							<h2 className='text-1/5 text-sixth mb-2'>Crear nueva categoría</h2>

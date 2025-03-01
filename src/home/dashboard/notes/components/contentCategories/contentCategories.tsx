@@ -19,6 +19,7 @@ export const ContentCategoryNote = () => {
 	const dispatch = useDispatch();
 	const [getDataNotes, {}] = useNotesMutation();
 	const categories = useSelector((state: any) => state.categorySlice.categories);
+	console.log('categories: ', categories);
 	const showAllNotes = async () => {
 		const resNotes: any = await getDataNotes({ page: 1, cant: 10 });
 		dispatch(updateNotes(resNotes.data.data));
@@ -33,7 +34,7 @@ export const ContentCategoryNote = () => {
 	}, []);
 	return (
 		<div
-			className={`mobile:min-w-full min-w-[25rem] w-[25rem] h-max bg-white rounded-xl mobile:rounded-none max-h-[100%] overflow-hidden flex flex-col xsm:relative absolute xsm:w-max  w-full h-full z-[2] ${
+			className={`mobile:min-w-full min-w-[25rem] w-[25rem] bg-white rounded-xl mobile:rounded-none max-h-[100%] overflow-hidden flex flex-col xsm:relative absolute xsm:w-max h-full z-[2] ${
 				toggle ? 'toggle-active' : 'toggle-inactive'
 			}`}
 		>
@@ -45,7 +46,7 @@ export const ContentCategoryNote = () => {
 					</div>
 					<div className='flex ml-auto gap-2'>
 						<div
-							className='w-7 h-7 cursor-pointer border border-solid border-[#b8cad9] rounded-lg flex items-center justify-center cursor-pointer hover:bg-primary group duration-300'
+							className='w-7 h-7 border border-solid border-[#b8cad9] rounded-lg flex items-center justify-center cursor-pointer hover:bg-primary group duration-300'
 							onClick={() => {
 								showAllNotes();
 							}}

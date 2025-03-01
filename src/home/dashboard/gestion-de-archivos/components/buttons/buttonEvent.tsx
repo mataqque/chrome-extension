@@ -8,6 +8,7 @@ import { filesSelected } from '../../../../../store/slice/file_managerSlice';
 export const ButtonEvent = () => {
 	const { onClose } = useContext(ModalContext);
 	const select: IFileSelected[] = useSelector(filesSelected);
+	console.log('selected files:', select);
 	const event = () => {
 		const data = obsFileManager.getValue();
 		Object.keys(data).forEach(key => {
@@ -19,7 +20,7 @@ export const ButtonEvent = () => {
 	};
 	return (
 		<div
-			className={`cursor-pointer h-10 w-max bg-gray-100 p-4 text-white flex items-center justify-center rounded-md [&.active]:bg-primary ${select?.length > 0 ? 'active' : ''}`}
+			className={`cursor-pointer h-10 w-max bg-gray-100 p-4 text-white flex items-center justify-center rounded-md [&.active]:bg-primary ${select ? 'active' : ''}`}
 			onClick={() => {
 				event();
 			}}
